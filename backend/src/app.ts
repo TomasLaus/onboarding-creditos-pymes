@@ -1,5 +1,6 @@
 import express from 'express';
 import userRoutes from './routes/user';
+import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger';
 //import authRoutes from './routes/auth';
 // import errorHandler from './middlewares/errorHandler';
 // import notFound from './middlewares/notFound';
@@ -7,6 +8,8 @@ import userRoutes from './routes/user';
 const app = express();
 
 app.use(express.json());
+// Swagger docs
+app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup);
 
 // Rutas de usuario y autenticación
 app.use('/api/users', userRoutes);

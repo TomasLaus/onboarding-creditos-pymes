@@ -36,3 +36,6 @@ npm run dev
 - ir a carpeta /src/http-test/...
 - enviar solicitud presionando en "send request"
 
+## VER DOCUMENTACION DE LAS APIs
+- http://localhost:3000/api/docs/
+
