@@ -1,6 +1,9 @@
 
 ### IMPORTANTE
 - Ejecutar los comandos en directorio /backend
+```bash
+npm install
+```
 
 ## LEVANTAR SERVER POSTGRES DB 
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
