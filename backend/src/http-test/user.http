@@ -1,0 +1,13 @@
+### Crear usuario
+POST http://localhost:3000/api/users/create
+Content-Type: application/json
+
+{
+  "name": "Juan Perez",
+  "email": "juan.perez@example.com",
+  "password": "supersecreto"
+}
+
+### Obtener todos los usuarios
+GET http://localhost:3000/api/users/getAll
+

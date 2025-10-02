@@ -8,5 +8,13 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.6.1",
+    "nodemon": "^3.1.10"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.ts",
+    "start": "node dist/server.js"
   }
 }
