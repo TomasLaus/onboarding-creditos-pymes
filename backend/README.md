@@ -22,6 +22,7 @@ npm run dev
 ```
 
 ## probar endpoints
+- instalar extensión ´REST Client´ en VSCODE.
 - ir a carpeta /src/http-test/...
 - enviar solicitud presionando en "send request"
 
