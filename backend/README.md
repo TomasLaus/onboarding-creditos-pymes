@@ -1,15 +1,25 @@
 
 ### IMPORTANTE
 - Ejecutar los comandos en directorio /backend
+```bash
+npm install
+```
 
 ## LEVANTAR SERVER POSTGRES DB 
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
+
+- [Docker Desktop - Click aquí](https://www.docker.com/products/docker-desktop/) - Link para descargar -
 - luego ejecutar en consola en el directorio 
 ```bash
 docker-compose up
 ```
 
 ## MIGRAR DB (crear tablas a partir de esquemas definidos)
+
+- Se requiere PostgreSQL 
+- [PostgreSQL (psql) - Click aquí](https://www.postgresql.org/download/) - Link para descargar -
+
+
 
 ```bash
 npx prisma migrate dev --name user --schema=./src/config/schema.prisma
