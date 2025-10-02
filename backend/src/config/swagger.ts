@@ -17,8 +17,14 @@ const swaggerDefinition = {
 
 const options = {
     swaggerDefinition,
-    apis: [__dirname + '/../routes/swagger-api-docs/user.yaml'],
+    apis: [
+        __dirname + '/../routes/user.ts', // Add other route files here
+        __dirname + '/../routes/swagger-api-docs/user.ts'
+    ],
 };
+
+
+
 
 export const swaggerSpec = swaggerJSDoc(options);
 export const swaggerUiMiddleware = swaggerUi.serve;

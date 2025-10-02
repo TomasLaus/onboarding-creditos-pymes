@@ -133,7 +133,7 @@
  *                       type: string
  *                       example: PrismaClientKnownRequestError
  *
- * components:
+ *components:
  *   schemas:
  *     User:
  *       type: object

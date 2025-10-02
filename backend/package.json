@@ -14,7 +14,10 @@
   },
   "devDependencies": {
     "@types/node": "^24.6.1",
-    "nodemon": "^3.1.10"
+    "@types/swagger-ui-express": "^4.1.8",
+    "i": "^0.3.7",
+    "nodemon": "^3.1.10",
+    "npm": "^11.6.1"
   },
   "scripts": {
     "dev": "docker-compose up -d && nodemon src/server.ts",
