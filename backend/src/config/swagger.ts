@@ -1,31 +1,17 @@
-import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import { userSwagger } from '../routes/swagger-api-docs/user';
 
-const swaggerDefinition = {
+export const swaggerDocument = {
     openapi: '3.0.0',
     info: {
         title: 'API Documentación',
         version: '1.0.0',
         description: 'Documentación de la API de onboarding-creditos-pymes',
     },
-    servers: [
-        {
-            url: 'http://localhost:3000/api',
-        },
-    ],
+    servers: [{ url: 'http://localhost:3000/api' }],
+    paths: userSwagger.paths,
+    components: userSwagger.components,
 };
 
-const options = {
-    swaggerDefinition,
-    apis: [
-        __dirname + '/../routes/user.ts', // Add other route files here
-        __dirname + '/../routes/swagger-api-docs/user.ts'
-    ],
-};
-
-
-
-
-export const swaggerSpec = swaggerJSDoc(options);
 export const swaggerUiMiddleware = swaggerUi.serve;
-export const swaggerUiSetup = swaggerUi.setup(swaggerSpec);
+export const swaggerUiSetup = swaggerUi.setup(swaggerDocument);
