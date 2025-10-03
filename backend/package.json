@@ -20,7 +20,7 @@
     "npm": "^11.6.1"
   },
   "scripts": {
-    "dev": "docker-compose up -d && nodemon src/server.ts",
-    "start": "node dist/server.js"
+    "docker:desktop": "tasklist /FI \"IMAGENAME eq Docker Desktop.exe\" | find /I \"Docker Desktop.exe\" >nul || start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\"",
+    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && nodemon src/server.ts"
   }
 }
