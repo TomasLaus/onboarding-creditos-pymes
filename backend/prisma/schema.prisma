@@ -1,0 +1,275 @@
+/**
+ * | Entidad               | Descripción breve                                                            |
+ * | --------------------- | ---------------------------------------------------------------------------- |
+ * | **User**              | Cualquier usuario del sistema (CLIENT, OPERATOR, ADMIN). Tiene credenciales. |
+ * | **Company**           | Empresa/PyME asociada al usuario (solo aplica a CLIENT).                     |
+ * | **Onboarding**        | Proceso de onboarding de una PyME (1:1 con company).                         |
+ * | **CreditApplication** | Solicitud de crédito (varias por empresa).                                   |
+ * | **Document**          | Documentos cargados asociados a onboarding o solicitud.                      |
+ * | **AuditLog**          | Historial de cambios (opcional para MVP).                                    |
+
+
+
+ * Un User puede ser:
+ * - CLIENT (tiene una Company)
+ * - OPERATOR / ADMIN (no tiene company)
+ * Una Company pertenece a un User CLIENT
+ * Una Company tiene un Onboarding
+ * Una Company puede tener muchas CreditApplications
+ * Un Onboarding puede tener muchos Documents
+ * Una CreditApplication puede tener muchos Documents
+ * Un Document pertenece a un Onboarding o una CreditApplication
+ * Un Operator puede estar asignado a una CreditApplication (campo assignedTo)
+ 
+ 
+ * ------------------------------------------------------------------------------------------------
+ * | Relación                         | Tipo | Descripción                                          |
+ * | -------------------------------- | ---- | ---------------------------------------------------- |
+ * | `User` ↔ `Company`               | 1:1  | Solo los CLIENT tienen una empresa                   |
+ * | `Company` ↔ `Onboarding`         | 1:1  | Cada empresa tiene un proceso de onboarding          |
+ * | `Company` ↔ `CreditApplication`  | 1:N  | Una empresa puede hacer varias solicitudes           |
+ * | `Onboarding` ↔ `Document`        | 1:N  | Muchos documentos cargados durante el proceso        |
+ * | `CreditApplication` ↔ `Document` | 1:N  | Documentos requeridos en la solicitud                |
+ * | `User` ↔ `Document`              | 1:N  | Un usuario puede subir varios documentos             |
+ * | `User` ↔ `AuditLog`              | 1:N  | Un usuario puede generar varias acciones registradas |
+  --------------------------------------------------------------------------------------------------
+
+
+ *  -----------------------------------------------------------------------------------------------------------------------------------
+ * | Entidad               | Significa                                                | Ejemplo                                        |
+ * | --------------------- | -------------------------------------------------------- | ---------------------------------------------- |
+ * | **User**              | Persona que entra al sistema (cliente, operador o admin) | "Juan Pérez"                                   |
+ * | **Company**           | Empresa del cliente PyME                                 | "Distribuidora ABC SRL"                        |
+ * | **Onboarding**        | Proceso para dar de alta y validar a la empresa          | "Validación de datos fiscales"                 |
+ * | **CreditApplication** | Solicitud de crédito                                     | "Pedido de crédito $500.000 a 12 meses"        |
+ * | **Document**          | Archivo que se sube                                      | "CUIT.pdf", "Balance_2024.pdf"                 |
+ * | **AuditLog**          | Registro de acción en el sistema                         | "Juan cambió el estado del crédito a APROBADO" |
+ * -------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+
+
+
+// ---------------------------
+// Generador de Prisma Client
+// ---------------------------
+generator client {
+  provider = "prisma-client-js" // Crea un cliente JS para interactuar con la BD
+}
+
+// ---------------------------
+// Conexión a la base de datos
+// ---------------------------
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // URL viene de .env
+}
+
+// ---------------------------
+// Enumeraciones (valores fijos)
+// ---------------------------
+
+// Roles posibles de usuario
+enum Role {
+  ADMIN
+  OPERATOR
+  CLIENT
+}
+
+// Estados posibles del onboarding
+enum OnboardingStatus {
+  DRAFT
+  IN_REVIEW
+  OBSERVED
+  ACCEPTED
+  REJECTED
+}
+
+// Estados posibles de una solicitud de crédito
+enum CreditStatus {
+  DRAFT
+  SUBMITTED
+  IN_REVIEW
+  APPROVED
+  REJECTED
+}
+
+// Estados posibles de un documento cargado
+enum DocumentStatus {
+  PENDING
+  IN_REVIEW
+  OBSERVED
+  APPROVED
+  REJECTED
+}
+
+// ---------------------------
+// Modelo principal: User
+// ---------------------------
+model User {
+  id              String    @id @default(cuid()) // ID único generado automáticamente
+  email           String    @unique // Email usado para login
+  password        String // Contraseña hasheada    
+  role            Role      @default(CLIENT) // Rol por defecto: CLIENT
+  isActive        Boolean   @default(false) // Si puede loguearse o no
+  twoFactorSecret String? // Para 2FA opcional
+  loginAttempts   Int       @default(0) // para bloqueo por intentos - Intentos fallidos
+  lockedUntil     DateTime? // // Fecha de desbloqueo (si está bloqueado) si supera intentos
+
+  // Si el usuario es CLIENT, tendrá una empresa asociada (1:1) - Relación con Company (solo si CLIENT)
+  company Company?
+
+  // Si el usuario sube documentos, se listan acá (1:N) - Relación inversa con Documentos subidos
+  uploadedDocuments Document[] @relation("UploadedDocuments")
+
+  // Si realiza acciones, quedarán registradas en AuditLog (1:N) - Relación inversa con AuditLogs realizados
+  auditLogs AuditLog[] @relation("PerformedLogs")
+
+  // Si revisa Onboardings (caso OPERATOR o ADMIN) - Relación inversa con Onboardings revisados
+  reviewedOnboardings Onboarding[] @relation("ReviewedOnboarding")
+
+  // Si es operador asignado a solicitudes de crédito - Relación inversa con CreditApplications asignadas
+  assignedCredits CreditApplication[] @relation("AssignedOperator")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------
+// Modelo: Company
+// ---------------------------
+model Company {
+  id        String  @id @default(cuid())
+  legalName String // Nombre legal
+  taxId     String  @unique // RUC/NIT/CUIT/RUT (único)
+  phone     String
+  address   String?
+  altEmail  String?
+
+  // Relación 1:1 con User CLIENT
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Relación 1:1 con Onboarding
+  onboarding Onboarding?
+
+  // Relación 1:N con CreditApplication
+  applications CreditApplication[]
+
+  // Relación 1:N con Document (ej: documentos generales)
+  documents Document[] // Documentos cargados directos (si aplica)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------
+// Modelo: Onboarding
+// ---------------------------
+model Onboarding {
+  id String @id @default(cuid())
+
+  // Cada Company tiene un único Onboarding
+  companyId String  @unique
+  company   Company @relation(fields: [companyId], references: [id])
+
+  status      OnboardingStatus @default(DRAFT)
+  submittedAt DateTime?
+  reviewedAt  DateTime?
+
+  // Usuario que revisó (opcional)
+  reviewedById String?
+  reviewedBy   User?   @relation("ReviewedOnboarding", fields: [reviewedById], references: [id])
+
+  // Documentos y logs asociados al proceso
+  documents Document[]
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------
+// Modelo: CreditApplication
+// ---------------------------
+model CreditApplication {
+  id String @id @default(cuid())
+
+  // Empresa que solicita
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id])
+
+  // Operador asignado
+  assignedToId String?
+  assignedTo   User?   @relation("AssignedOperator", fields: [assignedToId], references: [id])
+
+  amount      Float?
+  termMonths  Int?
+  status      CreditStatus @default(DRAFT)
+  startedAt   DateTime     @default(now())
+  submittedAt DateTime?
+  reviewedAt  DateTime?
+
+  // Documentos y logs relacionados
+  documents Document[]
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------
+// Modelo: Document
+// ---------------------------
+model Document {
+  id       String         @id @default(cuid())
+  name     String // Nombre del archivo       
+  type     String // Tipo de documento
+  url      String // URL donde se guarda el archivo
+  mimeType String
+  sizeMB   Float
+  status   DocumentStatus @default(PENDING)
+  version  Int            @default(1)
+
+  // Puede pertenecer a una Company, Onboarding o CreditApplication
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+
+  onboardingId String?
+  onboarding   Onboarding? @relation(fields: [onboardingId], references: [id])
+
+  creditId String?
+  credit   CreditApplication? @relation(fields: [creditId], references: [id])
+
+  observedReason String? // Motivo si fue observado
+
+  // Usuario que lo subió
+  uploadedById String
+  uploadedBy   User   @relation("UploadedDocuments", fields: [uploadedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------------
+// Modelo: AuditLog
+// ---------------------------
+
+// Guarda acciones realizadas en el sistema (quién, cuándo y qué)
+model AuditLog {
+  id       String @id @default(cuid())
+  action   String // Ej: "UPDATE_DOCUMENT"
+  entity   String // Nombre de la entidad afectada
+  entityId String // ID del registro afectado
+
+  performedById String
+  performedBy   User   @relation("PerformedLogs", fields: [performedById], references: [id])
+
+  timestamp DateTime @default(now())
+  details   Json? // Datos adicionales del evento
+
+  CreditApplication CreditApplication[]
+
+  Onboarding Onboarding[]
+}

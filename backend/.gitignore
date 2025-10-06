@@ -5,3 +5,6 @@ coverage/
 prisma/dev.db
 .prisma/
 pgdata/
+.env
+
+/src/generated/prisma
