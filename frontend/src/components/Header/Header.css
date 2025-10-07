@@ -1,0 +1,93 @@
+.main-header {
+  background-color: #ffffff;
+  padding: 15px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #eeeeee;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dollar-sign-icon {
+  color: #000000;
+  font-size: 48px;
+}
+
+.main-nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.main-nav ul li a {
+  color: #333333;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+  color: #0077B6;
+}
+
+.actions-container {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.action-icon {
+  color: #333333;
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.action-icon:hover {
+  color: #0077B6;
+}
+
+.btn {
+  padding: 12px 22px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-family: Arial, sans-serif;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: #0077B6;
+}
+
+.btn-primary:hover {
+  background-color: #005A8D;
+}
+
+.btn-secondary {
+  background-color: #00BFA6;
+}
+
+.btn-secondary:hover {
+  background-color: #00A991;
+}
