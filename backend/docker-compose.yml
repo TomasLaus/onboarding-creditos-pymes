@@ -3,9 +3,9 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: onboarding
+      POSTGRES_USER: userdb
+      POSTGRES_PASSWORD: passworddb
+      POSTGRES_DB: onboarding_creditos
     ports:
       - "5432:5432"
     volumes:

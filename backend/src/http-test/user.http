@@ -3,9 +3,9 @@ POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
-  "name": "Juan Perez",
-  "email": "juan.perez@dexaffrmple.com",
-  "password": "supersecreto"
+  "email": "juan.p433d43e45rez@de4xa3f4rmple.com",
+  "password": "Secreto0-",
+  "twoFactorSecret": "jajaj"
 }
 
 ### Obtener todos los usuarios

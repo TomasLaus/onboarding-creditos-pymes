@@ -1,41 +1,76 @@
-
 ### IMPORTANTE
+
 - Ejecutar los comandos en directorio /backend
+
 ```bash
 npm install
 ```
 
-## LEVANTAR SERVER POSTGRES DB 
+- Crear un archivo ```.env``` en la carpeta ```backend/``` y configurar con sus propias credenciales:
+
+Archivo de ejemplo:
+```
+# Server
+PORT=3000
+NODE_ENV=development
+
+# Database
+DATABASE_URL=postgresql://USUARIO_DE_TU_DB:PASSWORD_DE_TU_DB@localhost:5432/onboarding_creditos
+
+# JWT
+JWT_SECRET=tu_clave_super_secreta_cambiala_en_produccion
+JWT_EXPIRES_IN=7d
+
+# CORS
+FRONTEND_URL=http://localhost:5173
+```
+
+> [!CAUTION]
+> NO SE DEBE AGREGAR EL ```.env``` AL REPOSITORIO PUBLICO, es un archivo con credenciales sensibles. No borrar el ```.env``` del archivo ```.gitignore```
+
+## LEVANTAR SERVER POSTGRES DB
+
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
 
 - [Docker Desktop - Click aquí](https://www.docker.com/products/docker-desktop/) - Link para descargar -
-- luego ejecutar en consola en el directorio 
+- luego ejecutar en consola en el directorio
+
 ```bash
 docker-compose up
 ```
 
 ## MIGRAR DB (crear tablas a partir de esquemas definidos)
 
-- Se requiere PostgreSQL 
+- Se requiere PostgreSQL
 - [PostgreSQL (psql) - Click aquí](https://www.postgresql.org/download/) - Link para descargar -
-
-
+- problemas con las migraciones? eliminar carpeta pgdata(elimina db)
 
 ```bash
-npx prisma migrate dev --name user --schema=./src/config/schema.prisma
+ npx prisma migrate dev --name user --schema=./prisma/schema.prisma
 ```
 
-## ARRANCAR SERVIDOR BACKEND 
+## VER ADMINISTRADOR VISUAL DE PRISMA (TIPO PHPMYADMIN)
+
 - migrar base de datos(crear tablas a partir de esquemas definidos)
+
+```bash
+npx prisma studio
+```
+
+## ARRANCAR SERVIDOR BACKEND
+
+- migrar base de datos(crear tablas a partir de esquemas definidos)
+
 ```bash
 npm run dev
 ```
 
 ## probar endpoints
+
 - instalar extensión ´REST Client´ en VSCODE.
 - ir a carpeta /src/http-test/...
 - enviar solicitud presionando en "send request"
 
 ## VER DOCUMENTACION DE LAS APIs
-- http://localhost:3000/api/docs/
 
+- http://localhost:3000/api/docs/
