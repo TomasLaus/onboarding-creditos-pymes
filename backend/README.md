@@ -5,6 +5,28 @@
 npm install
 ```
 
+- Crear un archivo ```.env``` en la carpeta ```backend/``` y configurar con sus propias credenciales:
+
+Archivo de ejemplo:
+```
+# Server
+PORT=3000
+NODE_ENV=development
+
+# Database
+DATABASE_URL=postgresql://USUARIO_DE_TU_DB:PASSWORD_DE_TU_DB@localhost:5432/onboarding_creditos
+
+# JWT
+JWT_SECRET=tu_clave_super_secreta_cambiala_en_produccion
+JWT_EXPIRES_IN=7d
+
+# CORS
+FRONTEND_URL=http://localhost:5173
+```
+
+> [!CAUTION]
+> NO SE DEBE AGREGAR EL ```.env``` AL REPOSITORIO PUBLICO, es un archivo con credenciales sensibles. No borrar el ```.env``` del archivo ```.gitignore```
+
 ## LEVANTAR SERVER POSTGRES DB 
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
 
