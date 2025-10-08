@@ -3,9 +3,9 @@ POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
-  "email": "juan3343@hotmail.com",
+  "email": "juan334@hotmail.com",
   "password": "Secreto0-",
-  "twoFactorSecret": "PUTO-EL-QUE-LEE",
+  "twoFactorSecret": "super-secreto-mal",
   "legalName": "Juan Perez",
   "taxId": "20-22486722-1",
   "phone": "3704768485"
