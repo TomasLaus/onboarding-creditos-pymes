@@ -1,42 +1,87 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
+import { randomBytes } from 'crypto'
 import {
   createUser,
   getAllUsers,
-  getUserByEmail
+  getUserByEmail,
+  getUserById,
+  activateUser,
+  updateUser
 } from '../repositories/userRepository'
-import {
-  CreateUserDTO,
-  CreateUserResponseOKDTO,
-  CreateUserResponseErrorDTO
-} from '../dto/userDTO'
-import { User } from '@prisma/client'
+import { CreateUserDTO, CreateUserResponseOKDTO, CreateUserResponseErrorDTO } from '../dto/userDTO'
+import { Company, User } from '@prisma/client'
+import { createCompany, getCompanyByTaxId } from '../repositories/companyRepository'
+import { validarIdentificacionFiscal } from '../utils/validacion-pymes-function'
+import dayjs from 'dayjs'
+import { enviarEmailActivacion } from '../utils/enviar-email-activacion'
 
 export const create = async (req: Request, res: Response) => {
   try {
     const postBodyData: CreateUserDTO = req.body
 
-    if (!postBodyData.password || !postBodyData.email) {
-      return res
-        .status(400)
-        .json({ message: 'Todos los campos son requeridos.' })
+    if (
+      !postBodyData.password ||
+      !postBodyData.email ||
+      !postBodyData.legalName ||
+      !postBodyData.taxId ||
+      !postBodyData.phone
+    ) {
+      return res.status(400).json({ message: 'Todos los campos son requeridos.' })
     }
+
+    if (!validarIdentificacionFiscal(postBodyData.taxId)) {
+      return res.status(400).json({ message: 'El RUC/NIT/CUIT/RUT de contribuyente no es válido.' })
+    }
+
     const exist = await getUserByEmail(postBodyData.email)
+    const exist2 = await getCompanyByTaxId(postBodyData.taxId)
 
     if (exist) {
-      return res
-        .status(409)
-        .json({ message: 'ese usuario ya existe. verificar email.' })
+      return res.status(409).json({ message: 'ese usuario ya existe. verificar email.' })
+    }
+    if (exist2) {
+      return res.status(409).json({ message: 'esa empresa ya existe. verificar RUC/NIT/CUIT/RUT.' })
     }
 
+    // Generar token de activación
+    const token = randomBytes(32).toString('hex')
+    const expiresAt = dayjs().add(15, 'minute').toDate() // 15 min de expiración
+
+    //hashear pass
     const hashedPassword = await bcrypt.hash(postBodyData.password, 10)
-    postBodyData.password = hashedPassword
-    const createdUser: User = await createUser(postBodyData as User)
-    const responseUser: CreateUserResponseOKDTO = { email: createdUser.email }
+
+    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta >')
+
+    const userToInsert: User = {
+      email: postBodyData.email,
+      password: hashedPassword,
+      twoFactorSecret: postBodyData.twoFactorSecret,
+      activationToken: token,
+      tokenExpiresAt: expiresAt.toString()
+    } as User
+
+    const createdUser: User = await createUser(userToInsert)
+
+    const companyToInsert: Company = {
+      legalName: postBodyData.legalName,
+      taxId: postBodyData.taxId,
+      phone: postBodyData.phone,
+      userId: createdUser.id
+    } as Company
+
+    const createdCompany: Company = await createCompany(companyToInsert)
+
+    const responseUser: CreateUserResponseOKDTO = {
+      email: createdUser.email,
+      legalName: createdCompany.legalName,
+      taxId: createdCompany.taxId,
+      phone: createdCompany.phone
+    }
 
     res.status(201).json({
       message: 'Usuario creado exitosamente.',
-      data: { email: responseUser.email }
+      data: responseUser
     })
   } catch (err: any) {
     const responseError: CreateUserResponseErrorDTO = {
@@ -47,13 +92,35 @@ export const create = async (req: Request, res: Response) => {
   }
 }
 
+export const activate = async (req: Request, res: Response) => {
+  try {
+    const { token, email } = req.query
+
+    if (!token || !email) return res.status(400).send('Token o email faltante')
+
+    const user = await getUserByEmail(String(email))
+    if (!user) return res.status(404).send({ message: 'Usuario no encontrado' })
+    if (user.isActive) return res.status(400).send({ message: 'Cuenta ya activada' })
+    if (user.activationToken !== token) return res.status(400).send({ message: 'Token inválido' })
+    if (new Date(user.tokenExpiresAt) < new Date()) return res.status(400).send({ message: 'Token expirado' })
+
+    await updateUser(user.id, {
+      isActive: true,
+      activationToken: null,
+      tokenExpiresAt: null
+    })
+
+    res.send({ message: 'Cuenta activada correctamente. Ya puedes iniciar sesión.' })
+  } catch (err: any) {
+    res.status(500).send({ message: err.message, error: err })
+  }
+}
+
 export const getAll = async (_req: Request, res: Response) => {
   try {
     const users: User[] = await getAllUsers()
     res.json({ data: users })
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: 'Error consultando todos los usuarios.', error })
+    res.status(500).json({ message: 'Error consultando todos los usuarios.', error })
   }
 }
