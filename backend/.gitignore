@@ -1,9 +1,10 @@
 node_modules/
 dist/
-.env
-.env.local
 .DS_Store
 coverage/
 prisma/dev.db
 .prisma/
 pgdata/
+.env
+
+/src/generated/prisma
