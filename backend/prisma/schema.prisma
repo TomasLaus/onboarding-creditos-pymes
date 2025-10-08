@@ -20,8 +20,8 @@
  * Una CreditApplication puede tener muchos Documents
  * Un Document pertenece a un Onboarding o una CreditApplication
  * Un Operator puede estar asignado a una CreditApplication (campo assignedTo)
- 
- 
+
+
  * ------------------------------------------------------------------------------------------------
  * | Relación                         | Tipo | Descripción                                          |
  * | -------------------------------- | ---- | ---------------------------------------------------- |
@@ -110,12 +110,14 @@ enum DocumentStatus {
 model User {
   id              String    @id @default(cuid()) // ID único generado automáticamente
   email           String    @unique // Email usado para login
-  password        String // Contraseña hasheada    
+  password        String // Contraseña hasheada
   role            Role      @default(CLIENT) // Rol por defecto: CLIENT
   isActive        Boolean   @default(false) // Si puede loguearse o no
   twoFactorSecret String? // Para 2FA opcional
   loginAttempts   Int       @default(0) // para bloqueo por intentos - Intentos fallidos
   lockedUntil     DateTime? // // Fecha de desbloqueo (si está bloqueado) si supera intentos
+  activationToken String?
+  tokenExpiresAt  String?
 
   // Si el usuario es CLIENT, tendrá una empresa asociada (1:1) - Relación con Company (solo si CLIENT)
   company Company?
@@ -224,7 +226,7 @@ model CreditApplication {
 // ---------------------------
 model Document {
   id       String         @id @default(cuid())
-  name     String // Nombre del archivo       
+  name     String // Nombre del archivo
   type     String // Tipo de documento
   url      String // URL donde se guarda el archivo
   mimeType String

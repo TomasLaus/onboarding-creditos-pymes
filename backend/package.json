@@ -3,27 +3,37 @@
     "@prisma/client": "^6.16.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.18",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
+    "nodemailer": "^7.0.9",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.6.1",
+    "@types/nodemailer": "^7.0.2",
     "@types/swagger-ui-express": "^4.1.8",
     "i": "^0.3.7",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "npm": "^11.6.1",
-    "prisma": "^6.16.3"
+    "prisma": "^6.16.3",
+    "ts-jest": "^29.4.4"
   },
   "scripts": {
+    "prisma:studio": "npx prisma studio",
+    "prisma:studio:browser": "start firefox http://localhost:5555",
+    "swagger:docs": "start firefox http://localhost:3000/api/docs/",
     "docker:desktop": "tasklist /FI \"IMAGENAME eq Docker Desktop.exe\" | find /I \"Docker Desktop.exe\" >nul || start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\"",
-    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && nodemon src/server.ts",
-    "dev2": "nodemon src/server.ts"
+    "nodemon:express": "nodemon src/server.ts",
+    "jest:test": "jest",
+    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\""
   }
 }

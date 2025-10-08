@@ -1,0 +1,429 @@
+| Entidad | Descripción |
+|--------|-------------|
+| Usuario / Empresa (PYME) | Representa a la persona o empresa que solicita el crédito. Puede tener datos legales, fiscales y de contacto. |
+
+ Usuario (PYME)
+- id_usuario
+- razon_social
+- ruc/dni+ general
+- email 
+- telefono
+- direccion
+- sector_economico
+- fecha_constitucion
+- representante_legal
+- estado_cuenta
+- created-at
+
+| Solicitud de Crédito | Registro de una solicitud específica de crédito, con estado, monto, plazo, etc. |
+
+ SolicitudCredito
+- id_solicitud
+- id_usuario
+- monto_solicitado
+- plazo_meses
+- tasa_interes
+- motivo_credito
+- estado_solicitud
+- fecha_solicitud
+- fecha_aprobacion
+- fecha_desembolso
+| Documento | Archivos subidos por la PYME como parte del proceso (RFC, estado de cuenta, acta constitutiva, etc.). |
+
+ Documento
+- id_documento
+- id_solicitud
+- tipo_documento
+- nombre_archivo
+- url_archivo
+- fecha_carga
+- estado_validacion
+- observaciones
+
+| Operador | Usuario interno de la entidad financiera que gestiona las solicitudes. |
+ Operador
+- id_operador
+- nombre_completo
+- email
+- rol
+- departamento
+- estado
+- fecha_ingreso
+ | TareaOperador  | Actividades pendientes asignadas a operadores (ej: “verificar documento”, “aprobar crédito”). |
+
+TareaOperador
+•	id_tarea
+•	id_solicitud
+•	id_operador
+•	tipo_tarea
+•	descripcion
+•	prioridad
+•	estado_tarea
+•	fecha_asignacion
+•	fecha_completado
+
+| EvaluacionRiesgo | automatiza el análisis crediticio de las PYMES solicitantes. Funciona como un "motor de decisiones" que evalúa la capacidad de pago y el nivel de riesgo asociado a cada solicitud de crédito. 
+ EvaluacionRiesgo
+- id_evaluacion
+- id_solicitud
+- score_crediticio
+- nivel_riesgo
+- factores_evaluados
+- recomendacion
+- fecha_evaluacion
+
+| Historial de Estado | Registro de los cambios de estado de una solicitud (ej: “en revisión”, “aprobada”, “rechazada”). |
+
+
+id	Identificador único del registro de estado.
+solicitud_credito_id	Clave foráneaque enlaza con la entidadSolicitud de Crédito.
+estado_anterior	Estado previo de la solicitud (ej:"borrador","enviada"). Puede ser nulo si es el primer estado.
+estado_nuevo	Nuevo estado de la solicitud (ej:"en revisión","aprobada","rechazada","desembolsada").
+fecha_cambio	Fecha y hora exacta en que se produjo el cambio de estado.
+usuario_responsable_id	Clave foráneaal usuario que realizó el cambio (es el operador es automático).
+tipo_usuario_responsable	Indica quién realizó la acción (útil si no quieres depender solo de FKs).
+comentario	Nota adicional (ej: "Falta comprobante de domicilio", "Aprobado por política de riesgo").
+ip_origen	Dirección IP desde donde se realizó el cambio (útil para auditoría de seguridad).
+motivo_rechazo	Si el estado es"rechazada", se registra el motivo específico.
+dias_en_estado_anterior	Cuántos días estuvo la solicitud en el estado anterior (útil para métricas
+
+erDiagram
+    USUARIO {
+        int id_usuario PK
+        string razon_social
+        string ruc_dni
+        string email
+        string telefono
+        string direccion
+        string sector_economico
+        date fecha_constitucion
+        string representante_legal
+        string estado_cuenta
+        datetime created_at
+    }
+
+    SOLICITUD_CREDITO {
+        int id_solicitud PK
+        int id_usuario FK
+        decimal monto_solicitado
+        int plazo_meses
+        decimal tasa_interes
+        string motivo_credito
+        string estado_solicitud
+        datetime fecha_solicitud
+        datetime fecha_aprobacion
+        datetime fecha_desembolso
+    }
+
+    DOCUMENTO {
+        int id_documento PK
+        int id_solicitud FK
+        string tipo_documento
+        string nombre_archivo
+        string url_archivo
+        datetime fecha_carga
+        string estado_validacion
+        text observaciones
+    }
+
+    OPERADOR {
+        int id_operador PK
+        string nombre_completo
+        string email
+        string rol
+        string departamento
+        string estado
+        date fecha_ingreso
+    }
+
+    TAREA_OPERADOR {
+        int id_tarea PK
+        int id_solicitud FK
+        int id_operador FK
+        string tipo_tarea
+        text descripcion
+        string prioridad
+        string estado_tarea
+        datetime fecha_asignacion
+        datetime fecha_completado
+    }
+
+    EVALUACION_RIESGO {
+        int id_evaluacion PK
+        int id_solicitud FK
+        int score_crediticio
+        string nivel_riesgo
+        json factores_evaluados
+        string recomendacion
+        datetime fecha_evaluacion
+    }
+
+    HISTORIAL_ESTADO {
+        int id PK
+        int solicitud_credito_id FK
+        string estado_anterior
+        string estado_nuevo
+        datetime fecha_cambio
+        int usuario_responsable_id FK
+        string tipo_usuario_responsable
+        text comentario
+        string ip_origen
+        string motivo_rechazo
+        int dias_en_estado_anterior
+    }
+
+    USUARIO ||--o{ SOLICITUD_CREDITO : "realiza"
+    SOLICITUD_CREDITO ||--o{ DOCUMENTO : "requiere"
+    SOLICITUD_CREDITO ||--o{ TAREA_OPERADOR : "genera"
+    OPERADOR ||--o{ TAREA_OPERADOR : "gestiona"
+    SOLICITUD_CREDITO ||--o| EVALUACION_RIESGO : "tiene"
+    SOLICITUD_CREDITO ||--o{ HISTORIAL_ESTADO : "registra"
+    OPERADOR ||--o{ HISTORIAL_ESTADO : "modifica"
+
+┌─────────────────────────────────────────────────────────────────┐
+│                    DIAGRAMA ENTIDAD-RELACIÓN                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────┐
+│   USUARIO    │ ◄─── Tabla Principal (PYME)
+├──────────────┤
+│ PK: id_usuario
+│ razon_social
+│ ruc_dni      
+│ email        
+│ telefono     
+│ direccion    
+│ sector_economico
+│ fecha_constitucion
+│ representante_legal
+│ estado_cuenta
+│ created_at   
+└──────────────┘
+        │
+        │ 1:N (Un usuario puede tener múltiples solicitudes)
+        ▼
+┌────────────────────┐
+│ SOLICITUD_CREDITO  │ ◄─── Tabla Central del Proceso
+├────────────────────┤
+│ PK: id_solicitud   
+│ FK: id_usuario ────────► USUARIO
+│ monto_solicitado   
+│ plazo_meses       
+│ tasa_interes      
+│ motivo_credito    
+│ estado_solicitud  
+│ fecha_solicitud   
+│ fecha_aprobacion  
+│ fecha_desembolso  
+└────────────────────┘
+        │
+        ├─── 1:N ──────────────┐
+        │                      ▼
+        │              ┌──────────────┐
+        │              │  DOCUMENTO   │
+        │              ├──────────────┤
+        │              │ PK: id_documento
+        │              │ FK: id_solicitud ──► SOLICITUD_CREDITO
+        │              │ tipo_documento
+        │              │ nombre_archivo
+        │              │ url_archivo
+        │              │ fecha_carga
+        │              │ estado_validacion
+        │              │ observaciones
+        │              └──────────────┘
+        │
+        ├─── 1:N ──────────────┐
+        │                      ▼
+        │              ┌──────────────────┐
+        │              │ TAREA_OPERADOR   │
+        │              ├──────────────────┤
+        │              │ PK: id_tarea
+        │              │ FK: id_solicitud ──► SOLICITUD_CREDITO
+        │              │ FK: id_operador ───► OPERADOR
+        │              │ tipo_tarea
+        │              │ descripcion
+        │              │ prioridad
+        │              │ estado_tarea
+        │              │ fecha_asignacion
+        │              │ fecha_completado
+        │              └──────────────────┘
+        │                      ▲
+        │                      │
+        │              ┌──────────────┐
+        │              │   OPERADOR   │
+        │              ├──────────────┤
+        │              │ PK: id_operador
+        │              │ nombre_completo
+        │              │ email
+        │              │ rol
+        │              │ departamento
+        │              │ estado
+        │              │ fecha_ingreso
+        │              └──────────────┘
+        │                      │
+        │                      │ 1:N
+        │                      ▼
+        ├─── 1:1 ──────┐      ┌──────────────────┐
+        │              │      │ HISTORIAL_ESTADO │
+        │              ▼      ├──────────────────┤
+        │    ┌──────────────────┐ PK: id
+        │    │ EVALUACION_RIESGO │ FK: solicitud_credito_id ──► SOLICITUD_CREDITO
+        │    ├──────────────────┤ FK: usuario_responsable_id ─► OPERADOR
+        │    │ PK: id_evaluacion │ estado_anterior
+        │    │ FK: id_solicitud ──► SOLICITUD_CREDITO
+        │    │ score_crediticio │ estado_nuevo
+        │    │ nivel_riesgo     │ fecha_cambio
+        │    │ factores_evaluados│ tipo_usuario_responsable
+        │    │ recomendacion    │ comentario
+        │    │ fecha_evaluacion │ ip_origen
+        │    └──────────────────┘ motivo_rechazo
+        │                        │ dias_en_estado_anterior
+        │                        └──────────────────┘
+        │                                ▲
+        └─── 1:N ───────────────────────┘
+
+
+
+📝 HISTORIAS DE USUARIO
+ÉPICA 1: Registro y Autenticación
+HU-001 Como PYME, quiero registrarme en la plataforma para poder solicitar créditos de manera digital.
+•	Criterios de aceptación:
+•	Formulario con validación de RUC
+•	Verificación por email
+•	Creación de contraseña segura
+HU-002 Como PYME, quiero iniciar sesión de forma segura para acceder a mi panel de solicitudes.
+•	Criterios de aceptación:
+•	Autenticación con email/contraseña
+•	Opción de recuperar contraseña
+•	Sesión con timeout de seguridad
+ÉPICA 2: Solicitud de Crédito
+HU-003 Como PYME, quiero completar un formulario de solicitud de crédito para iniciar el proceso de evaluación.
+•	Criterios de aceptación:
+•	Formulario paso a paso (wizard)
+•	Guardado automático de avances
+•	Validaciones en tiempo real
+HU-004 Como PYME, quiero cargar los documentos requeridos para completar mi solicitud.
+•	Criterios de aceptación:
+•	Drag & drop para archivos
+•	Formatos permitidos: PDF, JPG, PNG
+•	Tamaño máximo 10MB por archivo
+•	Vista previa de documentos
+HU-005 Como PYME, quiero firmar digitalmente los documentos para validar legalmente mi solicitud.
+•	Criterios de aceptación:
+•	Integración con servicio de firma digital
+•	Certificado con timestamp
+•	Descarga de documentos firmados
+HU-006 Como PYME, quiero ver el estado de mi solicitud en tiempo real para estar informado del proceso.
+•	Criterios de aceptación:
+•	Dashboard con timeline del proceso
+•	Notificaciones de cambios de estado
+•	Indicador de documentos pendientes
+ÉPICA 3: Gestión de Operadores
+HU-007 Como Operador, quiero ver un listado de solicitudes pendientes para gestionar mi trabajo diariamente.
+•	Criterios de aceptación:
+•	Filtros por estado, fecha, monto
+•	Ordenamiento por prioridad
+•	Paginación de resultados
+HU-008 Como Operador, quiero revisar y validar documentos para aprobar o rechazar solicitudes.
+•	Criterios de aceptación:
+•	Visor de documentos integrado
+•	Checklist de validación
+•	Campo de observaciones
+HU-009 Como Operador, quiero actualizar el estado de las solicitudes para mantener el flujo de trabajo.
+•	Criterios de aceptación:
+•	Cambio de estado con justificación
+•	Registro de auditoría
+•	Notificación automática al cliente
+HU-010 Como Operador, quiero asignar tareas a otros operadores para distribuir la carga de trabajo.
+•	Criterios de aceptación:
+•	Selección de operador disponible
+•	Definición de prioridad
+•	Fecha límite de tarea
+ÉPICA 4: Comunicación y Soporte
+HU-011 Como PYME, quiero recibir notificaciones sobre mi solicitud para estar informado de cualquier cambio.
+•	Criterios de aceptación:
+•	Notificaciones por email
+•	Notificaciones en la plataforma
+•	Configuración de preferencias
+HU-012 Como PYME, quiero acceder a un chat de soporte para resolver dudas durante el proceso.
+•	Criterios de aceptación:
+•	Chat en tiempo real
+•	Historial de conversaciones
+•	Indicador de operador en línea
+ÉPICA 5: Evaluación y Análisis
+HU-013 Como Operador, quiero ver el resultado de la pre-evaluación de riesgo para tomar decisiones informadas.
+•	Criterios de aceptación:
+•	Score crediticio visible
+•	Factores de riesgo detallados
+•	Recomendación del sistema
+HU-014 Como Administrador, quiero generar reportes de solicitudes para analizar el desempeño del proceso.
+•	Criterios de aceptación:
+•	Filtros por periodo
+•	Exportación a Excel/PDF
+•	Métricas clave (aprobación, tiempos)
+ÉPICA 6: Integraciones (Nice-to-have)
+HU-015 Como PYME, quiero conectar mi sistema contable para agilizar la carga de información financiera.
+•	Criterios de aceptación:
+•	Integración con APIs contables
+•	Mapeo automático de datos
+•	Sincronización periódica
+HU-016 Como Operador, quiero que el sistema valide automáticamente la identidad del solicitante para reducir fraudes.
+•	Criterios de aceptación:
+•	Integración con servicios KYC/AML
+•	Validación de documentos de identidad
+•	Alertas de riesgo
+Tecnologías
+Generales: Nodejs(gestion mediante npm), express, postgresql, TypeScript, 
+Detalalladas: 
+Despliegue: Render usando Contenerización con Docker 
+TypeORM: Un Object-Relational Mapper (ORM) para interactuar con la base de datos 
+ dotenv: Utilizado para la gestión de variables de entorno 
+ Postman/  Supertest + Jest/Mocha o Python + pytest + requests, 
+ Operaciones CRUD:  sobre entidades cuando aplique
+seguridad:manejo de contraseñas cifradas (encrypted password handling y JWT /bearer tooken
+Validación de Datos: data validation (rutinas de validación campos y otros)
+ Borrado Lógico (Soft Delete): ??? usaremos
+Manejo de Errores (Handling Errors): mensajes de error personalizados y relevantes tanto para solicitudes exitosas como para situaciones de error, como campos faltantes o datos inválidos, garantizando una experiencia de usuario fluida y una fácil identificación de problemas.
+/onboarding-pymes-fintech/
+│
+├── /backend/
+│ ├── /backend/ 
+│ ├─- ├─- /src/
+│ ├──├─- /config/ 
+│ │ ├── ├─-  database.js ts # conf TypeORM y conexión a la bd
+│ │ ├─- ├── jwt.js
+│ │ ├─- └── env.js	Carga y gestión de variables de entorno
+ ├── middlewares/
+│ └── auth.ts # Lógica de Autenticación Segura y verificación de tokens  
+│ └── error-handler.ts # Implementación del Manejo Detallado de Errores  
+│ └── validation.ts # Lógica de Validación de Datos  
+├── shared/
+│ └── utils.ts # Funciones útiles (ej. Manejo de Contraseñas Cifradas) [2, 3]
+| └─data/postgres/models/ # Modelos 
+│ │ ├── Usuario.js
+│ │ ├── Empresa.js
+│ │ ├── SolicitudCredito.js
+│ │ ├── Documento.js
+├── entidad/ # Carpeta modularizada para cada recurso (ej. users, security boxes) [3]
+│ ├── entidad.controller.ts # Maneja las solicitudes HTTP y llama a los servicios.
+│ ├── entidad.service.ts # Contiene la lógica de negocio (CRUD, Soft Delete, Validación de Estado) [2, 3, 7]
+│ ├── entidad.entity.ts # Definición de la Entidad TypeORM (modelo de datos).
+│ └── entidad.routes.ts # Define los Endpoints (Rutas GET, POST, PATCH, DELETE) [7-9]
+| └─presentation/ #  Carpeta para los conroladores/ Lógica de negocio por recurso
+│ │ ├── authController.js
+│ │ ├──route.ts # definición de la ruta en especifico
+│ │ ├── empresaController.js
+│ │ ├── solicitudController.js
+│ │ ├── documentoController.js
+│ │ └── adminController.js
+│ │ ├── auth.routes.js
+│ │ ├── empresa.routes.js
+│ │ ├── solicitud.routes.js
+│ │ ├── documentos.routes.js
+│ │ ├── firma.routes.js
+│ │ └── admin.routes.js
+│ │ └── router.ts  # Definición de las rutas en general
+ | | └─scripts/ #  archivos de utilidades
+│ │ ├── database.sql
+| readme.md / Dockerfile/ .gitignore / .env.template / docker-compose.yml/etc.
+
