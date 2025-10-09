@@ -19,7 +19,7 @@ jobs:
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
           project: Scrum Board        
-          column: backlog                 
+          column: Backlog                 
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       # AUTOMATIZACIÓN 2: Mover issue a 'sprint backlog' al asignarlo a un milestone
@@ -27,6 +27,6 @@ jobs:
         if: github.event.action == 'milestoned'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: Scrum Dashboard        # ⚠️ CAMBIA ESTO si tu dashboard tiene otro nombre
-          column: sprint backlog          # ⚠️ CAMBIA ESTO si tu columna se llama diferente
+          project: Scrum Board        
+          column: Sprint Backlog          
           repo-token: ${{ secrets.GITHUB_TOKEN }}
