@@ -18,7 +18,7 @@ jobs:
         if: github.event.action == 'labeled' && github.event.label.name == 'story'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: Scrum Board        
+          project: onboarding-pymes-nocountry        
           column: Backlog                 
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -27,6 +27,6 @@ jobs:
         if: github.event.action == 'milestoned'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: Scrum Board        
+          project: onboarding-pymes-nocountry        
           column: Sprint Backlog          
           repo-token: ${{ secrets.GITHUB_TOKEN }}
