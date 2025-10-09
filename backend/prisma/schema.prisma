@@ -7,9 +7,6 @@
  * | **CreditApplication** | Solicitud de crédito (varias por empresa).                                   |
  * | **Document**          | Documentos cargados asociados a onboarding o solicitud.                      |
  * | **AuditLog**          | Historial de cambios (opcional para MVP).                                    |
-
-
-
  * Un User puede ser:
  * - CLIENT (tiene una Company)
  * - OPERATOR / ADMIN (no tiene company)
@@ -20,8 +17,6 @@
  * Una CreditApplication puede tener muchos Documents
  * Un Document pertenece a un Onboarding o una CreditApplication
  * Un Operator puede estar asignado a una CreditApplication (campo assignedTo)
-
-
  * ------------------------------------------------------------------------------------------------
  * | Relación                         | Tipo | Descripción                                          |
  * | -------------------------------- | ---- | ---------------------------------------------------- |
@@ -32,10 +27,8 @@
  * | `CreditApplication` ↔ `Document` | 1:N  | Documentos requeridos en la solicitud                |
  * | `User` ↔ `Document`              | 1:N  | Un usuario puede subir varios documentos             |
  * | `User` ↔ `AuditLog`              | 1:N  | Un usuario puede generar varias acciones registradas |
-  --------------------------------------------------------------------------------------------------
-
-
- *  -----------------------------------------------------------------------------------------------------------------------------------
+ * --------------------------------------------------------------------------------------------------
+ * -----------------------------------------------------------------------------------------------------------------------------------
  * | Entidad               | Significa                                                | Ejemplo                                        |
  * | --------------------- | -------------------------------------------------------- | ---------------------------------------------- |
  * | **User**              | Persona que entra al sistema (cliente, operador o admin) | "Juan Pérez"                                   |
@@ -45,11 +38,7 @@
  * | **Document**          | Archivo que se sube                                      | "CUIT.pdf", "Balance_2024.pdf"                 |
  * | **AuditLog**          | Registro de acción en el sistema                         | "Juan cambió el estado del crédito a APROBADO" |
  * -------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-
-
+ */
 
 // ---------------------------
 // Generador de Prisma Client
@@ -118,6 +107,9 @@ model User {
   lockedUntil     DateTime? // // Fecha de desbloqueo (si está bloqueado) si supera intentos
   activationToken String?
   tokenExpiresAt  String?
+
+  resetPasswordToken  String?
+  resetTokenExpiresAt DateTime?
 
   // Si el usuario es CLIENT, tendrá una empresa asociada (1:1) - Relación con Company (solo si CLIENT)
   company Company?

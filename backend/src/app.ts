@@ -2,9 +2,7 @@ import express from 'express'
 import userRoutes from './routes/user'
 import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 import nodemailer from 'nodemailer'
-//import authRoutes from './routes/auth';
-// import errorHandler from './middlewares/errorHandler';
-// import notFound from './middlewares/notFound';
+import authRoutes from './routes/auth'
 
 const app = express()
 
@@ -31,5 +29,8 @@ app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup)
 
 // Rutas de usuario y autenticación
 app.use('/api/users', userRoutes)
+
+// Ruta de autenticación para cambio de contraseña
+app.use('/api/auth', authRoutes)
 
 export default app
