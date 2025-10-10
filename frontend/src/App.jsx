@@ -1,18 +1,24 @@
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
-import AppRouter from "./router/AppRouter";
-import "./App.css";
+import React from 'react';
+import Header from './components/Header/Header';
+import AppRouter from './router/AppRouter';
+import Footer from './components/Footer/Footer';
+import { ModalProvider } from './context/ModalContext';
+import LoginModal from './components/LoginModal/LoginModal';
+
+import './App.css';
 
 function App() {
   return (
-    <div className="appContainer">
-      <Header />
-      <main>
-        <AppRouter />
-      </main>
-      <Footer />
-    </div>
-
+    <ModalProvider>
+      <div className="app-container">
+        <Header />
+        <main>
+          <AppRouter />
+        </main>
+        <Footer />
+        <LoginModal />
+      </div>
+    </ModalProvider>
   );
 }
 

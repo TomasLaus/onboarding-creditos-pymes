@@ -1,9 +1,13 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom'; 
+import { useModal } from '../../context/ModalContext';
 import { FaDollarSign, FaWhatsapp, FaSearch } from 'react-icons/fa';
 
 const Header = () => {
+
+  const { openModal } = useModal();
+
   return (
     <header className="main-header">
       <div className="header-container">
@@ -25,7 +29,7 @@ const Header = () => {
           <FaWhatsapp className="action-icon whatsapp-icon" />
           <FaSearch className="action-icon search-icon" />
 
-          <button className="btn btn-primary">SOLICITA TU CRÉDITO</button>
+          <button className="btn btn-primary" onClick={() => openModal('LOGIN')}>SOLICITA TU CRÉDITO</button>
           <button className="btn btn-secondary">BANCA POR INTERNET</button>
         </div>
       </div>
