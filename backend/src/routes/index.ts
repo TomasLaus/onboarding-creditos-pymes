@@ -1,9 +1,0 @@
-import { Router } from 'express';
-import authRoutes from './auth';
-
-const router = Router();
-
-router.use('/auth', authRoutes);
-
-// más rutas: /companies, /loans, /admin...
-export default router;
