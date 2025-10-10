@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.7.1",
+    "@types/nodemailer": "^7.0.2",
+    "@types/swagger-ui-express": "^4.1.8",
     "@prisma/client": "^6.16.3",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -17,7 +23,8 @@
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.6.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.7.1",
     "@types/nodemailer": "^7.0.2",
     "@types/swagger-ui-express": "^4.1.8",
     "i": "^0.3.7",
@@ -34,6 +41,9 @@
     "docker:desktop": "tasklist /FI \"IMAGENAME eq Docker Desktop.exe\" | find /I \"Docker Desktop.exe\" >nul || start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\"",
     "nodemon:express": "nodemon src/server.ts",
     "jest:test": "jest",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "postinstall": "npx prisma generate && npx prisma migrate deploy",
     "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\""
   }
 }
