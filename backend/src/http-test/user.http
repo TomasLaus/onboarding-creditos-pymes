@@ -3,7 +3,7 @@ POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
-  "email": "juan334@hotmail.com",
+  "email": "juan3334@hotmail.com",
   "password": "Secreto0-",
   "twoFactorSecret": "super-secreto-mal",
   "legalName": "Juan Perez",
