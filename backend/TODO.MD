@@ -1,1 +1,2 @@
 - doble factor autenticacion.
+- validaciones antes de hacer updates, inserts etc.
