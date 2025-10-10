@@ -190,7 +190,168 @@ export const userSwagger = {
           }
         }
       }
+    },
+    // 🔹 Auth: Recuperación de contraseña
+    '/auth/forgot-password': {
+      post: {
+        summary: 'Solicitar recuperación de contraseña',
+        description:
+          'Envía un correo electrónico al usuario con un enlace para restablecer su contraseña. En modo desarrollo solo muestra el link por consola.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: {
+                    type: 'string',
+                    format: 'email',
+                    description: 'Email del usuario registrado',
+                    example: 'juan334@hotmail.com'
+                  }
+                },
+                required: ['email']
+              }
+            }
+          }
+        },
+        responses: {
+          200: {
+            description: 'Correo enviado con éxito o link mostrado en consola (modo desarrollo)',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: {
+                      type: 'string',
+                      example: 'Correo enviado con éxito'
+                    }
+                  }
+                }
+              }
+            }
+          },
+          404: {
+            description: 'Usuario no encontrado',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: { message: { type: 'string', example: 'Usuario no encontrado' } }
+                }
+              }
+            }
+          },
+          500: {
+            description: 'Error interno al solicitar recuperación de contraseña',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: { type: 'string', example: 'Error interno' },
+                    error: { type: 'object' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    '/auth/reset-password': {
+      post: {
+        summary: 'Restablecer contraseña del usuario',
+        description:
+          'Permite al usuario establecer una nueva contraseña utilizando el token enviado por correo electrónico.',
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: {
+                    type: 'string',
+                    format: 'email',
+                    description: 'Correo del usuario',
+                    example: 'juan334@hotmail.com'
+                  },
+                  token: {
+                    type: 'string',
+                    description: 'Token de recuperación enviado por correo',
+                    example: '8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec'
+                  },
+                  newPassword: {
+                    type: 'string',
+                    description:
+                      'Nueva contraseña (mínimo 6 caracteres, una mayúscula, una minúscula, un número y un símbolo)',
+                    example: 'NuevaClave123!'
+                  }
+                },
+                required: ['email', 'token', 'newPassword']
+              }
+            }
+          }
+        },
+        responses: {
+          200: {
+            description: 'Contraseña actualizada correctamente',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: { type: 'string', example: 'Contraseña actualizada correctamente' }
+                  }
+                }
+              }
+            }
+          },
+          400: {
+            description: 'Token inválido o expirado',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: { message: { type: 'string', example: 'Token inválido o expirado' } }
+                }
+              }
+            }
+          },
+          404: {
+            description: 'Usuario no encontrado',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: { message: { type: 'string', example: 'Usuario no encontrado' } }
+                }
+              }
+            }
+          },
+          500: {
+            description: 'Error interno al restablecer contraseña',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties: {
+                    message: { type: 'string', example: 'Error interno' },
+                    error: { type: 'object' }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
+
+    //--------------------- Agregar arriba de esta linea ----------------------//
   },
   components: {
     schemas: {
