@@ -6,15 +6,17 @@
 npm install
 ```
 
-- Crear un archivo `.env` en la carpeta `backend/` y configurar con sus propias credenciales:
 
-````
+- Crear un archivo `.env` en la carpeta `backend/` y configurar con sus propias credenciales (Guiarse del archivo ```.env.example```):
 
 > [!CAUTION]
 > NO SE DEBE AGREGAR EL `.env` AL REPOSITORIO PUBLICO, es un archivo con credenciales sensibles. No borrar el `.env` del archivo `.gitignore`
 
-## LEVANTAR SERVER POSTGRES DB
 
+
+
+
+## LEVANTAR SERVER POSTGRES DB
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
 
 - [Docker Desktop - Click aquí](https://www.docker.com/products/docker-desktop/) - Link para descargar -

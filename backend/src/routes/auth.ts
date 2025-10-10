@@ -1,5 +1,9 @@
-import { Router } from 'express';
-//import AuthController from '../controllers/authController';
+import { Router } from 'express'
+import { forgotPassword, resetPassword } from '../controllers/authController'
 
-const router = Router();
-export default router;
+const router = Router()
+
+router.post('/forgot-password', forgotPassword)
+router.post('/reset-password', resetPassword)
+
+export default router
