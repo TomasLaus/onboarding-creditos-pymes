@@ -3,16 +3,17 @@ POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
+  "nombre": "Juan",
   "email": "juan334@hotmail.com",
   "password": "Secreto0-",
-  "twoFactorSecret": "super-secreto-mal",
+  "twoFactorSecret": "",
   "legalName": "Juan Perez",
   "taxId": "20-22486722-1",
   "phone": "3704768485"
 }
 
 ### activar usuario
-GET http://localhost:3000/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+GET http://localhost:3000/api/users/activate?token=5d9af684caa33203e5b6b77c14dbbe6250d8cbc5aa1a7ad3c7c64782f2ad8d21&email=juan334@hotmail.com
 
 ### Obtener todos los usuarios
 GET http://localhost:3000/api/users/getAll

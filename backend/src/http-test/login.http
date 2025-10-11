@@ -1,0 +1,63 @@
+###  &&&HEALTH CHECK&&&
+GET http://localhost:3000/api/login/health
+
+###  &&&LOGIN USUARIO 1&&&
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+    "email": "juan334@hotmail.com",
+    "password": "Secreto0-",
+    "role": "CLIENT",
+    "twoFactorCode": "123456"
+}
+
+###
+
+@baseUrl = http://localhost:3000
+# @baseUrl = https://tu-app-staging.onrender.com
+# @baseUrl = https://tu-app-prod.onrender.com
+
+@apiPath = /api
+@authPath = {{apiPath}}
+
+### Variables de prueba
+@testEmail = empresa1@test.com
+@testPassword = 123456
+@testRole = CLIENT
+@twoFactorCode = 123456
+
+
+### Health Check
+GET {{baseUrl}}{{apiPath}}/login/health
+
+
+#POST http://localhost:3000/api/auth/login
+
+
+
+### Login usuario 2 explicto
+# @name login
+POST {{baseUrl}}{{authPath}}/login
+Content-Type: application/json
+
+{
+    "email": "{{testEmail}}", 
+    "password": "{{testPassword}}",
+    "role": "{{testRole}}",
+    "twoFactorCode":"{{twoFactorCode}}"
+}
+
+### Extraer token de la respuesta del login
+@authToken = {{login.response.body.accessToken}}
+
+### Verificar Token
+GET {{baseUrl}}{{authPath}}/verify
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+
+###   verify 2
+GET http://localhost:3000/api/auth/verify
+Content-Type: application/json
+Authorization: Bearer {{authToken}}

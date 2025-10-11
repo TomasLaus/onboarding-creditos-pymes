@@ -1,0 +1,3 @@
+owrking en registro; branch registro funcional, creada rama login a combinar... manualmente
+
+parece funcioan registro/login 

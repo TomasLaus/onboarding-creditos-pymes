@@ -3,6 +3,7 @@ import userRoutes from './routes/user'
 import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 import nodemailer from 'nodemailer'
 import authRoutes from './routes/auth'
+import loginRoutes from './routes/login'
 
 const app = express()
 
@@ -25,8 +26,11 @@ export const transporter = nodemailer.createTransport({
 // Swagger docs
 app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup)
 
+
+
 // Rutas de usuario y autenticación
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/login', loginRoutes)
 
 export default app
