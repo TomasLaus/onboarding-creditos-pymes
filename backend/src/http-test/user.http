@@ -1,6 +1,7 @@
 ### Crear usuario
 //POST http://localhost:3000/api/users/create
 //POST https://ocp-u9t0.onrender.com/api/users/create
+
 POST https://ocp-u9t0.onrender.com/api/users/create
 Content-Type: application/json
 
@@ -14,10 +15,10 @@ Content-Type: application/json
 }
 
 ### activar usuario
-//GET http://localhost:3000/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+GET http://localhost:3000/api/users/activate?token=276eabd307661fa5a80624c64a9b0268efce1b211604e8b5f5ff2e9b781579eb&email=juan334@hotmail.com
 //GET https://ocp-u9t0.onrender.com/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
 
-GET https://ocp-u9t0.onrender.com/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+//GET https://ocp-u9t0.onrender.com/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
 
 ### Obtener todos los usuarios
 GET http://localhost:3000/api/users/getAll
