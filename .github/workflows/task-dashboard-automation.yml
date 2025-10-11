@@ -10,7 +10,7 @@ on:
 
 # Jobs
 jobs:
-  automate-scrum-dashboard:
+  automate-task-dashboard:
     runs-on: ubuntu-latest
     steps:
       - name: Add or Move Issue in Project
