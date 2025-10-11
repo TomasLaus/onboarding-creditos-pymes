@@ -3,6 +3,7 @@ services:
   - type: web
     name: onboarding-pyme-backend
     env: node
+    rootDir: backend
     buildCommand: "npm install && npm run build"
     startCommand: "npm start"
     envVars:
