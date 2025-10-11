@@ -51,7 +51,7 @@ export const create = async (req: Request, res: Response) => {
     //hashear pass
     const hashedPassword = await bcrypt.hash(postBodyData.password, 10)
 
-    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta >')
+    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta.')
 
     const userToInsert: User = {
       email: postBodyData.email,
