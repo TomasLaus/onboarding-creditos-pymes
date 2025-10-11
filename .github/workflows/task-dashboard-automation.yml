@@ -13,20 +13,14 @@ jobs:
   automate-scrum-dashboard:
     runs-on: ubuntu-latest
     steps:
-      # AUTOMATIZACIÓN 1: Añadir issue con etiqueta 'task' al task backlog
-      - name: Add 'task' issues to task backlog
-        if: github.event.action == 'labeled' && github.event.label.name == 'task'
-        uses: alex-page/github-project-automation-plus@v0.8.3
+      - name: Add or Move Issue in Project
+        uses: srggrs/assign-one-project-github-action@v1.3.1
+        if: |
+          (github.event.action == 'labeled' && github.event.label.name == 'task') ||
+          (github.event.action == 'assigned')
         with:
-          project: onboarding-pymes-nocountry        
-          column: Task Backlog                 
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      # AUTOMATIZACIÓN 2: Mover issue a 'task to do' al asignarlo a un desarrollador
-      - name: Move issue to task to do when assigned
-        if: github.event.action == 'assigned'
-        uses: alex-page/github-project-automation-plus@v0.8.3
-        with:
-          project: onboarding-pymes-nocountry        
-          column: Task to do          
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          project-url: "https://github.com/users/TomasLaus/projects/1"
+          
+          github-token: ${{ secrets.PROJECT_TOKEN }}
+          
+          column_name: ${{ (github.event.action == 'assigned' && 'Task to do') || 'Task Backlog' }}
