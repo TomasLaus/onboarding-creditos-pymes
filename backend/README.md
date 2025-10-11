@@ -6,17 +6,13 @@
 npm install
 ```
 
-
-- Crear un archivo `.env` en la carpeta `backend/` y configurar con sus propias credenciales (Guiarse del archivo ```.env.example```):
+- Crear un archivo `.env` en la carpeta `backend/` y configurar con sus propias credenciales (Guiarse del archivo `.env.example`):
 
 > [!CAUTION]
 > NO SE DEBE AGREGAR EL `.env` AL REPOSITORIO PUBLICO, es un archivo con credenciales sensibles. No borrar el `.env` del archivo `.gitignore`
 
-
-
-
-
 ## LEVANTAR SERVER POSTGRES DB
+
 - primero instalar e iniciar docker deskptop (buscar en google docker desktop)
 
 - [Docker Desktop - Click aquí](https://www.docker.com/products/docker-desktop/) - Link para descargar -
@@ -24,7 +20,7 @@ npm install
 
 ```bash
 docker-compose up
-````
+```
 
 ## MIGRAR DB (crear tablas a partir de esquemas definidos)
 
@@ -72,4 +68,12 @@ const transporter = nodemailer.createTransport({
     pass: 'pass'
   }
 })
+```
+
+# test de integracion
+
+- tener en cuenta de usar una base de datos aislada para entorno de desarrollo, ya que persiste y elimina datos.
+
+```bash
+npm run jest:test
 ```

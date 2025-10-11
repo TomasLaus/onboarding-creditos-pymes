@@ -1,9 +1,16 @@
-import prisma from '../config/config'
+import prisma from '../config/prisma'
 //import { User } from '../models/user';
 import { Company } from '@prisma/client'
 
 export const createCompany = async (data: Company): Promise<any> => {
   return prisma.company.create({ data })
+}
+
+export const updateCompany = async (id: string, data: Partial<Company>): Promise<Partial<Company>> => {
+  return prisma.company.update({
+    where: { id },
+    data
+  })
 }
 
 // Obtener todas las empresas
