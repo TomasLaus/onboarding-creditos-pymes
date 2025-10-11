@@ -46,7 +46,7 @@
     "jest:test": "jest",
     "build": "tsc",
     "start": "node dist/server.js",
-    "postinstall": "npx prisma generate && npx prisma migrate deploy",
+    "postinstall": "npx prisma generate && npx prisma db push",
     "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\""
   }
 }
