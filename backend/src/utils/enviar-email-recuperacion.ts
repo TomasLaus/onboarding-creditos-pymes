@@ -26,7 +26,7 @@ export const enviarEmailRecuperacion = async (email: string, link: string) => {
 
     // Configurar contenido del correo
     const mailOptions = {
-      from: `"Soporte Onboarding PyMEs" <tomaslaus99@gmail.com>`,
+      from: `"Soporte Onboarding PyMEs" <${process.env.SMTP_SENDER}>`,
       to: email,
       subject: "Recuperación de contraseña",
       html: `

@@ -60,8 +60,8 @@ export const transporter = nodemailer.createTransport({
   port: Number(process.env.SMTP_PORT) || 587,
   secure: false, // STARTTLS
   auth: {
-    user: '98ffda002@smtp-brevo.com',
-    pass: 'xsmtpsib-e1be9a181cb267094da2a1a2c39c27535dda684c198d46a041ba224d7b79af51-bCXc2GPhK58MREQD'
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS
   },
   tls: {
     rejectUnauthorized: false

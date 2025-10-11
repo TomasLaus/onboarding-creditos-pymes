@@ -10,7 +10,7 @@ export function enviarEmailActivacion(
   const activationLink = `http://${backend_url}/api/users/activate?token=${token}&email=${email}`
 
   const mailOptions = {
-    from: process.env.SMTP_FROM || `"Soporte Onboarding PyMEs" <tomaslaus99@gmail.com>`, // remitente verificado
+    from: process.env.SMTP_FROM || `"Soporte Onboarding PyMEs" <${process.env.SMTP_SENDER}>`, // remitente verificado
     to: email,
     subject: 'Activa tu cuenta',
     text: `Haz click aquí para activar tu cuenta: ${activationLink}`,
