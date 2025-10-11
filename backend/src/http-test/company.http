@@ -1,11 +1,11 @@
 ### Actualizar empresa
-POST http://localhost:3000/api/company/update
+PUT http://localhost:3000/api/company/update
 Content-Type: application/json
 
 {
   "id": "cmgl9reyu0002jcokivyhuxbi",
   "phone": "222222",
   "altEmail": "jp@empresa.com",
-  "address": "Calle Falsa 123"
+  "address": "Calle Falsa 122222222223"
 }
 

@@ -24,7 +24,7 @@ export const update = async (req: Request, res: Response) => {
     const response: CreateCompanyResponseOKDTO = {
       newProps: {
         phone: updatedCompany.phone,
-        altEmail: updatedCompany.altEmail,
+        altEmail: postBodyData.altEmail ? updatedCompany.altEmail : exist.altEmail,
         address: updatedCompany.address
       },
       oldProps: oldCompanyData
