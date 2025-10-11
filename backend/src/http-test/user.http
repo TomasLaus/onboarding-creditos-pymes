@@ -5,7 +5,7 @@ Content-Type: application/json
 {
   "email": "juan334@hotmail.com",
   "password": "Secreto0-",
-  "twoFactorSecret": "super-secreto-mal",
+  "twoFactorSecret": "",
   "legalName": "Juan Perez",
   "taxId": "20-22486722-1",
   "phone": "3704768485"
