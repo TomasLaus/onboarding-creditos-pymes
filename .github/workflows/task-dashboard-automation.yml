@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Add or Move Issue in Project
-        uses: srggrs/assign-one-project-github-action@v1.3.1
+        uses: srggrs/assign-one-project-github-action@v2
         if: |
           (github.event.action == 'labeled' && github.event.label.name == 'task') ||
           (github.event.action == 'assigned')
