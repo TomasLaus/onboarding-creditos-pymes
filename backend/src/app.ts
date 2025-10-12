@@ -26,17 +26,10 @@ export const transporter = nodemailer.createTransport({
     rejectUnauthorized: false
   }
 })
-
 // Swagger  API docs
 app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup)
-<<<<<<< HEAD
 
-
-
-// Rutas de usuario y autenticación
-=======
 //API ROUTES
->>>>>>> 379e71336b6c02e498548e0bc49033b62b0ae64c
 app.use('/api/users', userRoutes)
 app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)

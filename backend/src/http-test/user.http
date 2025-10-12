@@ -1,0 +1,24 @@
+### Crear usuario
+//POST http://localhost:3000/api/users/create
+//POST https://ocp-u9t0.onrender.com/api/users/create
+//POST https://ocp-u9t0.onrender.com/api/users/create
+POST http://localhost:3000/api/users/create
+Content-Type: application/json
+
+{
+  "email": "juan334@hotmail.com",
+  "password": "Secreto0-",
+  "twoFactorSecret": "",
+  "legalName": "Juan Perez",
+  "taxId": "20-22486722-1",
+  "phone": "3704768485"
+}
+
+### activar usuario
+GET http://localhost:3000/api/users/activate?token=4fa3722d142b1343edbe9b3876cc960f7943f60744acb2b051d17e120ea63f91&email=juan334@hotmail.com
+//GET https://ocp-u9t0.onrender.com/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+
+GET https://ocp-u9t0.onrender.com/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+
+### Obtener todos los usuarios
+GET http://localhost:3000/api/users/getAll

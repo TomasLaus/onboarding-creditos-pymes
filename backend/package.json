@@ -5,10 +5,7 @@
     "@types/node": "^24.7.1",
     "@types/nodemailer": "^7.0.2",
     "@types/swagger-ui-express": "^4.1.8",
-<<<<<<< HEAD
     "axios": "^1.12.2",
-=======
->>>>>>> 379e71336b6c02e498548e0bc49033b62b0ae64c
     "bcrypt": "^6.0.0",
     "chalk": "^5.6.2",
     "cors": "^2.8.5",
@@ -30,24 +27,19 @@
     "@types/node": "^24.7.1",
     "@types/nodemailer": "^7.0.2",
     "@types/supertest": "^6.0.3",
-    "@types/swagger-ui-express": "^4.1.8",
     "i": "^0.3.7",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
     "npm": "^11.6.1",
     "prisma": "^6.16.3",
-<<<<<<< HEAD
     "ts-jest": "^29.4.4",
-    "ts-node": "^10.9.2"
-=======
-    "supertest": "^7.1.4",
-    "ts-jest": "^29.4.4"
->>>>>>> 379e71336b6c02e498548e0bc49033b62b0ae64c
+    "ts-node": "^10.9.2",
+    "supertest": "^7.1.4"
+
   },
   "scripts": {
     "prisma:studio": "npx prisma studio",
     "prisma:studio:browser": "start firefox http://localhost:5555",
-    "swagger:docs": "start firefox http://localhost:3000/api/docs/",
     "docker:desktop": "tasklist /FI \"IMAGENAME eq Docker Desktop.exe\" | find /I \"Docker Desktop.exe\" >nul || start \"\" \"C:\\Program Files\\Docker\\Docker\\Docker Desktop.exe\"",
     "nodemon:express": "nodemon src/server.ts",
     "jest:test": "npx jest --verbose",

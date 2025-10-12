@@ -4,7 +4,7 @@
 // ========================================
 
 import { Prisma } from '@prisma/client';
-import prisma from '../config/config';
+import prisma from '../config/prisma';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { LoginDTO, LoginResponseDTO } from '../dto/loginDTO';
