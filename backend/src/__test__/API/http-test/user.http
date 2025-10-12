@@ -6,7 +6,7 @@ POST https://ocp-u9t0.onrender.com/api/users/create
 Content-Type: application/json
 
 {
-  "email": "juan334@hotmail.com",
+  "email": "juan3334@hotmail.com",
   "password": "Secreto0-",
   "twoFactorSecret": "",
   "legalName": "Juan Perez",
