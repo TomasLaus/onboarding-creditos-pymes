@@ -1,9 +1,14 @@
+
+@LOCAL_URL = http://localhost:3000
+@PRODUCTION_URL = https://onboarding-creditos-pymes.onrender.com
+
+
 ### Crear usuario
 POST http://localhost:3000/api/users/create
 Content-Type: application/json
 
 {
-  "email": "juan3334@hotmail.com",
+  "email": "juan334@hotmail.com",
   "password": "Secreto0-",
   "twoFactorSecret": "super-secreto-mal",
   "legalName": "Juan Perez",
@@ -12,8 +17,11 @@ Content-Type: application/json
 }
 
 ### activar usuario
-GET http://localhost:3000/api/users/activate?token=8d86cca9945fa07d2dba57c5beb421bcd5bcf403332cd5fee21696c74fa9e0ec&email=juan3343@hotmail.com
+GET http://localhost:3000/api/users/activate?token=7d50d0123f1874dc58ed2c6c13199841f1d22a1fb7a82ea51874c05e12d5fe43&email=juan334@hotmail.com
 
 ### Obtener todos los usuarios
 GET http://localhost:3000/api/users/getAll
+
+### eliminar todos los usuarios
+GET http://localhost:3000/api/users/deleteAll
 

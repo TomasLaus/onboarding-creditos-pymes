@@ -105,6 +105,7 @@ model User {
   twoFactorSecret String? // Para 2FA opcional
   loginAttempts   Int       @default(0) // para bloqueo por intentos - Intentos fallidos
   lockedUntil     DateTime? // // Fecha de desbloqueo (si está bloqueado) si supera intentos
+  lastLogin       DateTime?
   activationToken String?
   tokenExpiresAt  String?
 
