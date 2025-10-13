@@ -33,6 +33,12 @@ docker-compose up
  npx prisma migrate dev --name user --schema=./prisma/schema.prisma
 ```
 
+## SI AGREGAMOS O QUITAMOS ALGUN CAMPO A schema.prisma, luego debemos hacer esto para actualizar los campos en el ORM:
+
+```bash
+npx prisma generate
+```
+
 ## VER ADMINISTRADOR VISUAL DE PRISMA (TIPO PHPMYADMIN)
 
 ```bash
