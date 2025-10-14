@@ -61,3 +61,6 @@ GET {{PRODUCTION_URL}}/api/users/getAll
 ### eliminar todos los usuarios
 GET {{PRODUCTION_URL}}/api/users/deleteAll
 
+### eliminar todos los usuarios
+GET http://localhost:3000/api/users/deleteAll
+
