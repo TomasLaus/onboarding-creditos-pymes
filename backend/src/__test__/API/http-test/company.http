@@ -1,10 +1,17 @@
+
+### Obtener todos los empresas
+GET http://localhost:3000/api/company/getAll
+
+
+
 ### Actualizar empresa
 PUT http://localhost:3000/api/company/update
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWdxbTIzamkwMDAwamN3b2l5ZDhxeHZzIiwiZW1haWwiOiJqdWFuMzM0QGhvdG1haWwuY29tIiwiaWF0IjoxNzYwNDUwMzU3LCJleHAiOjE3NjEwNTUxNTd9.ZGtNUXwRW9fTHDlzbWa4Z9Hz56gZwZ86sd_SzFAqOkc
 
 {
-  "id": "cmgl9reyu0002jcokivyhuxbi",
-  "phone": "222222",
+  "id": "cmgqm23jz0002jcwoilxxxp7u",
+  "phone": "2222222222222",
   "altEmail": "jp@empresa.com",
   "address": "Calle Falsa 122222222223"
 }

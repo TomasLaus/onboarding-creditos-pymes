@@ -17,4 +17,20 @@ Content-Type: application/json
 
 
 
+/////////////////////////////////////////////////////////////////////////
+
+###  HEALTH CHECK
+GET {{PRODUCTION_URL}}/api/login/health
+
+### LOGIN USUARIO
+POST {{PRODUCTION_URL}}/api/login
+Content-Type: application/json
+
+{
+    "email": "juan334@hotmail.com",
+    "password": "Secreto0-"
+}
+
+
+
 

@@ -3,7 +3,7 @@ import { Company } from '@prisma/client'
 //campos opcionales (uno o los tres)
 export type UpdateCompanyDTO = Partial<Pick<Company, 'id' | 'phone' | 'altEmail' | 'address'>>
 
-//esta respuesta debe incluir exactamente las propiedades phone, altEmail y address
+// & { phone: string | null }  acepta nulls en los campos
 export interface CreateCompanyResponseOKDTO {
   newProps: Pick<Company, 'phone' | 'altEmail' | 'address'>
   oldProps: Pick<Company, 'phone' | 'altEmail' | 'address'>

@@ -6,10 +6,18 @@ export const createCompany = async (data: Company): Promise<any> => {
   return prisma.company.create({ data })
 }
 
-export const updateCompany = async (id: string, data: Partial<Company>): Promise<Partial<Company>> => {
+export const updateCompany = async (
+  id: string,
+  data: Partial<Company>
+): Promise<Pick<Company, 'phone' | 'altEmail' | 'address'>> => {
   return prisma.company.update({
     where: { id },
-    data
+    data,
+    select: {
+      phone: true,
+      altEmail: true,
+      address: true
+    }
   })
 }
 

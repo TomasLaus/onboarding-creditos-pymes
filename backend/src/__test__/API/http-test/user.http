@@ -3,6 +3,14 @@
 @PRODUCTION_URL = https://onboarding-creditos-pymes.onrender.com
 
 
+### eliminar todos los usuarios
+GET http://localhost:3000/api/users/deleteAll
+
+
+### Obtener todos los usuarios
+GET http://localhost:3000/api/users/getAll
+
+
 ### Crear usuario
 POST http://localhost:3000/api/users/create
 Content-Type: application/json
@@ -17,13 +25,8 @@ Content-Type: application/json
 }
 
 ### activar usuario
-GET http://localhost:3000/api/users/activate?token=7d50d0123f1874dc58ed2c6c13199841f1d22a1fb7a82ea51874c05e12d5fe43&email=juan334@hotmail.com
+GET http://localhost:3000/api/users/activate?token=199b60dfb9b2e35fbd3ab598b482331d474a0c80bdaa982bb7188d36e00c43a7&email=juan334@hotmail.com
 
-### Obtener todos los usuarios
-GET http://localhost:3000/api/users/getAll
-
-### eliminar todos los usuarios
-GET http://localhost:3000/api/users/deleteAll
 
 
 

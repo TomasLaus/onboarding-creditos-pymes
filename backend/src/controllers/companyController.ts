@@ -1,11 +1,23 @@
 import { CreateCompanyResponseOKDTO, UpdateCompanyDTO } from '../dto/companyDTO'
-import { updateCompany, getCompanyById } from '../repositories/companyRepository'
+import { updateCompany, getCompanyById, getAllCompanies } from '../repositories/companyRepository'
 import { Request, Response } from 'express'
+import { verifyToken } from '../utils/jwt'
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const postBodyData: UpdateCompanyDTO = req.body as UpdateCompanyDTO
+    const authHeader = req.headers.authorization
+    if (!authHeader) {
+      return res.status(401).json({ message: 'No se proporcionó el token de autorización.' })
+    }
+    const token = authHeader.split(' ')[1] // separa "Bearer" y se queda con el token
+    const decoded = verifyToken(token)
+    if (!decoded) {
+      return res.status(401).json({ message: 'Token de autorización inválido.' })
+    }
 
+    /////////////////////////////
+
+    const postBodyData: UpdateCompanyDTO = req.body as UpdateCompanyDTO
     if (!postBodyData.id) {
       return res.status(400).json({ message: 'El ID de la empresa es requerido.' })
     }
@@ -21,16 +33,25 @@ export const update = async (req: Request, res: Response) => {
     }
     const updatedCompany: UpdateCompanyDTO = await updateCompany(postBodyData.id, postBodyData)
 
-    const response: CreateCompanyResponseOKDTO = {
+    const response = {
       newProps: {
-        phone: updatedCompany.phone,
-        altEmail: postBodyData.altEmail ? updatedCompany.altEmail : exist.altEmail,
-        address: updatedCompany.address
+        phone: updatedCompany.phone ?? '',
+        altEmail: updatedCompany.altEmail ?? '',
+        address: updatedCompany.address ?? ''
       },
       oldProps: oldCompanyData
-    } as CreateCompanyResponseOKDTO
+    } satisfies CreateCompanyResponseOKDTO
 
     return res.status(200).json({ message: 'Empresa actualizada correctamente.', data: response })
+  } catch (error) {
+    return res.status(500).json({ message: 'Error interno del servidor.' })
+  }
+}
+
+export const getAll = async (req: Request, res: Response) => {
+  try {
+    const companies = await getAllCompanies()
+    return res.status(200).json({ message: 'Empresas obtenidas correctamente.', data: companies })
   } catch (error) {
     return res.status(500).json({ message: 'Error interno del servidor.' })
   }
