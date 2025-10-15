@@ -4,7 +4,12 @@ import express from 'express'
 import userRoutes from './routes/user'
 import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 import nodemailer from 'nodemailer'
+import companyRoutes from './routes/company'
+//import authRoutes from './routes/auth';
+// import errorHandler from './middlewares/errorHandler';
+// import notFound from './middlewares/notFound';
 import authRoutes from './routes/auth'
+import loginRoutes from './routes/login'
 
 // Verificación de configuración SMTP al iniciar la app
 // ---------------------------------------------------------------
@@ -58,7 +63,7 @@ app.use(express.json())
 export const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
   port: Number(process.env.SMTP_PORT) || 587,
-  secure: false, // STARTTLS
+  secure: true, // STARTTLS
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS
@@ -67,13 +72,14 @@ export const transporter = nodemailer.createTransport({
     rejectUnauthorized: false
   }
 })
-
-// Swagger docs
+// Swagger  API docs
 app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup)
 
-// Rutas de usuario y autenticación
+//API ROUTES
 app.use('/api/users', userRoutes)
+app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/login', loginRoutes)
 
 app._router.stack.forEach((r: any) => {
   if (r.route && r.route.path) {

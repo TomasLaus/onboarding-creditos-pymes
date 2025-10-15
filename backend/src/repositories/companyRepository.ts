@@ -1,9 +1,24 @@
-import prisma from '../config/config'
+import prisma from '../config/prisma'
 //import { User } from '../models/user';
 import { Company } from '@prisma/client'
 
 export const createCompany = async (data: Company): Promise<any> => {
   return prisma.company.create({ data })
+}
+
+export const updateCompany = async (
+  id: string,
+  data: Partial<Company>
+): Promise<Pick<Company, 'phone' | 'altEmail' | 'address'>> => {
+  return prisma.company.update({
+    where: { id },
+    data,
+    select: {
+      phone: true,
+      altEmail: true,
+      address: true
+    }
+  })
 }
 
 // Obtener todas las empresas

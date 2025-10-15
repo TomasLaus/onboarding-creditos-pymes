@@ -1,4 +1,4 @@
-import prisma from '../config/config'
+import prisma from '../config/prisma'
 //import { User } from '../models/user';
 import { User } from '@prisma/client'
 
@@ -33,4 +33,9 @@ export const getUserByEmail = async (email: string): Promise<any | null> => {
   return await prisma.user.findUnique({
     where: { email }
   })
+}
+
+export const deleteAllUsers = async (): Promise<any> => {
+  await prisma.company.deleteMany()
+  return prisma.user.deleteMany()
 }

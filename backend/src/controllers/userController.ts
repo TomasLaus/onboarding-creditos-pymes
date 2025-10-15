@@ -7,7 +7,8 @@ import {
   getUserByEmail,
   getUserById,
   activateUser,
-  updateUser
+  updateUser,
+  deleteAllUsers
 } from '../repositories/userRepository'
 import { CreateUserDTO, CreateUserResponseOKDTO, CreateUserResponseErrorDTO } from '../dto/userDTO'
 import { Company, User } from '@prisma/client'
@@ -51,7 +52,7 @@ export const create = async (req: Request, res: Response) => {
     //hashear pass
     const hashedPassword = await bcrypt.hash(postBodyData.password, 10)
 
-    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta >')
+    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta.')
 
     const userToInsert: User = {
       email: postBodyData.email,
@@ -72,11 +73,15 @@ export const create = async (req: Request, res: Response) => {
 
     const createdCompany: Company = await createCompany(companyToInsert)
 
-    const responseUser: CreateUserResponseOKDTO = {
+    interface tempDTO {
+      tokenActivacion: string
+    }
+    const responseUser: CreateUserResponseOKDTO & tempDTO = {
       email: createdUser.email,
       legalName: createdCompany.legalName,
       taxId: createdCompany.taxId,
-      phone: createdCompany.phone
+      phone: createdCompany.phone,
+      tokenActivacion: token
     }
 
     res.status(201).json({
@@ -122,5 +127,14 @@ export const getAll = async (_req: Request, res: Response) => {
     res.json({ data: users })
   } catch (error) {
     res.status(500).json({ message: 'Error consultando todos los usuarios.', error })
+  }
+}
+
+export const deleteAll = async (_req: Request, res: Response) => {
+  try {
+    await deleteAllUsers()
+    res.json({ message: 'Todos los usuarios han sido eliminados.' })
+  } catch (error) {
+    res.status(500).json({ message: 'Error eliminando todos los usuarios.', error })
   }
 }
