@@ -4,24 +4,24 @@ import './SectionPreguntas.css'
 
 const faqs = [
     {
-        q: "¿Puedo cancelar o reprogramar una sesión?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        q: "¿Qué requisitos necesito para solicitar un crédito?",
+        a: "Solo necesitas tu RUC activo, DNI del representante legal y los estados financieros recientes de tu empresa.Todo se sube de forma digital, sin trámites presenciales.",
     },
     {
-        q: "¿Puedo cancelar o reprogramar una sesión?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        q: "¿Cuánto tiempo demora la aprobación?",
+        a: "Nuestro proceso de evaluación es 100 % digital. En promedio, obtendrás una respuesta entre 24 y 72 horas hábiles, según el monto solicitado.",
     },
     {
-        q: "¿Puedo cancelar o reprogramar una sesión?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        q: "¿Cómo sé si mi empresa califica?",
+        a: "Durante el registro realizamos una pre-evaluación automática con tus datos del RUC y la información básica de tu empresa.",
     },
     {
-        q: "¿Puedo cancelar o reprogramar una sesión?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        q: "¿Es seguro compartir mis datos?",
+        a: "Sí, en Fintech Pyme utiliza cifrado de datos y cumple con las normas de protección de información financiera (KYC/AML). Tu información está protegida en todo momento.",
     },
     {
-        q: "¿Puedo cancelar o reprogramar una sesión?",
-        a: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+        q: "¿Qué monto máximo puedo solicitar?",
+        a: "Los montos dependen del perfil financiero de tu empresa.Ofrecemos créditos desde S/ 10,000 hasta S/ 200,000, con plazos flexibles y tasas personalizadas.",
     },
 ];
 

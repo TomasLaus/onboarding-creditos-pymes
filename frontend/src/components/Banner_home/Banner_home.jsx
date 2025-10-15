@@ -13,14 +13,14 @@ const Banner_home = () => {
     <section className="hero-banner" style={bannerStyle}>
       <div className="banner-content">
         <h1 className="banner-title">
-          Créditos rápidos y <br /> 100% digitales para <br /> tu PYME.
+          Créditos rápidos y simples <br /> para tu PYME, sin burocracía.
         </h1>
         <p className="banner-subtitle">
-          ¡Solicita tu crédito en minutos, 100% digital y con respaldo confiable!
+          Solicita tu crédito en  menos de 5 minutos. Sin papeleo, <br /> 100% online. Respuesta en 24h.
         </p>
         <div className="banner-actions">
           <Link to="/solicitar-credito" className="btn-banner-primary">
-            Solicitar Crédito Ahora
+            Solicitar crédito ahora
           </Link>
           <Link to="/mas-informacion" className="btn-banner-secondary">
             Conocer más

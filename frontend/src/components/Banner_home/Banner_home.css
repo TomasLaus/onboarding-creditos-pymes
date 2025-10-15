@@ -1,85 +1,84 @@
+
 .hero-banner {
-    width: 100%;
-    height: 550px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-    box-sizing: border-box;
-    padding: 0 10%;
-  }
+  width: 100%;
+  height: 550px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: #ffffff;
+  box-sizing: border-box;
+  padding: 0 2rem;
+}
+
+.banner-content {
+  max-width: 1200px;
+  padding: 0;
+  text-align: left;
+}
+
+.banner-title {
+  font-family: Arial, sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.banner-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  max-width: 100%;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-banner-primary {
+  padding: 12px 25px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: rgba(25, 170, 145, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
   
-  .banner-content {
-    max-width: 600px;
-    padding: 0 20px;
-    text-align: left;
-  }
-  
-  .banner-title {
-    font-family: Arial, sans-serif;
-    font-size: 3.5rem;
-    font-weight: bold;
-    margin: 0;
-    line-height: 1.2;
-  }
-  
-  .banner-subtitle {
-    font-family: Arial, sans-serif;
-    font-size: 1.1rem;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    max-width: 100%;
-  }
-  
-  .banner-actions {
-    display: flex;
-    gap: 15px;
-  }
-  
-  .btn-banner-primary {
-    padding: 12px 25px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: rgba(0, 156, 222, 0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-  }
-    
-  .btn-banner-secondary {
-    padding: 12px 25px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: rgba(0, 191, 166, 0.4);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
-    text-decoration: none;
-  }
-  
-  .btn-banner-primary {
-    border-color: #009cde;
-  }
-  
-  .btn-banner-primary:hover {
-    background-color: #009cde;
-    transform: translateY(-2px);
-  }
-  
-  .btn-banner-secondary {
-    border-color: #00bfa6;
-  }
-  
-  .btn-banner-secondary:hover {
-    background-color: #00bfa6;
-    transform: translateY(-2px);
-  }
+.btn-banner-secondary {
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #000;
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-banner-primary {
+  border-color: #009cde;
+}
+
+.btn-banner-primary:hover {
+  background-color: ;
+  transform: translateY(-2px);
+}
+
+.btn-banner-secondary {
+  border-color: #ffffff;
+}
+
+.btn-banner-secondary:hover {
+  background-color: #ffffff;
+  transform: translateY(-2px);
+}

@@ -21,12 +21,12 @@
     border-radius: 12px;
     flex: 1 1 280px;
     width: 80%;
-    background: linear-gradient(to bottom, #F6F6F6 55%, var(--primary) 45%);
+    background: linear-gradient(to bottom, #EDDCF8 55%, var(--primary) 45%);
     transition: transform 0.3s ease;
 }
 
 .casoCard:nth-child(odd) {
-    background: linear-gradient(to bottom, #F6F6F6 55%, var(--secondary) 45%);
+    background: linear-gradient(to bottom, #D3FFF5 55%, var(--secondary) 45%);
 }
 
 .casoCard:hover {

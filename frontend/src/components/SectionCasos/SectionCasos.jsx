@@ -1,22 +1,22 @@
-import React from 'react'
 import './SectionCasos.css'
+
 
 const casos = [
     {
-        mensaje: 'Intentamos probar otras  instituciones financieras, pero el proceso era muy engorroso y las aprobaciones lentas. Encontramos en Lorem algo cercano y rápido.',
+        mensaje: '"Intentamos probar otras instituciones financieras, pero el proceso era muy engorroso y las aprobaciones lentas. Encontramos en FintechPyme cercano y rápido."',
         nombre: 'Cris Hernández',
         empresa: 'Founder y CEO de Mapoteca',
         imagen: './ceo.png'
     }, {
-        mensaje: 'Intentamos probar otras  instituciones financieras, pero el proceso era muy engorroso y las aprobaciones lentas. Encontramos en Lorem algo cercano y rápido.',
-        nombre: 'Cris Hernández',
-        empresa: 'Founder y CEO de Mapoteca',
-        imagen: './ceo.png'
+        mensaje: '"Antes teníamos que ir al banco varias veces para pedir un préstamo. Con FintechPyme lo hicimos todo online, validaron mi RUC y en dos días ya teníamos el prestamo."',
+        nombre: 'Fredy Gutiérrez',
+        empresa: 'Dueño de Textiles Andinos',
+        imagen: './fredy.png'
     }, {
-        mensaje: 'Intentamos probar otras  instituciones financieras, pero el proceso era muy engorroso y las aprobaciones lentas. Encontramos en Lorem algo cercano y rápido.',
-        nombre: 'Cris Hernández',
-        empresa: 'Founder y CEO de Mapoteca',
-        imagen: './ceo.png'
+        mensaje: '"Gracias a FintechPyme pudimos ampliar nuestro local. El proceso fue súper rápido y digital, sin papeleos eternos. En una semana ya teníamos el crédito aprobado.”',
+        nombre: 'Marta Cortéz',
+        empresa: 'Fundadora de Delipan',
+        imagen: './marta.png'
     }
 ]
 

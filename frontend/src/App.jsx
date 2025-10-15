@@ -3,7 +3,7 @@ import Header from './components/Header/Header';
 import AppRouter from './router/AppRouter';
 import Footer from './components/Footer/Footer';
 import { ModalProvider } from './context/ModalContext';
-import LoginModal from './components/LoginModal/LoginModal';
+
 
 import './App.css';
 
@@ -16,7 +16,6 @@ function App() {
           <AppRouter />
         </main>
         <Footer />
-        <LoginModal />
       </div>
     </ModalProvider>
   );
