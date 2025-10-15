@@ -47,7 +47,7 @@ export const enviarEmailRecuperacion = async (email: string, link: string) => {
     const response = await axios.post(
       'https://api.brevo.com/v3/smtp/email',
       {
-        sender: { name: 'Soporte Onboarding PyMEs', email: 'tomaslaus99@gmail.com' },
+        sender: { name: 'Soporte Onboarding PyMEs', email: `${process.env.SMTP_SENDER}` },
         to: [{ email }],
         subject: "Recuperación de contraseña",
         htmlContent: `
