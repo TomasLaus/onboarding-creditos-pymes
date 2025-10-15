@@ -40,6 +40,6 @@ export const enviarEmailRecuperacion = async (email: string, link: string) => {
     console.log(`📩 Email de recuperación enviado a ${email}: ${info.messageId}`);
   } catch (error: any) {
     console.error("❌ Error al enviar email de recuperación:", error.message);
-    throw new Error("No se pudo enviar el email de recuperación");
+    throw new Error(`No se pudo enviar el email de recuperación ${error.message}`);
   }
 };
