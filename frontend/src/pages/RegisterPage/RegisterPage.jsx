@@ -17,6 +17,10 @@ const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  
 
   const validateField = async (name, value) => {
     let error = '';
@@ -65,6 +69,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setApiError('');
+    setIsLoading(true);
     const newErrors = {};
     for (const key in formData) {
       const error = await validateField(key, formData[key]);
@@ -73,12 +78,16 @@ const RegisterPage = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setIsLoading(false);
       return;
     }
 
     try {
       await axios.post('http://localhost:3000/api/users/create', formData);
-      navigate('/login'); // Redirige a la página de login
+      setIsSuccess(true);
+      setTimeout(() => {
+        navigate('/login'); // Redirige a la página de login después de 3 segundos
+      }, 3000);
 
     } catch (error) {
         if (error.response && error.response.data) {
@@ -87,6 +96,8 @@ const RegisterPage = () => {
         } else {
             setApiError('No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.');
         }
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -94,77 +105,89 @@ const RegisterPage = () => {
     <div className="register-page-container">
       <div className="register-form-wrapper">
         <h2>Crear cuenta</h2>
-        <p>Completa tus datos para registrarte en la plataforma</p>
-        <form onSubmit={handleSubmit} noValidate>
-            {apiError && <div className="api-error-message">{apiError}</div>}
-          <div className="input-group">
-            <label>Nombre Completo o Razón Social</label>
-            <input
-              type="text"
-              name="legalName"
-              value={formData.legalName}
-              onChange={handleChange}
-              placeholder="Empresa S.A."
-            />
-            {errors.legalName && <span className="error-message">{errors.legalName}</span>}
+        {isSuccess ? (
+          <div className="success-message">
+            <h3>¡Registro exitoso!</h3>
+            <p>Serás redirigido a la página de inicio de sesión en unos segundos...</p>
           </div>
-          <div className="input-group">
-            <label>TIN ( RUC / NIT / RUT / CUIT )</label>
-            <input
-              type="text"
-              name="taxId"
-              value={formData.taxId}
-              onChange={handleChange}
-              placeholder="20123456789"
-            />
-            {errors.taxId && <span className="error-message">{errors.taxId}</span>}
-          </div>
-          <div className="input-group">
-            <label>Correo electrónico</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="contacto@empresa.com"
-            />
-            {errors.email && <span className="error-message">{errors.email}</span>}
-          </div>
-          <div className="input-group">
-            <label>Teléfono</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="+51 999 999 999"
-            />
-            {errors.phone && <span className="error-message">{errors.phone}</span>}
-          </div>
-          <div className="input-group">
-            <label>Contraseña</label>
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="........"
-              />
-              <span onClick={() => setShowPassword(!showPassword)} className="password-toggle-icon">
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
+        ) : (
+          <>
+            <p>Completa tus datos para registrarte en la plataforma</p>
+            <form onSubmit={handleSubmit} noValidate>
+                {apiError && <div className="api-error-message">{apiError}</div>}
+              <div className="input-group">
+                <label>Nombre Completo o Razón Social</label>
+                <input
+                  type="text"
+                  name="legalName"
+                  value={formData.legalName}
+                  onChange={handleChange}
+                  placeholder="Empresa S.A."
+                />
+                {errors.legalName && <span className="error-message">{errors.legalName}</span>}
+              </div>
+              <div className="input-group">
+                <label>TIN ( RUC / NIT / RUT / CUIT )</label>
+                <input
+                  type="text"
+                  name="taxId"
+                  value={formData.taxId}
+                  onChange={handleChange}
+                  placeholder="20123456789"
+                />
+                {errors.taxId && <span className="error-message">{errors.taxId}</span>}
+              </div>
+              <div className="input-group">
+                <label>Correo electrónico</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="contacto@empresa.com"
+                />
+                {errors.email && <span className="error-message">{errors.email}</span>}
+              </div>
+              <div className="input-group">
+                <label>Teléfono</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+51 999 999 999"
+                />
+                {errors.phone && <span className="error-message">{errors.phone}</span>}
+              </div>
+              <div className="input-group">
+                <label>Contraseña</label>
+                <div className="password-wrapper">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Mínimo 8 caracteres"
+                  />
+                  <span onClick={() => setShowPassword(!showPassword)} className="password-toggle-icon">
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+                {errors.password && <span className="error-message">{errors.password}</span>}
+              </div>
+              <button type="submit" className="register-button" disabled={isLoading}>
+                {isLoading ? 'Registrando...' : 'Registrarse'}
+              </button>
+            </form>
+            <div className="links">
+                <span>¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link></span>
             </div>
-            {errors.password && <span className="error-message">{errors.password}</span>}
-          </div>
-          <button type="submit" className="register-button">Registrarse</button>
-        </form>
-        <div className="links">
-            <span>¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link></span>
-        </div>
+          </>
+        )}
       </div>
     </div>
   );
+
 };
 
 export default RegisterPage;
