@@ -1,19 +1,33 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
-import userRoutes from './routes/user'
-import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
+import cors from 'cors'
 import nodemailer from 'nodemailer'
+
+import userRoutes from './routes/user'
 import companyRoutes from './routes/company'
-//import authRoutes from './routes/auth';
-// import errorHandler from './middlewares/errorHandler';
-// import notFound from './middlewares/notFound';
 import authRoutes from './routes/auth'
 import loginRoutes from './routes/login'
-import cors from 'cors'
+import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 
-// Verificación de configuración SMTP al iniciar la app
 // ---------------------------------------------------------------
+// SMTP Config
+// ---------------------------------------------------------------
+
+// Configuración de nodemailer (para activación de usuarios)
+// export const transporter = nodemailer.createTransport({
+//   host: process.env.SMTP_HOST,
+//   port: Number(process.env.SMTP_PORT) || 587,
+//   secure: false, // STARTTLS
+//   auth: {
+//     user: process.env.SMTP_USER,
+//     pass: process.env.SMTP_PASS
+//   },
+//   tls: {
+//     rejectUnauthorized: false
+//   }
+// })
+
 console.log('Configuración SMTP:')
 console.log('SMTP_HOST:', process.env.SMTP_HOST)
 console.log('SMTP_PORT:', process.env.SMTP_PORT)
@@ -24,7 +38,7 @@ async function testSMTP() {
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
     port: Number(process.env.SMTP_PORT) || 587,
-    secure: false, // STARTTLS
+    secure: false,
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS
@@ -41,69 +55,51 @@ async function testSMTP() {
 testSMTP().catch(console.error)
 
 // ---------------------------------------------------------------
-
+// Express App
+// ---------------------------------------------------------------
 const app = express()
 
 app.use(express.json())
 
-// ✅ Permitir cualquier origen
-app.use(cors())
-
-// o, si querés hacerlo explícito:
+// ✅ CORS — solo una vez y antes de las rutas
 app.use(
   cors({
-    origin: '*', // permite todo
+    origin: [
+      'http://localhost:3000', // si usás React
+      'http://localhost:5173', // si usás Vite
+      'https://onboarding-creditos-pymes.onrender.com' // backend Render (por si se llama a sí mismo)
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
   })
 )
 
-// Configuración de nodemailer (para activación de usuarios)
-// export const transporter = nodemailer.createTransport({
-//   host: process.env.SMTP_HOST,
-//   port: Number(process.env.SMTP_PORT) || 587,
-//   secure: false, // STARTTLS
-//   auth: {
-//     user: process.env.SMTP_USER,
-//     pass: process.env.SMTP_PASS
-//   },
-//   tls: {
-//     rejectUnauthorized: false
-//   }
-// })
+// ✅ Para responder OPTIONS correctamente
+app.options('*', cors())
 
-// Configuración de nodemailer para producción
-export const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-  port: Number(process.env.SMTP_PORT) || 587,
-  secure: true, // STARTTLS
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS
-  },
-  tls: {
-    rejectUnauthorized: false
-  }
-})
-// Swagger  API docs
+// ---------------------------------------------------------------
+// Rutas
+// ---------------------------------------------------------------
 app.use('/api/docs', swaggerUiMiddleware, swaggerUiSetup)
-
-//API ROUTES
 app.use('/api/users', userRoutes)
 app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/login', loginRoutes)
 
+// ---------------------------------------------------------------
+// Debug de rutas
+// ---------------------------------------------------------------
 app._router.stack.forEach((r: any) => {
   if (r.route && r.route.path) {
-    console.log("🛣 Ruta registrada:", r.route.path);
+    console.log('🛣 Ruta registrada:', r.route.path)
   } else if (r.name === 'router' && r.handle.stack) {
     r.handle.stack.forEach((handler: any) => {
       if (handler.route) {
-        console.log("🛣 Ruta registrada:", handler.route.path);
+        console.log('🛣 Ruta registrada:', handler.route.path)
       }
-    });
+    })
   }
-});
+})
 
 export default app
