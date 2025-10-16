@@ -1,0 +1,30 @@
+
+@LOCAL_URL = http://localhost:3000
+@PRODUCTION_URL = https://onboarding-creditos-pymes.onrender.com
+
+
+### Recuperar contraseña
+POST http://localhost:3000/api/auth/forgot-password
+Content-Type: application/json
+
+{
+  "email": "juan334@hotmail.com"
+}
+
+
+### Cambiar contraseña
+POST http://localhost:3000/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "juan334@hotmail.com",
+  "token": "640acc1b7515c553e4ae80e095b5a47ec3deddc67e5d9574e3105930938453db",
+  "newPassword": "NuevoSecreto0-"
+}
+
+
+/////////////////////////////////////////////////////////////////
+
+
+### ver si desplego github en render.
+GET {{PRODUCTION_URL}}/api/auth/renderIsUpdate

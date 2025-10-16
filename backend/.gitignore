@@ -4,4 +4,8 @@ dist/
 coverage/
 prisma/dev.db
 .prisma/
+pgdata_copy/
 pgdata/
+.env
+
+/src/generated/prisma
