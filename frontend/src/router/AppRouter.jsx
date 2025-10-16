@@ -4,16 +4,33 @@ import RegisterPage from '../pages/RegisterPage/RegisterPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
 import DashboardPage from '../pages/DashboardPage/DashboardPage'
+import { useAppContext } from '../context/appContext'
+import { Navigate } from 'react-router-dom'
 
 function AppRouter() {
+  const { tokenLogin } = useAppContext()
   return (
     <>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+          path="/login"
+          element={tokenLogin ? <DashboardPage /> : <LoginPage />}
+        />
+
+        <Route
+          path="/register"
+          element={tokenLogin ? <DashboardPage /> : <RegisterPage />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={tokenLogin ? <DashboardPage /> : <LoginPage />}
+        />
+
+        {/* fallback por si entra a una ruta no válida */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   )

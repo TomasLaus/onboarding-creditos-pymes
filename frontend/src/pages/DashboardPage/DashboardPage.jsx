@@ -1,4 +1,3 @@
-
 import { useAppContext } from '../../context/appContext'
 
 const DashboardPage = () => {

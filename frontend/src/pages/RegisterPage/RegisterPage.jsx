@@ -114,12 +114,9 @@ const RegisterPage = () => {
     } catch (error) {
       setShowModal(false)
       console.log(error)
-      if (error.response.status === 409) {
-        setErroresBackend(
-          'Ese correo electrónico / empresa ya está en registrada.'
-        )
-      }
+
       if (error.response && error.response.data) {
+        setErroresBackend(error.response.data.message)
         const errorMessage =
           error.response.data.detail || 'Ocurrió un error durante el registro.'
         setApiError(errorMessage)
