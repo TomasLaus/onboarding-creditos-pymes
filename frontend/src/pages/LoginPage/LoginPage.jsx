@@ -22,6 +22,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
   const { setTokenLogin, tokenLogin, userData, setUserData } = useAppContext()
   const [showModal, setShowModal] = useState(false)
+  const [erroresBackend, setErroresBackend] = useState('')
 
   const validateField = (name, value) => {
     let error = ''
@@ -74,6 +75,9 @@ const LoginPage = () => {
       }
     } catch (error) {
       if (error.response && error.response.data) {
+        setErroresBackend(
+          error.response.data.message + ' ' + error.response.data.error
+        )
         const errorMessage =
           error.response.data.detail || 'Ocurrió un error al iniciar sesión.'
         setApiError(errorMessage)
@@ -100,6 +104,9 @@ const LoginPage = () => {
             <p>Ingresa tus credenciales para acceder a tu cuenta</p>
             <form onSubmit={handleSubmit} noValidate>
               {apiError && <div className="api-error-message">{apiError}</div>}
+              {erroresBackend && (
+                <div className="api-error-message">{erroresBackend}</div>
+              )}
               <div className="input-group">
                 <label>Correo electrónico</label>
                 <input
