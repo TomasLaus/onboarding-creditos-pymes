@@ -1,0 +1,24 @@
+.modalmodal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex; /* flex para centrar contenido */
+  justify-content: center; /* centrado horizontal */
+  align-items: center; /* centrado vertical */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.special_modal {
+  display: flex; /* flex interno para centrar */
+  justify-content: center; /* centrado horizontal */
+  align-items: center; /* centrado vertical */
+  text-align: center; /* centra el texto multilinea */
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: white;
+}

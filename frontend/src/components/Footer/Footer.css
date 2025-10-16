@@ -1,0 +1,165 @@
+.footer {
+  width: 100%;
+  background: #fff;
+  padding: 40px 60px 20px;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.footer-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 2rem;
+  flex-wrap: nowrap; /* 🔹 esto evita que las columnas se apilen */
+}
+
+/* COLUMNA IZQUIERDA: LOGO E INFO */
+.footer-logo {
+  flex: 1.3;
+  min-width: 230px;
+  max-width: 280px;
+  color: #222;
+}
+
+.logo-image {
+  height: 35px;
+  margin-bottom: 15px;
+}
+
+.footer-logo p {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.4;
+  margin-bottom: 15px;
+}
+
+.footer-logo h4 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.socials {
+  display: flex;
+  gap: 15px;
+  font-size: 1.4rem;
+  color: #8331bd;
+}
+
+/* RESTO DE COLUMNAS */
+.footer-column {
+  flex: 1;
+  min-width: 160px;
+}
+
+.footer-column h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* COLUMNA DE CONTACTO */
+.contact p {
+  font-size: 0.85rem;
+  color: #333;
+  line-height: 1.3;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.secure-img {
+  width: 55px;
+  margin-top: 5px;
+}
+
+/* PARTE INFERIOR */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #555;
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  margin-top: 25px;
+}
+
+/* responsivo para tablets */
+
+@media (max-width: 1200px) {
+  .footer-top {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .footer-column {
+    flex: 1 1 45%;
+    min-width: 200px;
+  }
+}
+
+
+/* RESPONSIVE - MÓVILES */
+@media (max-width: 768px) {
+  .footer {
+    /* Reducimos el padding para pantallas pequeñas */
+    padding: 30px 20px;
+  }
+
+  .footer-top {
+    flex-direction: column; /* Apila todas las columnas */
+    align-items: center;   /* Centra las columnas en el contenedor */
+    gap: 1.5rem;           /* Espacio entre las columnas apiladas */
+  }
+
+    .footer-logo,
+  .footer-column {
+    width: 100%;
+    max-width: 320px; /* Evita que el contenido se estire demasiado */
+    text-align: center;   /* Centra el texto dentro de cada columna */
+    min-width: unset;     /* Resetea el min-width */
+    flex: unset;          /* Resetea el flex */
+    padding-bottom: 1.5rem; /* Espacio inferior para separar */
+    border-bottom: 1px solid #eee; /* Línea separadora */
+  }
+
+  /* Quita el borde de la última columna */
+  .footer-column:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+    .socials,
+  .contact-info {
+    justify-content: center; /* Centra los iconos sociales y de contacto */
+  }
+
+  .footer-bottom {
+    flex-direction: column; /* Apila los textos del copyright */
+    gap: 8px;
+    text-align: center;
+  }
+}

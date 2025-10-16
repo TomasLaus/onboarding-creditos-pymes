@@ -1,0 +1,127 @@
+.faq {
+    width: 80%;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.faq h2 {
+    color: var(--secondary);
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    border-radius: 6px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.50);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item button {
+    background: #fff;
+    border: none;
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.faq-item button:hover {
+    background-color: #f9f9f9;
+}
+
+
+.faq-item button span {
+    flex: 1;
+    text-align: center;
+}
+
+.faq-icon {
+    position: absolute;
+    right: 20px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+}
+
+
+.faq-item p {
+    margin: 0;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    border-top: 1px solid #ddd;
+}
+
+.faq-contact {
+    margin-top: 50px;
+}
+
+.faq-contact h3 {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.faq-contact a {
+    background: var(--secondary);
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    display: inline-block;
+    transition: background 0.2s ease;
+}
+
+.faq-contact a:hover {
+    background: #00796b;
+}
+
+
+@media (max-width: 768px) {
+    .faq {
+        padding: 40px 16px;
+    }
+
+    .faq h2 {
+        font-size: 1.6rem;
+    }
+
+    .faq-item button {
+        font-size: 0.95rem;
+        padding: 14px 16px;
+    }
+
+    .faq-item p {
+        font-size: 0.9rem;
+    }
+
+    .faq-contact h3 {
+        font-size: 1.3rem;
+    }
+
+    .faq-contact a {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq h2 {
+        font-size: 1.4rem;
+    }
+
+    .faq-item button {
+        font-size: 0.9rem;
+    }
+
+    .faq-icon {
+        font-size: 1rem;
+    }
+}

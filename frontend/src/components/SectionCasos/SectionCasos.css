@@ -1,0 +1,102 @@
+.casosTitulo {
+    text-align: center;
+    font-size: 40px;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.casosContenedor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin: 1.5rem 10%;
+}
+
+.casoCard {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 12px;
+    flex: 1 1 280px;
+    width: 80%;
+    background: linear-gradient(to bottom, #EDDCF8 55%, var(--primary) 45%);
+    transition: transform 0.3s ease;
+}
+
+.casoCard:nth-child(odd) {
+    background: linear-gradient(to bottom, #D3FFF5 55%, var(--secondary) 45%);
+}
+
+.casoCard:hover {
+    transform: translateY(-5px);
+}
+
+.casoCard-mensaje,
+.casoCard-nombre,
+.casoCard-empresa {
+    font-size: 18px;
+    padding: 0.8rem;
+}
+
+.casoCard-imagen {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    align-self: center;
+    background-color: #EEE;
+    object-fit: cover;
+}
+
+.casoCard-nombre {
+    color: black;
+    font-weight: 600;
+}
+
+.casoCard-empresa {
+    color: #FAFAFA;
+    font-size: 0.95rem;
+}
+
+/* 📱 Tablet */
+@media (max-width: 992px) {
+    .casosTitulo {
+        font-size: 32px;
+    }
+
+    .casosContenedor {
+        margin: 1.5rem 5%;
+        gap: 1.5rem;
+    }
+
+    .casoCard {
+        flex: 1 1 45%; /* dos columnas */
+    }
+}
+
+/* 📱 Celular */
+@media (max-width: 600px) {
+    .casosTitulo {
+        font-size: 26px;
+    }
+
+    .casosContenedor {
+        flex-direction: column;
+        align-items: center;
+        margin: 1rem 8%;
+    }
+
+    .casoCard {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .casoCard-mensaje,
+    .casoCard-nombre,
+    .casoCard-empresa {
+        font-size: 16px;
+        padding: 0.6rem;
+    }
+}

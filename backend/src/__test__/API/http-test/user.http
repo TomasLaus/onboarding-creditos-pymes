@@ -24,6 +24,7 @@ Content-Type: application/json
   "phone": "3704768485"
 }
 
+
 ### activar usuario
 GET http://localhost:3000/api/users/activate?token=199b60dfb9b2e35fbd3ab598b482331d474a0c80bdaa982bb7188d36e00c43a7&email=juan334@hotmail.com
 
@@ -62,5 +63,5 @@ GET {{PRODUCTION_URL}}/api/users/getAll
 GET {{PRODUCTION_URL}}/api/users/deleteAll
 
 ### eliminar todos los usuarios
-GET http://localhost:3000/api/users/deleteAll
+GET {{PRODUCTION_URL}}/api/users/deleteAll
 

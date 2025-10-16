@@ -8,10 +8,23 @@ import companyRoutes from './routes/company'
 // import notFound from './middlewares/notFound';
 import authRoutes from './routes/auth'
 import loginRoutes from './routes/login'
+import cors from 'cors'
 
 const app = express()
 
 app.use(express.json())
+
+// ✅ Permitir cualquier origen
+app.use(cors())
+
+// o, si querés hacerlo explícito:
+app.use(
+  cors({
+    origin: '*', // permite todo
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  })
+)
 
 // Configuración de nodemailer (para activación de usuarios)
 export const transporter = nodemailer.createTransport({

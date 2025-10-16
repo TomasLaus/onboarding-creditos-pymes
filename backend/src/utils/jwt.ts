@@ -10,3 +10,11 @@ export const verifyToken = (token: string) => {
     return null
   }
 }
+
+//revisar esta function
+export const generateToken = (id: string): string => {
+  const payload = { userId: id }
+  return jwt.sign(payload, JWT_SECRET, {
+    expiresIn: '10m' // ⏱ 10 minutos
+  })
+}

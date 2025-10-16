@@ -31,7 +31,7 @@ export const update = async (req: Request, res: Response) => {
       altEmail: exist.altEmail,
       address: exist.address
     }
-    const updatedCompany: UpdateCompanyDTO = await updateCompany(postBodyData.id, postBodyData)
+    const updatedCompany = await updateCompany(postBodyData.id, postBodyData)
 
     const response = {
       newProps: {

@@ -11,7 +11,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWdxb
 
 {
   "id": "cmgqm23jz0002jcwoilxxxp7u",
-  "phone": "2222222222222",
+  "phone": "33344",
   "altEmail": "jp@empresa.com",
   "address": "Calle Falsa 122222222223"
 }
