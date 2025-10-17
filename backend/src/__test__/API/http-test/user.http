@@ -24,6 +24,16 @@ Content-Type: application/json
   "phone": "3704768485"
 }
 
+### Cambiar contraseña
+POST http://localhost:3000/api/users/changePassword
+Content-Type: application/json
+
+{
+  "id": "",
+  "oldPassword": "Secreto0-",
+  "newPassword": "NuevoSecreto0-"
+}
+
 
 ### activar usuario
 GET http://localhost:3000/api/users/activate?token=199b60dfb9b2e35fbd3ab598b482331d474a0c80bdaa982bb7188d36e00c43a7&email=juan334@hotmail.com

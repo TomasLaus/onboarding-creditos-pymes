@@ -28,31 +28,31 @@ import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 //   }
 // })
 
-console.log('Configuración SMTP:')
-console.log('SMTP_HOST:', process.env.SMTP_HOST)
-console.log('SMTP_PORT:', process.env.SMTP_PORT)
-console.log('SMTP_USER:', process.env.SMTP_USER)
-console.log('SMTP_PASS:', process.env.SMTP_PASS?.slice(0, 10) + '...')
+// console.log('Configuración SMTP:')
+// console.log('SMTP_HOST:', process.env.SMTP_HOST)
+// console.log('SMTP_PORT:', process.env.SMTP_PORT)
+// console.log('SMTP_USER:', process.env.SMTP_USER)
+// console.log('SMTP_PASS:', process.env.SMTP_PASS?.slice(0, 10) + '...')
 
-async function testSMTP() {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: Number(process.env.SMTP_PORT) || 587,
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    },
-    tls: {
-      rejectUnauthorized: false
-    }
-  })
+// async function testSMTP() {
+//   const transporter = nodemailer.createTransport({
+//     host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+//     port: Number(process.env.SMTP_PORT) || 587,
+//     secure: false,
+//     auth: {
+//       user: process.env.SMTP_USER,
+//       pass: process.env.SMTP_PASS
+//     },
+//     tls: {
+//       rejectUnauthorized: false
+//     }
+//   })
 
-  await transporter.verify()
-  console.log('✅ Conexión SMTP exitosa')
-}
+//   await transporter.verify()
+//   console.log('✅ Conexión SMTP exitosa')
+// }
 
-testSMTP().catch(console.error)
+// testSMTP().catch(console.error)
 
 // ---------------------------------------------------------------
 // Express App
