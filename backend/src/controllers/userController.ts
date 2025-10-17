@@ -16,6 +16,8 @@ import { createCompany, getCompanyByTaxId } from '../repositories/companyReposit
 import { validarIdentificacionFiscal } from '../utils/validacion-pymes-function'
 import dayjs from 'dayjs'
 import { enviarEmailActivacion } from '../utils/enviar-email-activacion'
+import { verifyToken } from '../utils/jwt'
+import authMiddleware from '../middlewares/authMiddleware'
 
 export const create = async (req: Request, res: Response) => {
   try {
