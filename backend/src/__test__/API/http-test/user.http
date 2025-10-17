@@ -24,9 +24,10 @@ Content-Type: application/json
   "phone": "3704768485"
 }
 
-### Cambiar contraseña
+### Cambiar contraseña user
 POST http://localhost:3000/api/users/changePassword
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWdxbTIzamkwMDAwamN3b2l5ZDhxeHZzIiwiZW1haWwiOiJqdWFuMzM0QGhvdG1haWwuY29tIiwiaWF0IjoxNzYwNDUwMzU3LCJleHAiOjE3NjEwNTUxNTd9.ZGtNUXwRW9fTHDlzbWa4Z9Hz56gZwZ86sd_SzFAqOkc
 
 {
   "id": "cmguyp3ku0000jch81hy62nbb",
