@@ -1,17 +1,19 @@
-version: "3.8"
+version: '3.8'
 services:
   db:
     image: postgres:15
+    container_name: db_copy
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: onboarding
+      POSTGRES_USER: userdb
+      POSTGRES_PASSWORD: passworddb
+      POSTGRES_DB: onboarding_creditos
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - ./pgdata:/var/lib/postgresql/data
 
   adminer:
     image: adminer
+    container_name: adminer_copy
     ports:
-      - "8080:8080"
+      - '8080:8080'
