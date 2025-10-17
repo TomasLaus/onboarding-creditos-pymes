@@ -29,9 +29,9 @@ POST http://localhost:3000/api/users/changePassword
 Content-Type: application/json
 
 {
-  "id": "",
-  "oldPassword": "Secreto0-",
-  "newPassword": "NuevoSecreto0-"
+  "id": "cmguyp3ku0000jch81hy62nbb",
+  "oldPassword": "NuevoSecreto0-",
+  "newPassword": "Secreto0-"
 }
 
 
