@@ -67,7 +67,8 @@ app.use(
     origin: [
       'http://localhost:3000', // si usás React
       'http://localhost:5173', // si usás Vite
-      'https://onboarding-creditos-pymes.onrender.com' // backend Render (por si se llama a sí mismo)
+      'https://onboarding-creditos-pymes.onrender.com', // backend Render (por si se llama a sí mismo)
+      'https://onboarding-creditos-pymes.vercel.app' // frontend Vercel
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
