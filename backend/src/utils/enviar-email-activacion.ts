@@ -38,7 +38,7 @@ export const enviarEmailActivacion = async (
   token: string,
   mensaje: string
 ) => {
-  const activationLink = `http://${backend_url}/api/users/activate?token=${token}&email=${email}`
+  const activationLink = `${backend_url}/api/users/activate?token=${token}&email=${email}`
   try {
     const response = await axios.post(
       'https://api.brevo.com/v3/smtp/email',
