@@ -13,7 +13,7 @@ const ActivarCuenta = () => {
 
   const handleActivate = () => {
     const activationLink = `${
-      import.meta.env.VITE_BACKEND_URL
+      import.meta.env.VITE_BACKEND_PRODUCTION
     }/api/users/activate?token=${token}&email=${email}`
 
     fetch(activationLink)
