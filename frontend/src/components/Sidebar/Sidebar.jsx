@@ -2,6 +2,7 @@ import React from 'react'
 import './Sidebar.css'
 import { NavLink } from 'react-router-dom'
 import { useAppContext } from '../../context/appContext'
+import { useNavigate } from 'react-router-dom'
 
 // Iconos SVG sin estilos inline para que el CSS los controle
 const HomeIcon = () => (
@@ -86,6 +87,7 @@ const LogoutIcon = () => (
 
 const Sidebar = () => {
   const { setTokenLogin } = useAppContext()
+  const navigate = useNavigate()
   const menuItems = [
     { icon: <HomeIcon />, text: 'Panel principal', path: '/dashboard' },
     { icon: <FileIcon />, text: 'Mis solicitudes', path: '/solicitudes' },
@@ -97,6 +99,7 @@ const Sidebar = () => {
 
   const cerrarSesion = () => {
     setTokenLogin(null)
+    navigate('/login')
   }
 
   return (
