@@ -106,8 +106,8 @@ const RegisterPage = () => {
         //console.log(response.data)
         const tempToken = response.data.data.tokenActivacion
         const tempEmail = response.data.data.email
-        const tempActivation = await activarCuentaTemporal(tempToken, tempEmail)
-        console.log(tempActivation)
+        // const tempActivation = await activarCuentaTemporal(tempToken, tempEmail)
+        // console.log(tempActivation)
         navigate('/login')
       }
       setShowModal(false)
