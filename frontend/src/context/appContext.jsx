@@ -9,7 +9,10 @@ export const AppProvider = ({ children }) => {
     legalName: '',
     taxId: '',
     email: '',
-    phone: ''
+    phone: '',
+    idUser: '',
+    idCompany: '',
+    companyAltEmail: ''
   }
   const [userData, setUserData] = useState(initialPropsUserData)
   const [tokenLogin, setTokenLogin] = useState(null)

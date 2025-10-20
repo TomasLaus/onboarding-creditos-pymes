@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { LoginDTO, LoginResponseDTO } from '../dto/loginDTO'
 import crypto from 'crypto'
+import { getCompanyByUserEmail } from './userRepository'
 
 type JwtPayload = {
   userId: string
@@ -206,6 +207,8 @@ export const login = async (loginData: LoginDTO): Promise<LoginResponseDTO> => {
     expiresIn: process.env.JWT_EXPIRES_IN || '1h'
   })
 
+  const companyUser = await getCompanyByUserEmail(user.email)
+
   // 9. Retornar respuesta exitosa
   return {
     success: true,
@@ -213,6 +216,12 @@ export const login = async (loginData: LoginDTO): Promise<LoginResponseDTO> => {
     user: {
       id: user.id,
       email: user.email
+    },
+    company: {
+      id: companyUser?.id,
+      legalName: companyUser?.legalName,
+      taxId: companyUser?.taxId,
+      altEmail: companyUser?.altEmail
     },
     message: 'Login exitoso'
   }

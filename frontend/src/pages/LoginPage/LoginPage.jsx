@@ -68,7 +68,24 @@ const LoginPage = () => {
       if (response.data.accessToken) {
         setShowModal(false)
         setTokenLogin(response.data.accessToken)
-        setUserData({ ...userData, email: response.data.user.email })
+        //userData is:
+        // legalName: '',
+        // taxId: '',
+        // email: '',
+        // phone: ''
+        // idUser: '',
+        // idCompany: '',
+        //   companyAltEmail: ''
+        setUserData({
+          ...userData,
+          email: response.data.user.email,
+          legalName: response.data.company.legalName,
+          taxId: response.data.company.taxId,
+          phone: response.data.user.phone,
+          idUser: response.data.user.id,
+          idCompany: response.data.company.id,
+          companyAltEmail: response.data.company.altEmail
+        })
         console.log(tokenLogin)
         console.log(userData)
         navigate('/dashboard')

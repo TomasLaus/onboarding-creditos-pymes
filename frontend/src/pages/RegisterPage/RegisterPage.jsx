@@ -47,7 +47,7 @@ const RegisterPage = () => {
         if (!value) {
           error = 'El RUT/CUIT es obligatorio'
         } else if (!validateRut(value) && !validateCuit(value)) {
-          error = 'El RUT o CUIT no es válido'
+          //  error = 'El RUT o CUIT no es válido'
         }
         break
       case 'email':
