@@ -68,6 +68,7 @@ const LoginPage = () => {
       if (response.data.accessToken) {
         setShowModal(false)
         setTokenLogin(response.data.accessToken)
+        sessionStorage.setItem('token', response.data.accessToken)
         //userData is:
         // legalName: '',
         // taxId: '',
