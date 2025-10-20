@@ -49,6 +49,7 @@ import Dashboard from '../pages/Dashboard/Dashboard'
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
 import MainLayout from '../layouts/MainLayouts.jsx'
 import DashboardPage from '../pages/DashboardPage/DashboardPage'
+import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta.jsx'
 import { useAppContext } from '../context/appContext'
 
 function AppRouter() {
