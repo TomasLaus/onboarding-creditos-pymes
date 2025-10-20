@@ -43,7 +43,7 @@ const ActivarCuenta = () => {
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       {loading ? (
-        <p>Validando, espere...</p>
+        <p>Validando, espere por favor... </p>
       ) : error ? (
         <p style={{ color: 'red' }}>{error}</p>
       ) : (
