@@ -32,13 +32,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export const enviarEmailActivacion = async (
-  backend_url: string | undefined,
-  email: string,
-  token: string,
-  mensaje: string
-) => {
-  const activationLink = `${backend_url}/activar-cuenta?token=${token}&email=${email}`
+export const enviarEmailActivacion = async (url: string | undefined, email: string, token: string, mensaje: string) => {
+  const activationLink = `${url}/activar-cuenta?token=${token}&email=${email}`
   // const activationLink = `${backend_url}/api/users/activate?token=${token}&email=${email}`
   try {
     const response = await axios.post(
