@@ -1,34 +1,38 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const ActivarCuenta = () => {
-  const { token, email } = useParams()
+  const { search } = useLocation()
+  const queryParams = new URLSearchParams(search)
+  const token = queryParams.get('token')
+  const email = queryParams.get('email')
+
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
-
   const navigate = useNavigate()
 
   const handleActivate = () => {
     const activationLink = `${
       import.meta.env.VITE_BACKEND_URL
     }/api/users/activate?token=${token}&email=${email}`
+
     fetch(activationLink)
-      .then(response => {
+      .then(res => res.json())
+      .then(data => {
         if (
-          response.message ===
+          data.message ===
           'Cuenta activada correctamente. Ya puedes iniciar sesión.'
         ) {
-          setTimeout(() => {
-            setLoading(false)
-            navigate('/login')
-          }, 3000)
+          setLoading(false)
+          setTimeout(() => navigate('/login'), 3000)
         } else {
-          setError(response.message)
+          setError(data.message)
+          setLoading(false)
         }
       })
-      .catch(error => {
+      .catch(() => {
         setError('Error de red. Por favor, intenta nuevamente más tarde.')
+        setLoading(false)
       })
   }
 
@@ -37,17 +41,13 @@ const ActivarCuenta = () => {
   }, [])
 
   return (
-    <div>
-      {error !== null ? (
-        <p>{error}</p>
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      {loading ? (
+        <p>Validando, espere...</p>
+      ) : error ? (
+        <p style={{ color: 'red' }}>{error}</p>
       ) : (
-        <div>
-          {loading ? (
-            <p>Validando, espere...</p>
-          ) : (
-            <p>La cuenta ha sido activada correctamente. Redireccionando...</p>
-          )}
-        </div>
+        <p>La cuenta ha sido activada correctamente. Redireccionando...</p>
       )}
     </div>
   )
