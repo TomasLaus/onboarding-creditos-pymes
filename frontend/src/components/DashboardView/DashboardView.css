@@ -1,0 +1,95 @@
+/* src/components/DashboardView/DashboardView.css */
+.dashboard-view {
+  flex: 1;
+  padding: 30px;
+  background-color: #f7f8fc;
+  overflow-y: auto; /* Scroll solo para el contenido, no para toda la página */
+}
+
+/* ... (resto de los estilos sin cambios) ... */
+.welcome-message h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.welcome-message p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.stats-cards {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  flex: 1;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.card span {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+.account-ready-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.account-ready-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.account-ready-card p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.account-ready-card .actions {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary-dashboard {
+    background-color: #00c853;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary-dashboard {
+    background-color: #6200ea;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}

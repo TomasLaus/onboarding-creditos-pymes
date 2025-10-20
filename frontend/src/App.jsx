@@ -10,15 +10,15 @@ import './App.css'
 function App() {
   return (
     <AppProvider>
-      <ModalProvider>
+      {/* <ModalProvider> */}
         <div className="app-container">
-          <Header />
+          {/* <Header /> */}
           <main>
             <AppRouter />
           </main>
-          <Footer />
+          {/* <Footer /> */}
         </div>
-      </ModalProvider>
+      {/* </ModalProvider> */}
     </AppProvider>
   )
 }
