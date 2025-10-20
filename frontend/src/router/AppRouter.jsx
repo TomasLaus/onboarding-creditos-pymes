@@ -1,79 +1,74 @@
-// import { Routes, Route } from 'react-router-dom'
-// import Home from '../pages/Home/Home'
-// import RegisterPage from '../pages/RegisterPage/RegisterPage'
-// import LoginPage from '../pages/LoginPage/LoginPage'
-// import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
-// import DashboardPage from '../pages/DashboardPage/DashboardPage'
-// import { useAppContext } from '../context/appContext'
-// import { Navigate } from 'react-router-dom'
-
-// function AppRouter() {
-//   const { tokenLogin } = useAppContext()
-//   return (
-//     <>
-//       <ScrollToTop />
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route
-//           path="/login"
-//           element={tokenLogin ? <DashboardPage /> : <LoginPage />}
-//         />
-
-//         <Route
-//           path="/register"
-//           element={tokenLogin ? <DashboardPage /> : <RegisterPage />}
-//         />
-
-//         <Route
-//           path="/dashboard"
-//           element={tokenLogin ? <DashboardPage /> : <LoginPage />}
-//         />
-
-//         {/* fallback por si entra a una ruta no válida */}
-//         <Route path="*" element={<Navigate to="/" />} />
-//       </Routes>
-//     </>
-//   )
-// }
-
-// export default AppRouter
-// src/router/AppRouter.jsx
-
-// src/router/AppRouter.jsx
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from '../pages/Home/Home'
 import RegisterPage from '../pages/RegisterPage/RegisterPage'
 import LoginPage from '../pages/LoginPage/LoginPage'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
 import MainLayout from '../layouts/MainLayouts.jsx'
-import DashboardPage from '../pages/DashboardPage/DashboardPage'
 import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta'
 import { useAppContext } from '../context/appContext'
 
-function AppRouter() {
+// 🔒 Solo accesible si hay token
+const PrivateRoute = ({ children }) => {
   const { tokenLogin } = useAppContext()
+  return tokenLogin ? children : <Navigate to="/login" replace />
+}
+
+// 🚫 Bloquea acceso si ya hay token
+const PublicRoute = ({ children }) => {
+  const { tokenLogin } = useAppContext()
+  return !tokenLogin ? children : <Navigate to="/dashboard" replace />
+}
+
+function AppRouter() {
   return (
     <>
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={tokenLogin ? <Dashboard /> : <Home />} />
+          {/* Públicas (solo sin token) */}
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Home />
+              </PublicRoute>
+            }
+          />
           <Route
             path="/register"
-            element={tokenLogin ? <Dashboard /> : <RegisterPage />}
+            element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            }
           />
           <Route
             path="/login"
-            element={tokenLogin ? <Dashboard /> : <LoginPage />}
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
           />
         </Route>
+
+        {/* 🔓 Pública SIEMPRE (incluso con token) */}
+        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
+
+        {/* 🔒 Privada */}
         <Route
           path="/dashboard"
-          element={tokenLogin ? <Dashboard /> : <LoginPage />}
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
         />
-        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
+
+        {/* fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   )
