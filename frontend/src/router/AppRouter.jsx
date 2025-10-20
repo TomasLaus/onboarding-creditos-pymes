@@ -72,6 +72,7 @@ function AppRouter() {
           path="/dashboard"
           element={tokenLogin ? <Dashboard /> : <LoginPage />}
         />
+        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
       </Routes>
     </>
   )
