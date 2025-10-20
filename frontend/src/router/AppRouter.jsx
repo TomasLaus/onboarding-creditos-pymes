@@ -58,10 +58,10 @@ function AppRouter() {
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={tokenLogin ? <DashboardPage /> : <Home />} />
+          <Route path="/" element={tokenLogin ? <Dashboard /> : <Home />} />
           <Route
             path="/register"
-            element={tokenLogin ? <DashboardPage /> : <RegisterPage />}
+            element={tokenLogin ? <Dashboard /> : <RegisterPage />}
           />
           <Route
             path="/login"

@@ -98,8 +98,8 @@ const Sidebar = () => {
   ]
 
   const cerrarSesion = () => {
+    navigate('/')
     setTokenLogin(null)
-    navigate('/login')
   }
 
   return (
@@ -118,14 +118,12 @@ const Sidebar = () => {
         ))}
       </nav>
       <div className="sidebar-footer">
-        <NavLink to="/login" className="sidebar-link logout-link">
-          <span className="sidebar-icon">
-            <LogoutIcon />
-          </span>
-          <span onClick={cerrarSesion} className="sidebar-text">
-            Cerrar sesión
-          </span>
-        </NavLink>
+        <span className="sidebar-icon">
+          <LogoutIcon />
+        </span>
+        <span onClick={cerrarSesion} className="sidebar-text">
+          Cerrar sesión
+        </span>
       </div>
     </aside>
   )
