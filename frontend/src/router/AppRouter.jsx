@@ -48,12 +48,12 @@ import LoginPage from '../pages/LoginPage/LoginPage'
 import Dashboard from '../pages/Dashboard/Dashboard'
 import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
 import MainLayout from '../layouts/MainLayouts.jsx'
+import DashboardPage from '../pages/DashboardPage/DashboardPage'
 import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta'
-//import { useAppContext } from '../context/appContext'
+import { useAppContext } from '../context/appContext'
 
 function AppRouter() {
-  //const { tokenLogin } = useAppContext()
-  const tokenLogin = sessionStorage.getItem('token')
+  const { tokenLogin } = useAppContext()
   return (
     <>
       <ScrollToTop />
