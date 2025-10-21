@@ -1,77 +1,57 @@
-import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
-import Home from '../pages/Home/Home'
-import RegisterPage from '../pages/RegisterPage/RegisterPage'
-import LoginPage from '../pages/LoginPage/LoginPage'
-import Dashboard from '../pages/Dashboard/Dashboard'
-import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
-import MainLayout from '../layouts/MainLayouts.jsx'
-import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta'
-import { useAppContext } from '../context/appContext'
 
-// 🔒 Solo accesible si hay token
-const PrivateRoute = ({ children }) => {
-  const { tokenLogin } = useAppContext()
-  return tokenLogin ? children : <Navigate to="/login" replace />
-}
 
-// 🚫 Bloquea acceso si ya hay token
-const PublicRoute = ({ children }) => {
-  const { tokenLogin } = useAppContext()
-  return !tokenLogin ? children : <Navigate to="/dashboard" replace />
-}
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom"; // Importa Navigate
+import Home from "../pages/Home/Home";
+import RegisterPage from "../pages/RegisterPage/RegisterPage";
+import LoginPage from "../pages/LoginPage/LoginPage";
+import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
+import MainLayout from "../layouts/MainLayouts.jsx";
+import { useAppContext } from "../context/appContext";
+
+
+import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
+import PreparacionSolicitud from "../pages/PreparacionSolicitud/PreparacionSolicitud";
+import DashboardView from "../components/DashboardView/DashboardView.jsx";
+import SolicitudUno from "../pages/SolicitudUno/SolicitudUno.jsx";
 
 function AppRouter() {
+  const { tokenLogin } = useAppContext();
   return (
     <>
       <ScrollToTop />
       <Routes>
+        
         <Route element={<MainLayout />}>
-          {/* Públicas (solo sin token) */}
-          <Route
-            path="/"
-            element={
-              <PublicRoute>
-                <Home />
-              </PublicRoute>
-            }
-          />
+          <Route path="/" element={<Home />} />
           <Route
             path="/register"
-            element={
-              <PublicRoute>
-                <RegisterPage />
-              </PublicRoute>
-            }
+            element={tokenLogin ? <DashboardLayout /> : <RegisterPage />}
           />
           <Route
             path="/login"
-            element={
-              <PublicRoute>
-                <LoginPage />
-              </PublicRoute>
-            }
+            element={tokenLogin ? <DashboardLayout /> : <LoginPage />}
           />
         </Route>
 
-        {/* 🔓 Pública SIEMPRE (incluso con token) */}
-        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
+// Rutas protegidas dentro del layout del dashboard //
 
-        {/* 🔒 Privada */}
         <Route
           path="/dashboard"
-          element={
-            <PrivateRoute>
-              <Dashboard />
-            </PrivateRoute>
-          }
-        />
+          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login"/>}
+        >
+           {/* Rutas hijas */}
+          <Route index element={<DashboardView />} />
+          <Route path="preparacion" element={<PreparacionSolicitud />} />
+          <Route path="solicitud-uno" element={<SolicitudUno />} />
+       </Route>
 
-        {/* fallback */}
+/////////////////////////////////////////////////////////////////
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
-  )
+  );
 }
 
 export default AppRouter

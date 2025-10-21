@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { validateRut, validateCuit } from '../../utils/validators'
 import './RegisterPage.css'
-import Modalizar from '../../components/ModalMultiuso'
+
 
 const RegisterPage = () => {
   const URL_BACKEND =
@@ -25,6 +25,8 @@ const RegisterPage = () => {
   const [apiError, setApiError] = useState('')
   const [erroresBackend, setErroresBackend] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
 
   const activarCuentaTemporal = async (token, email) => {
     const url = `${URL_BACKEND}/api/users/activate?token=${token}&email=${email}`
@@ -96,7 +98,7 @@ const RegisterPage = () => {
     }
 
     try {
-      setShowModal(true)
+      setIsLoading(true) 
       const response = await axios.post(
         `${URL_BACKEND}/api/users/create`,
         formData
@@ -110,9 +112,9 @@ const RegisterPage = () => {
         // console.log(tempActivation)
         navigate('/login')
       }
-      setShowModal(false)
+  
     } catch (error) {
-      setShowModal(false)
+    
       console.log(error)
 
       if (error.response && error.response.data) {
@@ -125,18 +127,15 @@ const RegisterPage = () => {
           'No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.'
         )
       }
+    } finally {
+      setIsLoading(false) // 🔹 termina el spinner del loading...
+      
     }
   }
 
   return (
     <>
-      {showModal === true ? (
-        <Modalizar setShow={setShowModal} show={showModal} bgColor="bg-dark">
-          <p style={{ fontSize: '30px', margin: 0, alignContent: 'center' }}>
-            procesando... espere.
-          </p>
-        </Modalizar>
-      ) : (
+   
         <div className="register-page-container">
           <div className="register-form-wrapper">
             <h2>Crear cuenta</h2>
@@ -160,13 +159,13 @@ const RegisterPage = () => {
                 )}
               </div>
               <div className="input-group">
-                <label>TIN ( RUC / NIT / RUT / CUIT )</label>
+                <label>ID Fiscal (  RUT / CUIT )</label>
                 <input
                   type="text"
                   name="taxId"
                   value={formData.taxId}
                   onChange={handleChange}
-                  placeholder="20123456789"
+                  placeholder="Coloca ID Fiscal sin puntos ni simbolos"
                 />
                 {errors.taxId && (
                   <span className="error-message">{errors.taxId}</span>
@@ -219,8 +218,8 @@ const RegisterPage = () => {
                   <span className="error-message">{errors.password}</span>
                 )}
               </div>
-              <button type="submit" className="register-button">
-                Registrarse
+              <button type="submit" className="register-button" disabled={isLoading}>
+                {isLoading ?( <div className="spinner"></div>) : ( 'Registrarse')}
               </button>
             </form>
             <div className="links">
@@ -230,9 +229,9 @@ const RegisterPage = () => {
             </div>
           </div>
         </div>
-      )}
+      
     </>
   )
 }
 
-export default RegisterPage
+export default RegisterPage;

@@ -43,17 +43,17 @@ const Header = () => {
         <div className={menuOpen ? "nav-actions-container active" : "nav-actions-container"}>
             <nav className="main-nav">
               <ul>
-                <li><Link to="/productos" onClick={handleLinkClick}>PRODUCTOS</Link></li>
-                <li><Link to="/zona-digital" onClick={handleLinkClick}>ZONA DIGITAL</Link></li>
-                <li><Link to="/alianzas" onClick={handleLinkClick}>ALIANZAS</Link></li>
-                <li><Link to="/ayuda" onClick={handleLinkClick}>AYUDA Y CONTACTO</Link></li>
+                <li><Link to="/productos" onClick={handleLinkClick}>Productos</Link></li>
+                <li><Link to="/zona-digital" onClick={handleLinkClick}>Zona Digital</Link></li>
+                <li><Link to="/alianzas" onClick={handleLinkClick}>Alianzas</Link></li>
+                <li><Link to="/ayuda" onClick={handleLinkClick}>Ayuda y Contacto</Link></li>
               </ul>
             </nav>
             <div className="actions-container">
               <FaWhatsapp className="action-icon whatsapp-icon" />
               <FaSearch className="action-icon search-icon" />
-              <button className="btn btn-primary" onClick={handleRegisterClick}>SOLICITA TU CRÉDITO</button>
-              <button className="btn btn-secondary" onClick={handleLoginClick}>INICIAR SESIÓN</button>
+              <button className="btn btn-primary" onClick={handleRegisterClick}>Solicita tu Crédito</button>
+              <button className="btn btn-secondary" onClick={handleLoginClick}>Iniciar Sesión</button>
             </div>
         </div>
 

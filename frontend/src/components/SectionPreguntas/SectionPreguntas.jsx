@@ -5,23 +5,23 @@ import './SectionPreguntas.css'
 const faqs = [
     {
         q: "¿Qué requisitos necesito para solicitar un crédito?",
-        a: "Solo necesitas tu RUC activo, DNI del representante legal y los estados financieros recientes de tu empresa.Todo se sube de forma digital, sin trámites presenciales.",
+        a: "Necesitas el ID Fiscal activo (TIN, RUC, CUIT, RUT, NIT) activo, el DNI del representante legal y los estados financieros recientes. Todo 100% online.",
     },
     {
         q: "¿Cuánto tiempo demora la aprobación?",
-        a: "Nuestro proceso de evaluación es 100 % digital. En promedio, obtendrás una respuesta entre 24 y 72 horas hábiles, según el monto solicitado.",
+        a: "El proceso es 100% digital. En promedio respondemos entre 24 y 72 horas hábiles, según el monto y la documentación.",
     },
     {
         q: "¿Cómo sé si mi empresa califica?",
-        a: "Durante el registro realizamos una pre-evaluación automática con tus datos del RUC y la información básica de tu empresa.",
+        a: "Al registrarte hacemos una pre-evaluación automática con tu ID Fiscal e información básica. Te decimos al instante si puedes continuar con la solicitud.",
     },
     {
         q: "¿Es seguro compartir mis datos?",
-        a: "Sí, en Fintech Pyme utiliza cifrado de datos y cumple con las normas de protección de información financiera (KYC/AML). Tu información está protegida en todo momento.",
+        a: "Sí. Usamos cifrado en tránsito, aplicando procesos de información financiera para proteger tu información. Tus documentos serán accesibles solo por personal autorizado.",
     },
     {
         q: "¿Qué monto máximo puedo solicitar?",
-        a: "Los montos dependen del perfil financiero de tu empresa.Ofrecemos créditos desde S/ 10,000 hasta S/ 200,000, con plazos flexibles y tasas personalizadas.",
+        a: " Los montos dependen del perfil de tu empresa. Desde S/ 10,000 hasta S/ 200,000 — sujeto a evaluación según riesgo.",
     },
 ];
 
