@@ -1,22 +1,9 @@
 import { CreateCompanyResponseOKDTO, UpdateCompanyDTO } from '../dto/companyDTO'
 import { updateCompany, getCompanyById, getAllCompanies } from '../repositories/companyRepository'
 import { Request, Response } from 'express'
-import { verifyToken } from '../utils/jwt'
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const authHeader = req.headers.authorization
-    if (!authHeader) {
-      return res.status(401).json({ message: 'No se proporcionó el token de autorización.' })
-    }
-    const token = authHeader.split(' ')[1] // separa "Bearer" y se queda con el token
-    const decoded = verifyToken(token)
-    if (!decoded) {
-      return res.status(401).json({ message: 'Token de autorización inválido.' })
-    }
-
-    /////////////////////////////
-
     const postBodyData: UpdateCompanyDTO = req.body as UpdateCompanyDTO
     if (!postBodyData.id) {
       return res.status(400).json({ message: 'El ID de la empresa es requerido.' })

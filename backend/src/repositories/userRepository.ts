@@ -17,6 +17,14 @@ export const getUserById = async (id: string): Promise<User | null> => {
   return prisma.user.findUnique({ where: { id } })
 }
 
+export const getCompanyByUserEmail = async (email: string): Promise<any | null> => {
+  const user = await prisma.user.findUnique({
+    where: { email },
+    include: { company: true }
+  })
+  return user?.company || null
+}
+
 export const updateUser = async (id: string, data: Partial<User>): Promise<User | null> => {
   return prisma.user.update({
     where: { id },

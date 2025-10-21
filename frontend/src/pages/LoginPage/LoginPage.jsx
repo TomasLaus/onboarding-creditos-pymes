@@ -71,7 +71,24 @@ const LoginPage = () => {
       if (response.data.accessToken) {
         setShowModal(false)
         setTokenLogin(response.data.accessToken)
-        setUserData({ ...userData, email: response.data.user.email })
+        //userData is:
+        // legalName: '',
+        // taxId: '',
+        // email: '',
+        // phone: ''
+        // idUser: '',
+        // idCompany: '',
+        //   companyAltEmail: ''
+        setUserData({
+          ...userData,
+          email: response.data.user.email,
+          legalName: response.data.company.legalName,
+          taxId: response.data.company.taxId,
+          phone: response.data.user.phone,
+          idUser: response.data.user.id,
+          idCompany: response.data.company.id,
+          companyAltEmail: response.data.company.altEmail
+        })
         console.log(tokenLogin)
         console.log(userData)
         navigate('/dashboard')
@@ -107,6 +124,7 @@ const LoginPage = () => {
           <div className="login-form-wrapper">
             <h2>Bienvenido de nuevo</h2>
             <p>Ingresa tus credenciales para acceder a tu cuenta</p>
+            <p>(activa tu cuenta si es tu primer ingreso)</p>
             <form onSubmit={handleSubmit} noValidate>
               {apiError && <div className="api-error-message">{apiError}</div>}
               {erroresBackend && (
@@ -167,4 +185,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default LoginPage
