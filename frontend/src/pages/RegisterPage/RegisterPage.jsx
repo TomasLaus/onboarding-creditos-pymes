@@ -47,7 +47,7 @@ const RegisterPage = () => {
         if (!value) {
           error = 'El RUT/CUIT es obligatorio'
         } else if (!validateRut(value) && !validateCuit(value)) {
-          error = 'El RUT o CUIT no es válido'
+          //  error = 'El RUT o CUIT no es válido'
         }
         break
       case 'email':
@@ -106,8 +106,8 @@ const RegisterPage = () => {
         //console.log(response.data)
         const tempToken = response.data.data.tokenActivacion
         const tempEmail = response.data.data.email
-        const tempActivation = await activarCuentaTemporal(tempToken, tempEmail)
-        console.log(tempActivation)
+        // const tempActivation = await activarCuentaTemporal(tempToken, tempEmail)
+        // console.log(tempActivation)
         navigate('/login')
       }
       setShowModal(false)

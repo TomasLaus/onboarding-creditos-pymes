@@ -1,79 +1,77 @@
-// import { Routes, Route } from 'react-router-dom'
-// import Home from '../pages/Home/Home'
-// import RegisterPage from '../pages/RegisterPage/RegisterPage'
-// import LoginPage from '../pages/LoginPage/LoginPage'
-// import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
-// import DashboardPage from '../pages/DashboardPage/DashboardPage'
-// import { useAppContext } from '../context/appContext'
-// import { Navigate } from 'react-router-dom'
+import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Home from '../pages/Home/Home'
+import RegisterPage from '../pages/RegisterPage/RegisterPage'
+import LoginPage from '../pages/LoginPage/LoginPage'
+import Dashboard from '../pages/Dashboard/Dashboard'
+import ScrollToTop from '../components/ScrollToTop/ScrollToTop'
+import MainLayout from '../layouts/MainLayouts.jsx'
+import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta'
+import { useAppContext } from '../context/appContext'
 
-// function AppRouter() {
-//   const { tokenLogin } = useAppContext()
-//   return (
-//     <>
-//       <ScrollToTop />
-//       <Routes>
-//         <Route path="/" element={<Home />} />
-//         <Route
-//           path="/login"
-//           element={tokenLogin ? <DashboardPage /> : <LoginPage />}
-//         />
+// 🔒 Solo accesible si hay token
+const PrivateRoute = ({ children }) => {
+  const { tokenLogin } = useAppContext()
+  return tokenLogin ? children : <Navigate to="/login" replace />
+}
 
-//         <Route
-//           path="/register"
-//           element={tokenLogin ? <DashboardPage /> : <RegisterPage />}
-//         />
-
-//         <Route
-//           path="/dashboard"
-//           element={tokenLogin ? <DashboardPage /> : <LoginPage />}
-//         />
-
-//         {/* fallback por si entra a una ruta no válida */}
-//         <Route path="*" element={<Navigate to="/" />} />
-//       </Routes>
-//     </>
-//   )
-// }
-
-// export default AppRouter
-// src/router/AppRouter.jsx
-
-
-// src/router/AppRouter.jsx
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import RegisterPage from "../pages/RegisterPage/RegisterPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
-import MainLayout from "../layouts/MainLayouts.jsx";
-import DashboardPage from "../pages/DashboardPage/DashboardPage";
-import { useAppContext } from "../context/appContext";
+// 🚫 Bloquea acceso si ya hay token
+const PublicRoute = ({ children }) => {
+  const { tokenLogin } = useAppContext()
+  return !tokenLogin ? children : <Navigate to="/dashboard" replace />
+}
 
 function AppRouter() {
-  const { tokenLogin } = useAppContext()
   return (
     <>
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" 
-          element={tokenLogin ? <DashboardPage /> : <RegisterPage />} 
+          {/* Públicas (solo sin token) */}
+          <Route
+            path="/"
+            element={
+              <PublicRoute>
+                <Home />
+              </PublicRoute>
+            }
           />
-          <Route path="/login"
-           element={tokenLogin ? <Dashboard /> : <LoginPage />}
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <RegisterPage />
+              </PublicRoute>
+            }
           />
-      </Route>
-      <Route path="/dashboard"
-          element={tokenLogin ? <Dashboard /> : <LoginPage />}
-         />
-    </Routes>
-    </>
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+        </Route>
 
-  );
+        {/* 🔓 Pública SIEMPRE (incluso con token) */}
+        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
+
+        {/* 🔒 Privada */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
+  )
 }
 
-export default AppRouter;
+export default AppRouter

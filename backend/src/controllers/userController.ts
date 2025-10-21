@@ -16,6 +16,8 @@ import { createCompany, getCompanyByTaxId } from '../repositories/companyReposit
 import { validarIdentificacionFiscal } from '../utils/validacion-pymes-function'
 import dayjs from 'dayjs'
 import { enviarEmailActivacion } from '../utils/enviar-email-activacion'
+import { verifyToken } from '../utils/jwt'
+import authMiddleware from '../middlewares/authMiddleware'
 
 export const create = async (req: Request, res: Response) => {
   try {
@@ -52,7 +54,12 @@ export const create = async (req: Request, res: Response) => {
     //hashear pass
     const hashedPassword = await bcrypt.hash(postBodyData.password, 10)
 
-    enviarEmailActivacion(process.env.BACKEND_URL, postBodyData.email, token, 'Haz click aquí para activar tu cuenta.')
+    enviarEmailActivacion(
+      'https://onboarding-creditos-pymes.vercel.app',
+      postBodyData.email,
+      token,
+      'Haz click aquí para activar tu cuenta.'
+    )
 
     const userToInsert: User = {
       email: postBodyData.email,
@@ -118,6 +125,33 @@ export const activate = async (req: Request, res: Response) => {
     res.send({ message: 'Cuenta activada correctamente. Ya puedes iniciar sesión.' })
   } catch (err: any) {
     res.status(500).send({ message: err.message, error: err })
+  }
+}
+
+export const changePassword = async (req: Request, res: Response) => {
+  try {
+    const { id, oldPassword, newPassword } = req.body
+
+    if (!id || !oldPassword || !newPassword) {
+      return res.status(400).json({ message: 'Todos los campos son requeridos.' })
+    }
+
+    const user = await getUserById(id)
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' })
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password)
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Contraseña actual incorrecta.' })
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10)
+    await updateUser(user.id, { password: hashedNewPassword })
+
+    res.json({ message: 'Contraseña cambiada exitosamente.' })
+  } catch (err: any) {
+    res.status(500).json({ message: 'Error cambiando la contraseña.', error: err })
   }
 }
 

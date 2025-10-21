@@ -18,6 +18,12 @@ export interface LoginResponseDTO {
     id: string
     email: string
   }
+  company?: {
+    id: string
+    legalName: string
+    taxId: string
+    altEmail: string
+  }
   requiresTwoFactor?: boolean // Indica si se necesita código 2FA
   message: string
 }

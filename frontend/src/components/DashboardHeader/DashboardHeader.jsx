@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
-import './DashboardHeader.css';
-import { FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi'; // Importa FiChevronUp
-import logo from '../../assets/logo_fintech-pyme.png';
-import { useAppContext } from '../../context/appContext';
+import React, { useState } from 'react'
+import './DashboardHeader.css'
+import { FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi' // Importa FiChevronUp
+import logo from '../../assets/logo_fintech-pyme.png'
+import { useAppContext } from '../../context/appContext'
 
 const DashboardHeader = () => {
   // Estado para controlar si el menú está abierto o cerrado
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   // Estado para saber qué ítem está activo (con fondo verde)
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState(null)
 
-  const { setTokenLogin } = useAppContext();
+  const { setTokenLogin, userData } = useAppContext()
 
   // Función para manejar el clic en un ítem del menú
-  const handleItemClick = (itemName) => {
-    setActiveItem(itemName);
+  const handleItemClick = itemName => {
+    setActiveItem(itemName)
     // Opcional: cerrar el menú después de hacer clic
-    // setIsDropdownOpen(false); 
-    setTokenLogin(null);
-  };
+    // setIsDropdownOpen(false);
+    setTokenLogin(null)
+  }
 
   return (
     <div className="dashboard-header">
@@ -35,11 +35,11 @@ const DashboardHeader = () => {
           {/* Contenedor del botón y el menú desplegable */}
           <div className="user-dropdown-container">
             {/* Botón que abre/cierra el menú */}
-            <div 
-              className={`user-info ${isDropdownOpen ? 'active' : ''}`} 
+            <div
+              className={`user-info ${isDropdownOpen ? 'active' : ''}`}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <span>Empresa S.A.</span>
+              <span>{userData.legalName}</span>
               {/* Cambia el icono según el estado del menú */}
               {isDropdownOpen ? <FiChevronUp /> : <FiChevronDown />}
             </div>
@@ -47,26 +47,34 @@ const DashboardHeader = () => {
             {/* Menú desplegable (se muestra condicionalmente) */}
             {isDropdownOpen && (
               <div className="dropdown-menu">
-                <button 
-                  className={`dropdown-item ${activeItem === 'perfil' ? 'active' : ''}`}
+                <button
+                  className={`dropdown-item ${
+                    activeItem === 'perfil' ? 'active' : ''
+                  }`}
                   onClick={() => handleItemClick('perfil')}
                 >
                   Mi perfil
                 </button>
-                <button 
-                  className={`dropdown-item ${activeItem === 'config' ? 'active' : ''}`}
+                <button
+                  className={`dropdown-item ${
+                    activeItem === 'config' ? 'active' : ''
+                  }`}
                   onClick={() => handleItemClick('config')}
                 >
                   Configuraciones
                 </button>
-                <button 
-                  className={`dropdown-item ${activeItem === 'seguridad' ? 'active' : ''}`}
+                <button
+                  className={`dropdown-item ${
+                    activeItem === 'seguridad' ? 'active' : ''
+                  }`}
                   onClick={() => handleItemClick('seguridad')}
                 >
                   Claves y seguridad
                 </button>
-                <button 
-                  className={`dropdown-item ${activeItem === 'cerrar' ? 'active' : ''}`}
+                <button
+                  className={`dropdown-item ${
+                    activeItem === 'cerrar' ? 'active' : ''
+                  }`}
                   onClick={() => handleItemClick('cerrar')}
                 >
                   Cerrar sesión
@@ -77,7 +85,7 @@ const DashboardHeader = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DashboardHeader;
+export default DashboardHeader
