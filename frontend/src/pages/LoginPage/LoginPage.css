@@ -134,10 +134,31 @@
   font-weight: 500;
 }
 
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ccc;
+  border-top: 3px solid #6a0dad; 
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 @media (max-width: 992px) {
   .login-form-wrapper {
     margin-left: 0;
-    transform-origin: center; /* Centra el origen en pantallas más pequeñas */
+    transform-origin: center; 
   }
 }
 
@@ -147,6 +168,6 @@
   }
   .login-form-wrapper {
     padding: 2rem;
-    transform: scale(1); /* Opcional: podrías quitar el zoom en móviles */
+    transform: scale(1); 
   }
 }

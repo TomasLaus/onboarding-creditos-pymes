@@ -42,37 +42,56 @@
 
 // src/router/AppRouter.jsx
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom"; // Importa Navigate
 import Home from "../pages/Home/Home";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import ScrollToTop from "../components/ScrollToTop/ScrollToTop";
 import MainLayout from "../layouts/MainLayouts.jsx";
-import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import { useAppContext } from "../context/appContext";
 
+
+import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
+import PreparacionSolicitud from "../pages/PreparacionSolicitud/PreparacionSolicitud";
+import DashboardView from "../components/DashboardView/DashboardView.jsx";
+import Prueba from "../pages/prueba/prueba.jsx";
+
 function AppRouter() {
-  const { tokenLogin } = useAppContext()
+  const { tokenLogin } = useAppContext();
   return (
     <>
       <ScrollToTop />
       <Routes>
+        
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/register" 
-          element={tokenLogin ? <DashboardPage /> : <RegisterPage />} 
+          <Route
+            path="/register"
+            element={tokenLogin ? <DashboardLayout /> : <RegisterPage />}
           />
-          <Route path="/login"
-           element={tokenLogin ? <Dashboard /> : <LoginPage />}
+          <Route
+            path="/login"
+            element={tokenLogin ? <DashboardLayout /> : <LoginPage />}
           />
-      </Route>
-      <Route path="/dashboard"
-          element={tokenLogin ? <Dashboard /> : <LoginPage />}
-         />
-    </Routes>
-    </>
+        </Route>
 
+// Rutas protegidas dentro del layout del dashboard //
+
+        <Route
+          path="/dashboard"
+          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login"/>}
+        >
+           {/* Rutas hijas */}
+          <Route index element={<DashboardView />} />
+          <Route path="preparacion" element={<PreparacionSolicitud />} />
+          <Route path="prueba" element={<Prueba />} />
+       </Route>
+
+/////////////////////////////////////////////////////////////////
+
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </>
   );
 }
 

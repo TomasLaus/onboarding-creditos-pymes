@@ -7,7 +7,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid transparent;
     border-image: linear-gradient(to right, #3d1d5c, #3d1d5c, #b266ff) 1;
-    box-shadow: 0 4px 10px #fff(138, 43, 226, 0.4); /* sombra violeta hacia abajo */
+    box-shadow: 0 4px 10px #fff(138, 43, 226, 0.4);
     
 }
 

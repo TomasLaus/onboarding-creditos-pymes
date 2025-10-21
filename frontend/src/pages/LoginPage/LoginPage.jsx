@@ -23,6 +23,8 @@ const LoginPage = () => {
   const { setTokenLogin, tokenLogin, userData, setUserData } = useAppContext()
   const [showModal, setShowModal] = useState(false)
   const [erroresBackend, setErroresBackend] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
 
   const validateField = (name, value) => {
     let error = ''
@@ -45,6 +47,7 @@ const LoginPage = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     setApiError('')
+    setIsLoading(true) //  Empieza el loading...
     const newErrors = {}
     let hasErrors = false
 
@@ -86,6 +89,8 @@ const LoginPage = () => {
           'No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.'
         )
       }
+    } finally {
+      setIsLoading(false) // Termina loading...
     }
   }
 
@@ -141,8 +146,12 @@ const LoginPage = () => {
                   <span className="error-message">{errors.password}</span>
                 )}
               </div>
-              <button type="submit" className="login-button">
-                Iniciar Sesión
+              <button type="submit" className="login-button" disabled={isLoading}>
+                {isLoading ? (
+                  <div className="spinner"></div>
+                ) : (
+                  'Iniciar Sesión'
+                )}
               </button>
             </form>
             <div className="links">

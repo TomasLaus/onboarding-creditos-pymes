@@ -1,9 +1,16 @@
 import { useAppContext } from '../../context/appContext'
+import { useNavigate } from 'react-router-dom'; 
 
 import './DashboardView.css';
 
 const DashboardView = () => {
   const { userData } = useAppContext();
+  const navigate = useNavigate();
+
+  const handleStartNow = () => {
+    
+    navigate('/dashboard/preparacion'); 
+  };
   return (
     <div className="dashboard-view">
       <div className="welcome-message">
@@ -31,7 +38,7 @@ const DashboardView = () => {
         <h2>¡Tu cuenta está lista!</h2>
         <p>Bienvenido a Fintech Pyme, tu espacio para solicitar créditos PyME sin burocracia.</p>
         <div className="actions">
-          <button className="btn-primary-dashboard">Empezar ahora</button>
+          <button className="btn-primary-dashboard" onClick={handleStartNow}>Empezar ahora</button>
           <button className="btn-secondary-dashboard">Ver documentación</button>
         </div>
       </div>

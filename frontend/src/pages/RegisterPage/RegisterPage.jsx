@@ -25,6 +25,8 @@ const RegisterPage = () => {
   const [apiError, setApiError] = useState('')
   const [erroresBackend, setErroresBackend] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
 
   const activarCuentaTemporal = async (token, email) => {
     const url = `${URL_BACKEND}/api/users/activate?token=${token}&email=${email}`
@@ -96,6 +98,8 @@ const RegisterPage = () => {
     }
 
     try {
+      setIsLoading(true) // 🔹 comienza el spinner del loading...
+
       setShowModal(true)
       const response = await axios.post(
         `${URL_BACKEND}/api/users/create`,
@@ -125,6 +129,9 @@ const RegisterPage = () => {
           'No se pudo conectar con el servidor. Inténtalo de nuevo más tarde.'
         )
       }
+    } finally {
+      setIsLoading(false) // 🔹 termina el spinner del loading...
+      setShowModal(false)
     }
   }
 
@@ -160,13 +167,13 @@ const RegisterPage = () => {
                 )}
               </div>
               <div className="input-group">
-                <label>TIN ( RUC / NIT / RUT / CUIT )</label>
+                <label>ID Fiscal (  RUT / CUIT )</label>
                 <input
                   type="text"
                   name="taxId"
                   value={formData.taxId}
                   onChange={handleChange}
-                  placeholder="20123456789"
+                  placeholder="Coloca ID Fiscal sin puntos ni simbolos"
                 />
                 {errors.taxId && (
                   <span className="error-message">{errors.taxId}</span>
@@ -219,8 +226,8 @@ const RegisterPage = () => {
                   <span className="error-message">{errors.password}</span>
                 )}
               </div>
-              <button type="submit" className="register-button">
-                Registrarse
+              <button type="submit" className="register-button" disabled={isLoading}>
+                {isLoading ? <div className="spinner"></div> : 'Registrarse'}
               </button>
             </form>
             <div className="links">
@@ -235,4 +242,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default RegisterPage;
