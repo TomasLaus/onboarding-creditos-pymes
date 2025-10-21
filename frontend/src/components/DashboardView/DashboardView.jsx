@@ -9,7 +9,7 @@ const DashboardView = () => {
 
   const handleStartNow = () => {
     
-    navigat ('/dashboard/preparacion'); 
+    navigate ('/dashboard/preparacion'); 
   };
   return (
     <div className="dashboard-view">
@@ -23,15 +23,7 @@ const DashboardView = () => {
         <p>
           Bienvenido a Fintech Pyme, tu espacio para solicitar créditos PyME sin
           burocracia.
-          <br /> <br />
-          <b>Mail usuario</b>
-          <p>{userData.email}</p>
-          <b>Mail empresa</b>
-          <p>{userData.companyAltEmail ?? 'No registrado'}</p>
-          <b>Tax ID</b>
-          <p>{userData.taxId ?? 'No registrado'}</p>
-          <b>Teléfono</b>
-          <p>{userData.phone ?? 'No registrado'}</p>
+
         </p>
       </div>
       <div className="stats-cards">

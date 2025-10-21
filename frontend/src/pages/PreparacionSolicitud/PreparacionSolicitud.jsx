@@ -37,7 +37,7 @@ const PreparacionSolicitud = () => {
           </div>
         </div>
 
-        <button onClick={() => navigate ('/dashboard/prueba')} className="btn-entendido">Entendido</button>
+        <button onClick={() => navigate ('/dashboard/solicitud-uno')} className="btn-entendido">Entendido</button>
       </div>
     </div>
   );

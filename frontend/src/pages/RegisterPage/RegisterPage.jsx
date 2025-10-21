@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { validateRut, validateCuit } from '../../utils/validators'
 import './RegisterPage.css'
-import Modalizar from '../../components/ModalMultiuso'
+
 
 const RegisterPage = () => {
   const URL_BACKEND =
@@ -98,9 +98,7 @@ const RegisterPage = () => {
     }
 
     try {
-      setIsLoading(true) // 🔹 comienza el spinner del loading...
-
-      setShowModal(true)
+      setIsLoading(true) 
       const response = await axios.post(
         `${URL_BACKEND}/api/users/create`,
         formData
@@ -114,9 +112,9 @@ const RegisterPage = () => {
         // console.log(tempActivation)
         navigate('/login')
       }
-      setShowModal(false)
+  
     } catch (error) {
-      setShowModal(false)
+    
       console.log(error)
 
       if (error.response && error.response.data) {
@@ -131,19 +129,13 @@ const RegisterPage = () => {
       }
     } finally {
       setIsLoading(false) // 🔹 termina el spinner del loading...
-      setShowModal(false)
+      
     }
   }
 
   return (
     <>
-      {showModal === true ? (
-        <Modalizar setShow={setShowModal} show={showModal} bgColor="bg-dark">
-          <p style={{ fontSize: '30px', margin: 0, alignContent: 'center' }}>
-            procesando... espere.
-          </p>
-        </Modalizar>
-      ) : (
+   
         <div className="register-page-container">
           <div className="register-form-wrapper">
             <h2>Crear cuenta</h2>
@@ -227,7 +219,7 @@ const RegisterPage = () => {
                 )}
               </div>
               <button type="submit" className="register-button" disabled={isLoading}>
-                {isLoading ? <div className="spinner"></div> : 'Registrarse'}
+                {isLoading ?( <div className="spinner"></div>) : ( 'Registrarse')}
               </button>
             </form>
             <div className="links">
@@ -237,7 +229,7 @@ const RegisterPage = () => {
             </div>
           </div>
         </div>
-      )}
+      
     </>
   )
 }

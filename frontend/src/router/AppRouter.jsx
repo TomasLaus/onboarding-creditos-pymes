@@ -13,7 +13,7 @@ import { useAppContext } from "../context/appContext";
 import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import PreparacionSolicitud from "../pages/PreparacionSolicitud/PreparacionSolicitud";
 import DashboardView from "../components/DashboardView/DashboardView.jsx";
-import Prueba from "../pages/prueba/prueba.jsx";
+import SolicitudUno from "../pages/SolicitudUno/SolicitudUno.jsx";
 
 function AppRouter() {
   const { tokenLogin } = useAppContext();
@@ -43,7 +43,7 @@ function AppRouter() {
            {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
           <Route path="preparacion" element={<PreparacionSolicitud />} />
-          <Route path="prueba" element={<Prueba />} />
+          <Route path="solicitud-uno" element={<SolicitudUno />} />
        </Route>
 
 /////////////////////////////////////////////////////////////////
