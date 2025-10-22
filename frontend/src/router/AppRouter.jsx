@@ -31,7 +31,6 @@ function AppRouter() {
           />
           <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         </Route>
-        <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         // Rutas protegidas dentro del layout del dashboard //
         <Route
           path="/dashboard"
