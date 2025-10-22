@@ -16,6 +16,7 @@ const DashboardLayout = () => {
         <main className="dashboard-content">
           <Outlet />
         </main>
+        
       </div>
     </div>
   );

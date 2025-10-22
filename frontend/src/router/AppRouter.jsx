@@ -11,7 +11,8 @@ import DashboardLayout from '../layouts/DashboardLayout/DashboardLayout'
 import PreparacionSolicitud from '../pages/PreparacionSolicitud/PreparacionSolicitud'
 import DashboardView from '../components/DashboardView/DashboardView.jsx'
 import SolicitudUno from '../pages/SolicitudUno/SolicitudUno.jsx'
-import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta.jsx'
+import SolicitudDos from '../pages/SolicitudDos/SolicitudDos.jsx'
+import SolicitudTres from '../pages/SolicitudTres/SolicitudTres.jsx'
 
 function AppRouter() {
   const { tokenLogin } = useAppContext()
@@ -21,25 +22,18 @@ function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route
-            path="/register"
-            element={tokenLogin ? <DashboardLayout /> : <RegisterPage />}
-          />
-          <Route
-            path="/login"
-            element={tokenLogin ? <DashboardLayout /> : <LoginPage />}
-          />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         </Route>
         // Rutas protegidas dentro del layout del dashboard //
-        <Route
-          path="/dashboard"
-          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login" />}
-        >
+        <Route path="/dashboard" element={<DashboardLayout />}>
           {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
           <Route path="preparacion" element={<PreparacionSolicitud />} />
           <Route path="solicitud-uno" element={<SolicitudUno />} />
+          <Route path="solicitud-dos" element={<SolicitudDos />} />
+          <Route path="solicitud-tres" element={<SolicitudTres />} />
         </Route>
         /////////////////////////////////////////////////////////////////
         <Route path="*" element={<Navigate to="/" />} />
