@@ -124,7 +124,7 @@ const LoginPage = () => {
           <div className="login-form-wrapper">
             <h2>Bienvenido de nuevo</h2>
             <p>Ingresa tus credenciales para acceder a tu cuenta</p>
-            <p>(activa tu cuenta si es tu primer ingreso)</p>
+            <p style={{ color: 'red' }}>(Primer acceso debe confirmase vía email)</p>
             <form onSubmit={handleSubmit} noValidate>
               {apiError && <div className="api-error-message">{apiError}</div>}
               {erroresBackend && (

@@ -14,6 +14,7 @@ import DashboardLayout from "../layouts/DashboardLayout/DashboardLayout";
 import PreparacionSolicitud from "../pages/PreparacionSolicitud/PreparacionSolicitud";
 import DashboardView from "../components/DashboardView/DashboardView.jsx";
 import SolicitudUno from "../pages/SolicitudUno/SolicitudUno.jsx";
+import SolicitudDos from "../pages/SolicitudDos/SolicitudDos.jsx";
 
 function AppRouter() {
   const { tokenLogin } = useAppContext();
@@ -26,11 +27,11 @@ function AppRouter() {
           <Route path="/" element={<Home />} />
           <Route
             path="/register"
-            element={tokenLogin ? <DashboardLayout /> : <RegisterPage />}
+            element={ <RegisterPage />}
           />
           <Route
             path="/login"
-            element={tokenLogin ? <DashboardLayout /> : <LoginPage />}
+            element={  <LoginPage />}
           />
         </Route>
 
@@ -38,12 +39,13 @@ function AppRouter() {
 
         <Route
           path="/dashboard"
-          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login"/>}
+          element={ <DashboardLayout />}
         >
            {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
           <Route path="preparacion" element={<PreparacionSolicitud />} />
           <Route path="solicitud-uno" element={<SolicitudUno />} />
+          <Route path="solicitud-dos" element={<SolicitudDos />} />
        </Route>
 
 /////////////////////////////////////////////////////////////////
