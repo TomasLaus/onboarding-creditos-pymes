@@ -13,6 +13,7 @@ import DashboardView from '../components/DashboardView/DashboardView.jsx'
 import SolicitudUno from '../pages/SolicitudUno/SolicitudUno.jsx'
 import SolicitudDos from '../pages/SolicitudDos/SolicitudDos.jsx'
 import SolicitudTres from '../pages/SolicitudTres/SolicitudTres.jsx'
+import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta.jsx'
 
 function AppRouter() {
   const { tokenLogin } = useAppContext()

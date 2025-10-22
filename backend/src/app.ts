@@ -8,6 +8,8 @@ import userRoutes from './routes/user'
 import companyRoutes from './routes/company'
 import authRoutes from './routes/auth'
 import loginRoutes from './routes/login'
+import documentRoutes from './routes/document'
+import creditApplicationRoutes from './routes/creditApplication'
 import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 
 // ---------------------------------------------------------------
@@ -87,6 +89,8 @@ app.use('/api/users', userRoutes)
 app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/login', loginRoutes)
+app.use('/api/credit-applications', creditApplicationRoutes)
+app.use('/api/documents', documentRoutes)
 
 // ---------------------------------------------------------------
 // Debug de rutas
