@@ -317,9 +317,8 @@ const CreditForm = () => {
           </button>
           
           <button
-            type="button" 
-            className="btn btn-continue"
-            onClick={handleContinue} 
+            type="button" onClick={() => navigate ('/dashboard/solicitud-dos')}
+            className="btn btn-continue" 
             disabled={loading} 
           >
             Continuar

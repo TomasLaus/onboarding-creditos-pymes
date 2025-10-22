@@ -1,10 +1,8 @@
-import React, { useNavigate, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { FiFilePlus, FiChevronDown } from 'react-icons/fi'; 
+import './SolicitudTres.css'; 
 
-import './SolicitudDos.css'; 
-
-const DocumentosDos = () => {
-  const navigate = useNavigate();
+const Documentostres = () => {
   const [files, setFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -72,23 +70,14 @@ const DocumentosDos = () => {
       
       <div className="form-header">
 
-        <h2>Sube tus documentos:</h2>
-        <p>Paso 2 de 3</p>
+        <h2>Firma tu solicitud</h2>
+        <p>Paso 3 de 3</p>
 
         <div className="stepper">
           <span className="step"></span>
-          <span className="step active"></span>
           <span className="step"></span>
+          <span className="step active"></span>
         </div>
-      </div>
-
-      <h3>Lista de documentos requeridos</h3>
-      <div className="document-list">
-        <p>Ficha TIN</p>
-        <p>DNI Representante legal</p>
-        <p>Estados financieros*</p>
-        <p>Reporte tributario de los 3 últimos meses*</p>
-        <p className="required-note">*Documento obligatorio</p>
       </div>
 
       <h3>Carga de documentos</h3>
@@ -121,7 +110,7 @@ const DocumentosDos = () => {
               Elegir archivos
               <FiChevronDown size={20} />
             </button>
-            <p className="dropzone-prompt">Arrastra o haz clic aquí para subir archivo</p>
+            <p className="dropzone-prompt">Arrastra o haz clic aquí para subir un archivo</p>
           </div>
         </div>
       </div>
@@ -133,7 +122,7 @@ const DocumentosDos = () => {
         <button type="button" className="btn btn-save">
           Volver
         </button>
-        <button type="button" onClick={() => navigate ('/dashboard/solicitud-tres')} className="btn btn-continue">
+        <button type="button" className="btn btn-continue">
           {uploading ? ( <div className="spinner"></div>) : ('Continuar')}
         </button>
       </div>
@@ -141,4 +130,4 @@ const DocumentosDos = () => {
   );
 };
 
-export default DocumentosDos;
+export default Documentostres;
