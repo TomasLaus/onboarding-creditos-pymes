@@ -170,7 +170,14 @@ const DocumentosDos = () => {
           onClick={handleUpload}
           disabled={uploading}
         >
-          {uploading ? <div className="spinner"></div> : 'Guardar y continuar'}
+          {uploading ? (
+            <>
+              <div className="spinner"></div>
+              <p>Subiendo archivos...</p>
+            </>
+          ) : (
+            'Continuar'
+          )}
         </button>
 
         {/* <button type="button" className="btn btn-save">

@@ -154,7 +154,14 @@ const Documentostres = () => {
           type="button"
           className="btn btn-continue"
         >
-          {uploading ? <div className="spinner"></div> : 'Continuar'}
+          {uploading ? (
+            <>
+              <div className="spinner"></div>
+              <p>Subiendo archivos...</p>
+            </>
+          ) : (
+            'Continuar'
+          )}
         </button>
       </div>
     </div>

@@ -458,16 +458,14 @@ const CreditForm = () => {
             onClick={handleSave}
             disabled={loading}
           >
-            {loading ? <div className="spinner"></div> : 'Guardar'}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => navigate('/dashboard/solicitud-dos')}
-            className="btn btn-continue"
-            disabled={loading}
-          >
-            Continuar
+            {loading ? (
+              <>
+                <div className="spinner"></div>
+                <p>Subiendo archivos...</p>
+              </>
+            ) : (
+              'Continuar'
+            )}
           </button>
         </div>
       </form>
