@@ -5,7 +5,6 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { validateRut, validateCuit } from '../../utils/validators'
 import './RegisterPage.css'
 
-
 const RegisterPage = () => {
   const URL_BACKEND =
     import.meta.env.VITE_NODE_ENV === 'production'
@@ -26,7 +25,6 @@ const RegisterPage = () => {
   const [erroresBackend, setErroresBackend] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
 
   const activarCuentaTemporal = async (token, email) => {
     const url = `${URL_BACKEND}/api/users/activate?token=${token}&email=${email}`
@@ -98,7 +96,7 @@ const RegisterPage = () => {
     }
 
     try {
-      setIsLoading(true) 
+      setIsLoading(true)
       const response = await axios.post(
         `${URL_BACKEND}/api/users/create`,
         formData
@@ -110,11 +108,9 @@ const RegisterPage = () => {
         const tempEmail = response.data.data.email
         // const tempActivation = await activarCuentaTemporal(tempToken, tempEmail)
         // console.log(tempActivation)
-        navigate('/login')
+        navigate('/login/firstaccess')
       }
-  
     } catch (error) {
-    
       console.log(error)
 
       if (error.response && error.response.data) {
@@ -129,109 +125,110 @@ const RegisterPage = () => {
       }
     } finally {
       setIsLoading(false) // 🔹 termina el spinner del loading...
-      
     }
   }
 
   return (
     <>
-   
-        <div className="register-page-container">
-          <div className="register-form-wrapper">
-            <h2>Crear cuenta</h2>
-            <p>Completa tus datos para registrarte en la plataforma</p>
-            <form onSubmit={handleSubmit} noValidate>
-              {apiError && <div className="api-error-message">{apiError}</div>}
-              {erroresBackend && (
-                <div className="api-error-message">{erroresBackend}</div>
+      <div className="register-page-container">
+        <div className="register-form-wrapper">
+          <h2>Crear cuenta</h2>
+          <p>Completa tus datos para registrarte en la plataforma</p>
+          <form onSubmit={handleSubmit} noValidate>
+            {apiError && <div className="api-error-message">{apiError}</div>}
+            {erroresBackend && (
+              <div className="api-error-message">{erroresBackend}</div>
+            )}
+            <div className="input-group">
+              <label>Nombre Completo o Razón Social</label>
+              <input
+                type="text"
+                name="legalName"
+                value={formData.legalName}
+                onChange={handleChange}
+                placeholder="Empresa S.A."
+              />
+              {errors.legalName && (
+                <span className="error-message">{errors.legalName}</span>
               )}
-              <div className="input-group">
-                <label>Nombre Completo o Razón Social</label>
-                <input
-                  type="text"
-                  name="legalName"
-                  value={formData.legalName}
-                  onChange={handleChange}
-                  placeholder="Empresa S.A."
-                />
-                {errors.legalName && (
-                  <span className="error-message">{errors.legalName}</span>
-                )}
-              </div>
-              <div className="input-group">
-                <label>ID Fiscal (  RUT / CUIT )</label>
-                <input
-                  type="text"
-                  name="taxId"
-                  value={formData.taxId}
-                  onChange={handleChange}
-                  placeholder="Coloca ID Fiscal sin puntos ni simbolos"
-                />
-                {errors.taxId && (
-                  <span className="error-message">{errors.taxId}</span>
-                )}
-              </div>
-              <div className="input-group">
-                <label>Correo electrónico</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="contacto@empresa.com"
-                />
-                {errors.email && (
-                  <span className="error-message">{errors.email}</span>
-                )}
-              </div>
-              <div className="input-group">
-                <label>Teléfono</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="+51 999 999 999"
-                />
-                {errors.phone && (
-                  <span className="error-message">{errors.phone}</span>
-                )}
-              </div>
-              <div className="input-group">
-                <label>Contraseña</label>
-                <div className="password-wrapper">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="........"
-                  />
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="password-toggle-icon"
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
-                </div>
-                {errors.password && (
-                  <span className="error-message">{errors.password}</span>
-                )}
-              </div>
-              <button type="submit" className="register-button" disabled={isLoading}>
-                {isLoading ?( <div className="spinner"></div>) : ( 'Registrarse')}
-              </button>
-            </form>
-            <div className="links">
-              <span>
-                ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
-              </span>
             </div>
+            <div className="input-group">
+              <label>ID Fiscal ( RUT / CUIT )</label>
+              <input
+                type="text"
+                name="taxId"
+                value={formData.taxId}
+                onChange={handleChange}
+                placeholder="Coloca ID Fiscal sin puntos ni simbolos"
+              />
+              {errors.taxId && (
+                <span className="error-message">{errors.taxId}</span>
+              )}
+            </div>
+            <div className="input-group">
+              <label>Correo electrónico</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="contacto@empresa.com"
+              />
+              {errors.email && (
+                <span className="error-message">{errors.email}</span>
+              )}
+            </div>
+            <div className="input-group">
+              <label>Teléfono</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="+51 999 999 999"
+              />
+              {errors.phone && (
+                <span className="error-message">{errors.phone}</span>
+              )}
+            </div>
+            <div className="input-group">
+              <label>Contraseña</label>
+              <div className="password-wrapper">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="........"
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="password-toggle-icon"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+              {errors.password && (
+                <span className="error-message">{errors.password}</span>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="register-button"
+              disabled={isLoading}
+            >
+              {isLoading ? <div className="spinner"></div> : 'Registrarse'}
+            </button>
+          </form>
+          <div className="links">
+            <span>
+              ¿Ya tienes cuenta? <Link to="/login">Inicia sesión aquí</Link>
+            </span>
           </div>
         </div>
-      
+      </div>
     </>
   )
 }
 
-export default RegisterPage;
+export default RegisterPage

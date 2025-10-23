@@ -3,7 +3,8 @@ import { creditApplicationRepository } from '../repositories/CreditApplicationRe
 
 export const createCreditApplication = async (req: Request, res: Response) => {
   try {
-    const { companyId, amount, termMonths, assignedToId } = req.body
+    const { companyId, amount, termMonths, assignedToId, product, coin, monthlySales, tipoDni, dni, fullname } =
+      req.body
 
     if (!companyId) {
       return res.status(400).json({ message: 'companyId es obligatorio' })
@@ -13,7 +14,13 @@ export const createCreditApplication = async (req: Request, res: Response) => {
       companyId,
       amount,
       termMonths,
-      assignedToId
+      assignedToId,
+      product,
+      coin,
+      monthlySales,
+      tipoDni,
+      dni,
+      fullname
     })
 
     return res.status(201).json(creditApp)

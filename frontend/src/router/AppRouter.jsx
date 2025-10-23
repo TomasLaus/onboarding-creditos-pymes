@@ -25,6 +25,7 @@ function AppRouter() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/login/:firstaccess" element={<LoginPage />} />
           <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         </Route>
         // Rutas protegidas dentro del layout del dashboard //

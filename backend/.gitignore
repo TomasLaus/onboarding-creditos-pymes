@@ -7,5 +7,6 @@ prisma/dev.db
 pgdata_copy/
 pgdata/
 .env
+backend/uploads/*
 
 /src/generated/prisma

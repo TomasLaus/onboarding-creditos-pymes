@@ -90,7 +90,7 @@ app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/login', loginRoutes)
 app.use('/api/credit-applications', creditApplicationRoutes)
-app.use('/api/documents', documentRoutes)
+app.use('/api/document', documentRoutes)
 
 // ---------------------------------------------------------------
 // Debug de rutas
@@ -106,5 +106,27 @@ app._router.stack.forEach((r: any) => {
     })
   }
 })
+
+// ---------------------------------------------------------------
+// La carpeta uploads/ debe existir en tu proyecto.
+//crearla automáticamente al iniciar el servidor:
+// ---------------------------------------------------------------
+import fs from 'fs'
+
+const uploadDir = 'uploads/'
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir)
+}
+
+// ---------------------------------------------------------------
+// Servir archivos estáticos (opcional)
+// permite poder acceder a los archivos desde el navegador:
+// ---------------------------------------------------------------
+
+app.use('/uploads', express.static('uploads'))
+
+// ---------------------------------------------------------------
+// exportar app
+// ---------------------------------------------------------------
 
 export default app

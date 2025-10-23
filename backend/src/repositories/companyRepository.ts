@@ -23,7 +23,16 @@ export const updateCompany = async (
 
 // Obtener todas las empresas
 export const getAllCompanies = async (): Promise<any[]> => {
-  return prisma.company.findMany()
+  return prisma.company.findMany({
+    include: {
+      user: true,
+      applications: {
+        include: {
+          documents: true
+        }
+      }
+    }
+  })
 }
 
 export const getCompanyById = async (id: string): Promise<any | null> => {

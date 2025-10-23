@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useParams } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import './LoginPage.css'
 import { useAppContext } from '../../context/appContext'
@@ -11,6 +11,10 @@ const LoginPage = () => {
     import.meta.env.VITE_NODE_ENV === 'production'
       ? import.meta.env.VITE_BACKEND_PRODUCTION
       : import.meta.env.VITE_BACKEND_LOCAL
+
+  const params = useParams()
+  const { firstaccess } = params
+  const seEnvioFirstAccess = firstaccess !== undefined
 
   const [formData, setFormData] = useState({
     email: '',
@@ -24,7 +28,6 @@ const LoginPage = () => {
   const [showModal, setShowModal] = useState(false)
   const [erroresBackend, setErroresBackend] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
 
   const validateField = (name, value) => {
     let error = ''
@@ -84,7 +87,7 @@ const LoginPage = () => {
           email: response.data.user.email,
           legalName: response.data.company.legalName,
           taxId: response.data.company.taxId,
-          phone: response.data.user.phone,
+          phone: response.data.company.phone,
           idUser: response.data.user.id,
           idCompany: response.data.company.id,
           companyAltEmail: response.data.company.altEmail
@@ -124,7 +127,12 @@ const LoginPage = () => {
           <div className="login-form-wrapper">
             <h2>Bienvenido de nuevo</h2>
             <p>Ingresa tus credenciales para acceder a tu cuenta</p>
-            <p style={{ color: 'red' }}>(Primer acceso debe confirmase vía email)</p>
+            {seEnvioFirstAccess && (
+              <p style={{ color: 'red' }}>
+                (Antes de comenzar, debe activar su cuenta mediante el email que
+                le enviamos.)
+              </p>
+            )}
             <form onSubmit={handleSubmit} noValidate>
               {apiError && <div className="api-error-message">{apiError}</div>}
               {erroresBackend && (
@@ -164,12 +172,12 @@ const LoginPage = () => {
                   <span className="error-message">{errors.password}</span>
                 )}
               </div>
-              <button type="submit" className="login-button" disabled={isLoading}>
-                {isLoading ? (
-                  <div className="spinner"></div>
-                ) : (
-                  'Iniciar Sesión'
-                )}
+              <button
+                type="submit"
+                className="login-button"
+                disabled={isLoading}
+              >
+                {isLoading ? <div className="spinner"></div> : 'Iniciar Sesión'}
               </button>
             </form>
             <div className="links">

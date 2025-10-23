@@ -1,77 +1,99 @@
-import React, { useNavigate, useState, useRef } from 'react';
-import { FiFilePlus, FiChevronDown } from 'react-icons/fi'; 
+import React, { useState, useRef } from 'react'
+import { FiFilePlus, FiChevronDown } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
-import './SolicitudDos.css'; 
+import axios from 'axios'
+
+import './SolicitudDos.css'
+import { useAppContext } from '../../context/appContext'
 
 const DocumentosDos = () => {
-  const navigate = useNavigate();
-  const [files, setFiles] = useState([]);
-  const [uploading, setUploading] = useState(false);
-  const [uploadStatus, setUploadStatus] = useState(null);
-  const fileInputRef = useRef(null);
+  const URL_BACKEND =
+    import.meta.env.VITE_NODE_ENV === 'production'
+      ? import.meta.env.VITE_BACKEND_PRODUCTION
+      : import.meta.env.VITE_BACKEND_LOCAL
+  const navigate = useNavigate()
+  const [files, setFiles] = useState([])
+  const [uploading, setUploading] = useState(false)
+  const [uploadStatus, setUploadStatus] = useState(null)
+  const fileInputRef = useRef(null)
+  const { userData, creditApplicationData } = useAppContext()
 
+  const handleFileSelect = fileList => {
+    const newFiles = Array.from(fileList)
+    setFiles(prevFiles => [...prevFiles, ...newFiles])
+    console.log('Archivos seleccionados:', newFiles)
+  }
 
-  const handleFileSelect = (fileList) => {
-    const newFiles = Array.from(fileList);
-    setFiles(prevFiles => [...prevFiles, ...newFiles]);
-    console.log('Archivos seleccionados:', newFiles);
+  const handleDragOver = e => {
+    e.preventDefault()
+    e.stopPropagation()
+  }
 
-  };
+  const handleDrop = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    handleFileSelect(e.dataTransfer.files)
+  }
 
-  const handleDragOver = (e) => {
-    e.preventDefault(); 
-    e.stopPropagation();
-  };
+  const handleFileChange = e => {
+    handleFileSelect(e.target.files)
+  }
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    handleFileSelect(e.dataTransfer.files);
-  };
-
-  const handleFileChange = (e) => {
-    handleFileSelect(e.target.files);
-  };
-
-  const onButtonClick = (e) => {
-    e.stopPropagation(); 
-    fileInputRef.current.click();
-  };
+  const onButtonClick = e => {
+    e.stopPropagation()
+    fileInputRef.current.click()
+  }
 
   const handleUpload = async () => {
     if (files.length === 0) {
-      alert('Por favor, selecciona al menos un archivo antes de continuar.');
-      return;
+      alert('Por favor, selecciona al menos un archivo antes de continuar.')
+      return
     }
 
-    const formData = new FormData();
-    files.forEach((file) => formData.append('files', file)); // 'files' = nombre del campo esperado por el backend
+    const formData = new FormData()
+    files.forEach(file => formData.append('files', file)) // 'files' = nombre del campo esperado por el backend
+    // Agregar campos extra
+    formData.append('creditId', creditApplicationData.idCreditApplication)
+    formData.append('uploadedById', userData.idUser)
+    formData.append('companyId', userData.idCompany)
+
+    console.log(
+      'creditApplicationData.idCreditApplication:',
+      creditApplicationData.idCreditApplication
+    )
+    console.log('companyId', userData.idCompany)
+    console.log('uploadedById', userData.idUser)
 
     try {
-      setUploading(true);
-      setUploadStatus(null);
+      setUploading(true)
+      setUploadStatus(null)
 
-      const response = await axios.post('aqui va el enpoint', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${URL_BACKEND}/api/document`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
 
-      console.log('Respuesta del servidor:', response.data);
-      setUploadStatus('Archivos subidos exitosamente ✅');
+      navigate('/dashboard/solicitud-tres')
+      console.log('Respuesta del servidor:', response.data)
+      alert('¡Datos guardados con éxito!')
+      setUploadStatus('Archivos subidos exitosamente ✅')
     } catch (error) {
-      console.error('Error al subir archivos:', error);
-      setUploadStatus('Error al subir archivos ❌');
+      console.error('Error al subir archivos:', error)
+      setUploadStatus('Error al subir archivos ❌')
     } finally {
-      setUploading(false);
+      setUploading(false)
     }
-  };
+  }
 
   return (
     <div className="form-container">
-      
       <div className="form-header">
-
         <h2>Sube tus documentos:</h2>
         <p>Paso 2 de 3</p>
 
@@ -93,12 +115,12 @@ const DocumentosDos = () => {
 
       <h3>Carga de documentos</h3>
 
-      <div 
+      <div
         className="dropzone"
         onDragOver={handleDragOver}
         onDragEnter={handleDragOver}
         onDrop={handleDrop}
-        onClick={() => fileInputRef.current.click()} 
+        onClick={() => fileInputRef.current.click()}
       >
         <input
           type="file"
@@ -108,37 +130,62 @@ const DocumentosDos = () => {
           multiple
           style={{ display: 'none' }}
         />
-        
+
         <div className="dropzone-content">
           <FiFilePlus className="dropzone-icon" />
-          
+
           <div className="dropzone-text-area">
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="dropzone-button"
-              onClick={onButtonClick} 
+              onClick={onButtonClick}
             >
               Elegir archivos
               <FiChevronDown size={20} />
             </button>
-            <p className="dropzone-prompt">Arrastra o haz clic aquí para subir archivo</p>
+            <p className="dropzone-prompt">
+              Arrastra o haz clic aquí para subir archivo
+            </p>
           </div>
         </div>
       </div>
-      
+
+      {files.length > 0 && (
+        <>
+          <h3>Archivos seleccionados:</h3>
+          <ul className="attached-files">
+            {files.map((file, index) => (
+              <li key={index}>{file.name}</li>
+            ))}
+          </ul>
+        </>
+      )}
+
       <p className="upload-info">Aceptamos PDF, JPG, PNG • Máx. 10 MB</p>
 
-
       <div className="document-actions">
-        <button type="button" className="btn btn-save">
+        <button
+          type="button"
+          className="btn btn-save"
+          onClick={handleUpload}
+          disabled={uploading}
+        >
+          {uploading ? <div className="spinner"></div> : 'Guardar y continuar'}
+        </button>
+
+        {/* <button type="button" className="btn btn-save">
           Volver
-        </button>
-        <button type="button" onClick={() => navigate ('/dashboard/solicitud-tres')} className="btn btn-continue">
-          {uploading ? ( <div className="spinner"></div>) : ('Continuar')}
-        </button>
+        </button> */}
+        {/* <button
+          type="button"
+          onClick={() => navigate('/dashboard/solicitud-tres')}
+          className="btn btn-continue"
+        >
+          {uploading ? <div className="spinner"></div> : 'Continuar'}
+        </button> */}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DocumentosDos;
+export default DocumentosDos
