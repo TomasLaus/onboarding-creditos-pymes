@@ -1,9 +1,13 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 import { FiFilePlus, FiChevronDown } from 'react-icons/fi'; 
 import './SolicitudTres.css'; 
 
 const Documentostres = () => {
   const [files, setFiles] = useState([]);
+  const navigate = useNavigate();
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState(null);
   const fileInputRef = useRef(null);
@@ -57,6 +61,7 @@ const Documentostres = () => {
 
       console.log('Respuesta del servidor:', response.data);
       setUploadStatus('Archivos subidos exitosamente ✅');
+      navigate('/dashboard/solicitud-cuatro'); // ¡Navegación agregada aquí!
     } catch (error) {
       console.error('Error al subir archivos:', error);
       setUploadStatus('Error al subir archivos ❌');
@@ -122,7 +127,7 @@ const Documentostres = () => {
         <button type="button" className="btn btn-save">
           Volver
         </button>
-        <button type="button" className="btn btn-continue">
+        <button type="button" onClick={handleUpload} className="btn btn-continue" disabled={uploading}>
           {uploading ? ( <div className="spinner"></div>) : ('Continuar')}
         </button>
       </div>

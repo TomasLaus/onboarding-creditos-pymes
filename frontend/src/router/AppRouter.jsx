@@ -16,6 +16,7 @@ import DashboardView from "../components/DashboardView/DashboardView.jsx";
 import SolicitudUno from "../pages/SolicitudUno/SolicitudUno.jsx";
 import SolicitudDos from "../pages/SolicitudDos/SolicitudDos.jsx";
 import SolicitudTres from "../pages/SolicitudTres/SolicitudTres.jsx";
+import SolicitudCuatro from "../pages/SolicitudCuatro/SolicitudCuatro.jsx";
 
 function AppRouter() {
   const { tokenLogin } = useAppContext();
@@ -48,6 +49,7 @@ function AppRouter() {
           <Route path="solicitud-uno" element={<SolicitudUno />} />
           <Route path="solicitud-dos" element={<SolicitudDos />} />
           <Route path="solicitud-tres" element={<SolicitudTres />} />
+          <Route path="solicitud-cuatro" element={<SolicitudCuatro />} />
        </Route>
 
 /////////////////////////////////////////////////////////////////
