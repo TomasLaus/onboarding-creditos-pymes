@@ -90,6 +90,11 @@ const Sidebar = () => {
   const navigate = useNavigate()
   const menuItems = [
     { icon: <HomeIcon />, text: 'Panel principal', path: '/dashboard' },
+    {
+      icon: <FolderIcon />,
+      text: 'Ver todas',
+      path: '/dashboard/solicitudes-todas'
+    },
     { icon: <FileIcon />, text: 'Mis solicitudes', path: '/solicitudes' },
     { icon: <FolderIcon />, text: 'Documentación', path: '/documentacion' },
     { icon: <ChartIcon />, text: 'Estado de crédito', path: '/credito' },

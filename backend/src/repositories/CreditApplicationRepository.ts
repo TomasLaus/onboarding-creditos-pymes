@@ -62,5 +62,32 @@ export const creditApplicationRepository = {
       },
       orderBy: { createdAt: 'desc' }
     })
+  },
+
+  async updateCreditApplication(
+    id: string,
+    data: Partial<{
+      companyId: string
+      amount: number
+      termMonths: number
+      assignedToId?: string
+      product: string
+      coin: number
+      monthlySales: number
+      tipoDni: string
+      dni: string
+      fullname: string
+    }>
+  ) {
+    return await prisma.creditApplication.update({
+      where: { id },
+      data: {
+        ...data
+      },
+      include: {
+        company: true,
+        assignedTo: true
+      }
+    })
   }
 }

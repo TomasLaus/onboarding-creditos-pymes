@@ -33,7 +33,6 @@ export const createCreditApplication = async (req: Request, res: Response) => {
 export const getCreditApplicationById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params
-
     const creditApp = await creditApplicationRepository.getCreditApplicationById(id)
     if (!creditApp) {
       return res.status(404).json({ message: 'Solicitud no encontrada' })
@@ -69,6 +68,32 @@ export const getCreditApplicationsByCompany = async (req: Request, res: Response
     return res.status(200).json(apps)
   } catch (error) {
     console.error('Error obteniendo credit applications por empresa:', error)
+    return res.status(500).json({ message: 'Error interno del servidor' })
+  }
+}
+
+export const updateCreditApplication = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params
+    const { companyId, amount, termMonths, assignedToId, product, coin, monthlySales, tipoDni, dni, fullname } =
+      req.body
+
+    const creditApp = await creditApplicationRepository.updateCreditApplication(id, {
+      companyId,
+      amount,
+      termMonths,
+      assignedToId,
+      product,
+      coin,
+      monthlySales,
+      tipoDni,
+      dni,
+      fullname
+    })
+
+    return res.status(200).json(creditApp)
+  } catch (error) {
+    console.error('Error actualizando credit application:', error)
     return res.status(500).json({ message: 'Error interno del servidor' })
   }
 }

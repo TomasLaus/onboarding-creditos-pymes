@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import './SolicitarUno.css'
 import { sanitizeMinMax, sanitizeNumberInput } from '../../utils/number-utils'
 import { parseToFloat } from '../../utils/number-utils'
-import { formatDecimals } from '../../utils/number-utils'
 import { useAppContext } from '../../context/appContext'
+
+const rellenarDatosTesting = (userData, rellenar = true) => {
+  if (rellenar) {
+    return {
+      producto: 'capital-trabajo', // debe coincidir con <option value="capital-trabajo">
+      idFiscal: userData.taxId,
+      moneda: 'peso', // debe coincidir con <option value="peso">
+      ventas: 'rango3', // elegí el rango que quieras mostrar como preseleccionado
+      monto: parseFloat(50000),
+      plazo: parseInt(12),
+      tipoDocumento: 'dni', // coincide con <option value="dni">
+      numDocumento: '12345678',
+      nombre: userData.legalName,
+      celular: userData.phone,
+      email: userData.email,
+      aceptaDatos: true,
+      aceptaTerminos: true
+    }
+  }
+}
 
 const CreditForm = () => {
   const URL_BACKEND =
@@ -16,21 +35,30 @@ const CreditForm = () => {
 
   const { userData, setCreditApplicationData } = useAppContext()
 
-  const [formData, setFormData] = useState({
-    producto: '',
-    idFiscal: userData.taxId,
-    moneda: '',
-    ventas: '',
-    monto: '',
-    plazo: '',
-    tipoDocumento: '',
-    numDocumento: '',
-    nombre: userData.legalName,
-    celular: userData.phone,
-    email: userData.email,
-    aceptaDatos: false,
-    aceptaTerminos: false
-  })
+  //testing
+  const [formData, setFormData] = useState({})
+  useEffect(() => {
+    if (userData) {
+      setFormData(rellenarDatosTesting(userData))
+    }
+  }, [])
+  //endtesting
+
+  // const [formData, setFormData] = useState({
+  //   producto: '',
+  //   idFiscal: userData.taxId,
+  //   moneda: '',
+  //   ventas: '',
+  //   monto: '',
+  //   plazo: '',
+  //   tipoDocumento: '',
+  //   numDocumento: '',
+  //   nombre: userData.legalName,
+  //   celular: userData.phone,
+  //   email: userData.email,
+  //   aceptaDatos: false,
+  //   aceptaTerminos: false
+  // })
 
   const formdataToSend = {
     companyId: userData.idCompany,

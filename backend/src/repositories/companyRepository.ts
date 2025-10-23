@@ -37,7 +37,15 @@ export const getAllCompanies = async (): Promise<any[]> => {
 
 export const getCompanyById = async (id: string): Promise<any | null> => {
   return await prisma.company.findUnique({
-    where: { id }
+    where: { id },
+    include: {
+      user: true,
+      applications: {
+        include: {
+          documents: true
+        }
+      }
+    }
   })
 }
 

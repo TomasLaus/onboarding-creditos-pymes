@@ -1,0 +1,87 @@
+.application-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.documents-section {
+  width: 100%;
+  margin-top: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 2rem;
+  animation: fadeIn 0.3s ease;
+}
+
+.documents-section h2 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #333;
+  text-align: center;
+}
+
+.documents-table {
+  width: 100%; /* ocupa todo el ancho de la sección */
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  table-layout: fixed; /* distribuye columnas de forma uniforme */
+}
+
+.documents-table th,
+.documents-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  word-wrap: break-word; /* evita desbordes de texto */
+}
+
+.documents-table thead {
+  background: #f5f7fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.documents-table th {
+  font-weight: 600;
+  color: #555;
+}
+
+.documents-table tbody tr {
+  border-bottom: 1px solid #e6e6e6;
+  transition: background 0.2s ease;
+}
+
+.documents-table tbody tr:hover {
+  background: #f9fbff;
+}
+
+.link-doc {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link-doc:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

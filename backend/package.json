@@ -50,6 +50,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "postinstall": "npx prisma generate && npx prisma db push",
-    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\""
+    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\"",
+    "frontend:backend": "npm run docker:desktop && timeout /t 45 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && start cmd /k \"cd ../frontend && npm run dev\""
   }
 }

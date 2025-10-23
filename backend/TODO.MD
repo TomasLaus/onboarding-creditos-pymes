@@ -1,2 +1,4 @@
+- pasar de estado draft a pending cuando firma y acepta contrato.
+- volver atras en las solicitudes.
 - doble factor autenticacion.
 - validaciones antes de hacer updates, inserts etc.

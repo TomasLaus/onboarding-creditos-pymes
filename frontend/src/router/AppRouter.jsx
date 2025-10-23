@@ -14,6 +14,7 @@ import SolicitudUno from '../pages/SolicitudUno/SolicitudUno.jsx'
 import SolicitudDos from '../pages/SolicitudDos/SolicitudDos.jsx'
 import SolicitudTres from '../pages/SolicitudTres/SolicitudTres.jsx'
 import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta.jsx'
+import SolicitudesTodas from '../pages/SolicitudesTodas/SolicitudesTodas.jsx'
 
 function AppRouter() {
   const { tokenLogin } = useAppContext()
@@ -32,6 +33,7 @@ function AppRouter() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
+          <Route path="solicitudes-todas" element={<SolicitudesTodas />} />
           <Route path="preparacion" element={<PreparacionSolicitud />} />
           <Route path="solicitud-uno" element={<SolicitudUno />} />
           <Route path="solicitud-dos" element={<SolicitudDos />} />
