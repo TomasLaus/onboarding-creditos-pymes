@@ -1,3 +1,4 @@
+- corregir dashboard para que se reflejen las solicitudes activas y las aprobadas.
 - pasar de estado draft a pending cuando firma y acepta contrato.
 - volver atras en las solicitudes.
 - doble factor autenticacion.
