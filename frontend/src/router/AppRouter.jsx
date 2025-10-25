@@ -15,6 +15,9 @@ import SolicitudDos from '../pages/SolicitudDos/SolicitudDos.jsx'
 import SolicitudTres from '../pages/SolicitudTres/SolicitudTres.jsx'
 import ActivarCuenta from '../pages/ActivarCuenta/ActivarCuenta.jsx'
 import SolicitudesTodas from '../pages/SolicitudesTodas/SolicitudesTodas.jsx'
+import SolicitudCuatro from '../pages/SolicitudCuatro/SolicitudCuatro.jsx'
+import AprobacionCredito from '../pages/AprobacionCredito/AprobacionCredito.jsx'
+import EstadoCredito from '../pages/EstadoCredito/EstadoCredito.jsx'
 
 function AppRouter() {
   const { tokenLogin } = useAppContext()
@@ -29,7 +32,7 @@ function AppRouter() {
           <Route path="/login/:firstaccess" element={<LoginPage />} />
           <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         </Route>
-        // Rutas protegidas dentro del layout del dashboard //
+
         <Route path="/dashboard" element={<DashboardLayout />}>
           {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
@@ -38,8 +41,11 @@ function AppRouter() {
           <Route path="solicitud-uno" element={<SolicitudUno />} />
           <Route path="solicitud-dos" element={<SolicitudDos />} />
           <Route path="solicitud-tres" element={<SolicitudTres />} />
+          <Route path="solicitud-cuatro" element={<SolicitudCuatro />} />
+          <Route path="estado-credito" element={<EstadoCredito />} />
+          <Route path="aprobacion-credito" element={<AprobacionCredito />} />
         </Route>
-        /////////////////////////////////////////////////////////////////
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>

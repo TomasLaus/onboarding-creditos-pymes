@@ -11,7 +11,7 @@ const rellenarDatosTesting = (userData, rellenar = true) => {
     return {
       producto: 'capital-trabajo', // debe coincidir con <option value="capital-trabajo">
       idFiscal: userData.taxId,
-      moneda: 'peso', // debe coincidir con <option value="peso">
+      moneda: 'Peso', // debe coincidir con <option value="peso">
       ventas: 'rango3', // elegí el rango que quieras mostrar como preseleccionado
       monto: parseFloat(50000),
       plazo: parseInt(12),
@@ -63,7 +63,7 @@ const CreditForm = () => {
   const formdataToSend = {
     companyId: userData.idCompany,
     product: formData.producto,
-    coin: parseFloat(formData.moneda),
+    coin: formData.moneda,
     monthlySales: parseInt(formData.ventas),
     tipoDni: formData.tipoDocumento,
     dni: formData.numDocumento,

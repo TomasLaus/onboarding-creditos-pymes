@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
-import { FiFilePlus, FiChevronDown } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
-
+import { FiFilePlus, FiChevronDown } from 'react-icons/fi'
 import axios from 'axios'
 
 import './SolicitudDos.css'

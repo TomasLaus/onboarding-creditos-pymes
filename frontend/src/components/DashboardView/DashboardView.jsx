@@ -67,7 +67,12 @@ const DashboardView = () => {
           <button className="btn-primary-dashboard" onClick={handleStartNow}>
             Empezar ahora
           </button>
-          <button className="btn-secondary-dashboard">Ver documentación</button>
+          <button
+            onClick={() => navigate('/dashboard/solicitudes-todas')}
+            className="btn-secondary-dashboard"
+          >
+            Ver documentación
+          </button>
         </div>
       </div>
     </div>

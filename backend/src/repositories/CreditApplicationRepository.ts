@@ -7,7 +7,7 @@ export const creditApplicationRepository = {
     termMonths: number
     assignedToId?: string
     product: string
-    coin: number
+    coin: string
     monthlySales: number
     tipoDni: string
     dni: string
@@ -72,7 +72,7 @@ export const creditApplicationRepository = {
       termMonths: number
       assignedToId?: string
       product: string
-      coin: number
+      coin: string
       monthlySales: number
       tipoDni: string
       dni: string

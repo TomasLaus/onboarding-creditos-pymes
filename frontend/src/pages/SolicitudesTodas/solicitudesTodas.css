@@ -2,56 +2,59 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 12px; /* texto general reducido */
 }
 
 .applications-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
   width: 100%;
 }
 
 .documents-section {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   background: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 1.5rem 2rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
   animation: fadeIn 0.3s ease;
+  font-size: 12px; /* texto interno pequeño */
 }
 
 .documents-section h2 {
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
+  margin-bottom: 0.75rem;
+  font-size: 13px; /* título pequeño */
   color: #333;
   text-align: center;
 }
 
 .documents-table {
-  width: 100%; /* ocupa todo el ancho de la sección */
+  width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
-  table-layout: fixed; /* distribuye columnas de forma uniforme */
+  font-size: 11px; /* texto más pequeño */
+  table-layout: fixed;
 }
 
 .documents-table th,
 .documents-table td {
-  padding: 0.8rem 1rem;
+  padding: 0.4rem 0.6rem;
   text-align: left;
-  word-wrap: break-word; /* evita desbordes de texto */
+  word-wrap: break-word;
 }
 
 .documents-table thead {
   background: #f5f7fa;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .documents-table th {
   font-weight: 600;
   color: #555;
+  font-size: 11.5px; /* encabezado un poco más visible */
 }
 
 .documents-table tbody tr {
@@ -68,6 +71,7 @@
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease;
+  font-size: 11px;
 }
 
 .link-doc:hover {
@@ -84,4 +88,14 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+button {
+  background-color: #00c853;
+}
+
+.dashboard-view {
+  height: 100vh; /* o la altura que necesites */
+  width: 100%; /* o la anchura que necesites */
+  overflow-y: auto; /* habilita scroll vertical */
 }

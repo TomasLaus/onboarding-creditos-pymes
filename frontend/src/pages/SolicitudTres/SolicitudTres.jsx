@@ -3,6 +3,7 @@ import { FiFilePlus, FiChevronDown } from 'react-icons/fi'
 import './SolicitudTres.css'
 import axios from 'axios'
 import { useAppContext } from '../../context/appContext'
+import { useNavigate } from 'react-router-dom'
 
 const Documentostres = () => {
   const URL_BACKEND =
@@ -15,6 +16,7 @@ const Documentostres = () => {
   const [uploading, setUploading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState(null)
   const fileInputRef = useRef(null)
+  const navigate = useNavigate()
 
   const handleFileSelect = fileList => {
     const newFiles = Array.from(fileList)
@@ -69,11 +71,15 @@ const Documentostres = () => {
         }
       )
 
+      navigate('/dashboard/solicitud-cuatro')
+
       console.log('Respuesta del servidor:', response.data)
       alert('¡Datos guardados con éxito!')
+
       setUploadStatus('Archivos subidos exitosamente ✅')
     } catch (error) {
       alert('Error al subir archivos: solo se permiten archivos PDF, JPG y PNG')
+      console.log(error)
       setFiles([])
       setUploadStatus('Error al subir archivos ❌')
     } finally {

@@ -153,21 +153,21 @@ const LoginPage = () => {
               </div>
               <div className="input-group">
                 <label>Contraseña</label>
-                <div className="password-wrapper">
-                  <input
-                    type={showPassword ? 'text' : 'password'}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    placeholder="........"
-                  />
-                  <span
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="password-toggle-icon"
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
-                </div>
+                {/* <div className="password-wrapper"> */}
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="........"
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="password-toggle-icon"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+                {/* </div> */}
                 {errors.password && (
                   <span className="error-message">{errors.password}</span>
                 )}

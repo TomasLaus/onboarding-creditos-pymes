@@ -197,7 +197,7 @@ model CreditApplication {
 
   // added for solicitudUno
   product String
-  coin Float?
+  coin String?
   monthlySales Int?
   tipoDni String
   dni String

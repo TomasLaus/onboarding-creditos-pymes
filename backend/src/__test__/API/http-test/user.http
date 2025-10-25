@@ -37,7 +37,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWdxb
 
 
 ### activar usuario
-GET http://localhost:3000/api/users/activate?token=199b60dfb9b2e35fbd3ab598b482331d474a0c80bdaa982bb7188d36e00c43a7&email=juan334@hotmail.com
+@TOKEN_ACTIVACION = 328ea6b305c9e2a3b06fc2dbfe93ef85b84ac8d01bf23c0244b3406647159e8c
+GET http://localhost:3000/api/users/activate?token={{TOKEN_ACTIVACION}}&email=juan334@hotmail.com
 
 
 

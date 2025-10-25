@@ -1,4 +1,32 @@
 /**
+ * Formatea un número como moneda, con separador de miles y decimales.
+ * Ejemplo: 5000 -> "$ 5,000.00"
+ */
+export const formatCurrency = (
+  value: number,
+  currencySymbol = '$',
+  decimals = 2,
+  locale = 'en-US' // puedes usar 'es-AR' o el que necesites
+): string => {
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  })
+  return `${currencySymbol} ${formatter.format(value)}`
+}
+
+/**
+ * Convierte una fecha ISO a formato dd/mm/yyyy
+ */
+export const formatDateShortARG = (isoString: string): string => {
+  const date = new Date(isoString)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}/${month}/${year}`
+}
+
+/**
  * Sanitiza un valor de entrada para asegurar que solo contenga números
  * y limite el valor entre un rango mínimo y máximo permitido.
  *
