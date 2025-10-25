@@ -50,8 +50,8 @@ const Header = () => {
               </ul>
             </nav>
             <div className="actions-container">
-              <FaWhatsapp className="action-icon whatsapp-icon" />
-              <FaSearch className="action-icon search-icon" />
+              <FaWhatsapp className="action-icono whatsapp-icon" />
+              <FaSearch className="action-icono search-icon" />
               <button className="btn btn-primary" onClick={handleRegisterClick}>Solicita tu Crédito</button>
               <button className="btn btn-secondary" onClick={handleLoginClick}>Iniciar Sesión</button>
             </div>

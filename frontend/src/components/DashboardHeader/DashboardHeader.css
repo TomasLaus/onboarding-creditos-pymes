@@ -1,19 +1,35 @@
 .dashboard-header {
+    position: sticky;
+    top: 0;
+    z-index: 1001; /* Un z-index alto para que esté sobre todo */
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 30px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid transparent;
     border-image: linear-gradient(to right, #3d1d5c, #3d1d5c, #b266ff) 1;
-    box-shadow: 0 4px 10px #fff(138, 43, 226, 0.4);
-    
+    box-shadow: 0 4px 10px rgba(138, 43, 226, 0.1); 
+    height: 82px;
+    box-sizing: border-box; 
 }
 
 .header-left {
     display: flex;
     align-items: center;
+}
+
+
+.mobile-menu-button {
+  display: none; 
+  background: none;
+  border: none;
+  color: #38164F; 
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 15px;
 }
 
 
@@ -50,17 +66,16 @@
     font-size: 14px;
 }
 
-/* Placeholder en negrita y color negro */
+
 .search-bar input::placeholder {
     font-weight: 600;
-    color: #000; /* Color negro sólido */
+    color: #000;
 }
 
 .search-bar svg {
     color: #8e8e93;
 }
 
-/* ... Estilos existentes ... */
 
 .user-menu {
   display: flex;
@@ -74,7 +89,7 @@
   cursor: pointer;
 }
 
-/* Contenedor para el botón y el menú para posicionamiento */
+
 .user-dropdown-container {
   position: relative;
 }
@@ -144,4 +159,23 @@
 .dropdown-item.active {
   background-color: #19AA91; 
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    padding: 15px;
+    height: auto;
+  }
+  
+  .search-bar {
+    display: none;
+  }
+  
+  .mobile-menu-button {
+    display: block; 
+  }
+
+  .header-logo {
+    height: 28px; 
+  }
 }

@@ -31,8 +31,8 @@ const SolicitudEnviada = () => {
       </div>
 
       <div className="solicitud-actions">
-        <button className="btn btn-primary">Ver estado de mi solicitud</button>
-        <button onClick={() => navigate('/dashboard')} className="btn btn-secondary">Ir al panel principal</button>
+        <button className="botones btn-primario">Ver estado de mi solicitud</button>
+        <button onClick={() => navigate('/dashboard')} className="botones btn-secundario">Ir al panel principal</button>
       </div>
       
       <div className="solicitud-footer">

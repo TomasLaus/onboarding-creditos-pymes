@@ -17,6 +17,8 @@ import SolicitudUno from "../pages/SolicitudUno/SolicitudUno.jsx";
 import SolicitudDos from "../pages/SolicitudDos/SolicitudDos.jsx";
 import SolicitudTres from "../pages/SolicitudTres/SolicitudTres.jsx";
 import SolicitudCuatro from "../pages/SolicitudCuatro/SolicitudCuatro.jsx";
+import AprobacionCredito from "../pages/AprobacionCredito/AprobacionCredito.jsx";
+import EstadoCredito from "../pages/EstadoCredito/EstadoCredito.jsx";
 
 function AppRouter() {
   const { tokenLogin } = useAppContext();
@@ -50,6 +52,9 @@ function AppRouter() {
           <Route path="solicitud-dos" element={<SolicitudDos />} />
           <Route path="solicitud-tres" element={<SolicitudTres />} />
           <Route path="solicitud-cuatro" element={<SolicitudCuatro />} />
+          <Route path="estado-credito" element={<EstadoCredito />} />
+          <Route path="aprobacion-credito" element={<AprobacionCredito />} />
+    
        </Route>
 
 /////////////////////////////////////////////////////////////////

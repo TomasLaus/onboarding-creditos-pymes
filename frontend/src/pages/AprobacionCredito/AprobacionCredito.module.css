@@ -1,0 +1,251 @@
+.offerContainer {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: #ffffff;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden; 
+}
+
+.headerAprobation {
+  background-color: #000F1F;
+  color: #ffffff;
+  padding: 12px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.headerAprobation::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.header-top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+
+.header-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.headerText h1 {
+  margin: 0 0 8px 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.header-description {
+  margin: 0;
+  font-size: 1rem;
+  color: #e0e0e0;
+}
+
+.caseNumber {
+  font-size: 0.9rem;
+  color: #c0c0c0;
+  align-self: flex-start;
+}
+
+.alertBox {
+  background-color: #FFD266;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 12px;
+  display: inline-flex;
+  max-width: fit-content;
+  margin-bottom: 0; 
+}
+
+.alert-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.alertIcon {
+  background-color: transparent;
+  color: #1f2a37;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1.8rem;
+  display: block;
+}
+
+.alertBox-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.alertText {
+  display: flex;
+  flex-direction: column;
+  color: #1f2a37;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.alertText strong {
+  font-weight: 600;
+}
+
+.details {
+  padding: 24px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0; 
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.95rem;
+}
+
+.detailRow:first-child {
+  padding-top: 0;
+}
+
+.detailRow:last-of-type {
+  border-bottom: none;
+}
+
+.detailRow span {
+  color: #4b5563;
+}
+
+.detailRow strong {
+  color: #111827;
+  font-weight: 600;
+  text-align: right;
+}
+
+.link {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.paymentScheduleLink {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 0.95rem;
+}
+
+.agreement {
+  padding: 0 24px 24px 24px;
+}
+
+.checkboxWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.checkboxWrapper input[type='checkbox'] {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+}
+
+.checkboxWrapper label {
+  line-height: 1.5;
+}
+
+.disclaimer {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 12px;
+  padding-left: 26px;
+}
+
+.actions {
+  padding: 24px;
+  border-top: 1px solid #f3f4f6;
+  background-color: #fafafa;
+}
+
+.actions h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: nowrap;       
+}
+
+.btn {
+  padding: 12px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btnPrimary {
+  background-color: #8331BD;
+  color: #ffffff;
+}
+.btnPrimary:hover {
+  background-color: #7c3aed;
+}
+
+.btnSecondary {
+  background-color: #19AA91;
+  color: #ffffff;
+}
+.btnSecondary:hover {
+  background-color: #059669;
+}
+
+.btnTertiary {
+  background-color: #FAFAFA;
+  color: #374151;
+  border-color: #d1d5db;
+}
+.btnTertiary:hover {
+  background-color: #f9fafb;
+}
+
+.footer {
+  padding: 20px 24px;
+  text-align: center;
+  border-top: 1px solid #f3f4f6;
+}
+
+.footerLink {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-decoration: none;
+}
+.footerLink:hover {
+  text-decoration: underline;
+}

@@ -1,28 +1,26 @@
 import React, { useState } from 'react'
 import './DashboardHeader.css'
-import { FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi' // Importa FiChevronUp
+import { FiMenu, FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi' 
 import logo from '../../assets/logo_fintech-pyme.png'
 import { useAppContext } from '../../context/appContext'
 
-const DashboardHeader = () => {
-  // Estado para controlar si el menú está abierto o cerrado
+const DashboardHeader = ({ toggleSidebar }) => { 
+  
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  // Estado para saber qué ítem está activo (con fondo verde)
   const [activeItem, setActiveItem] = useState(null)
-
   const { setTokenLogin, userData } = useAppContext()
 
-  // Función para manejar el clic en un ítem del menú
   const handleItemClick = itemName => {
     setActiveItem(itemName)
-    // Opcional: cerrar el menú después de hacer clic
-    // setIsDropdownOpen(false);
     setTokenLogin(null)
   }
 
   return (
     <div className="dashboard-header">
       <div className="header-left">
+        <button className="mobile-menu-button" onClick={toggleSidebar}>
+          <FiMenu />
+        </button>
         <img src={logo} alt="Fintech Pyme" className="header-logo" />
       </div>
       <div className="header-right">
@@ -32,19 +30,14 @@ const DashboardHeader = () => {
         </div>
         <div className="user-menu">
           <FiBell className="notification-icon" />
-          {/* Contenedor del botón y el menú desplegable */}
           <div className="user-dropdown-container">
-            {/* Botón que abre/cierra el menú */}
             <div
               className={`user-info ${isDropdownOpen ? 'active' : ''}`}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>{userData.legalName}</span>
-              {/* Cambia el icono según el estado del menú */}
               {isDropdownOpen ? <FiChevronUp /> : <FiChevronDown />}
             </div>
-
-            {/* Menú desplegable (se muestra condicionalmente) */}
             {isDropdownOpen && (
               <div className="dropdown-menu">
                 <button
@@ -88,4 +81,4 @@ const DashboardHeader = () => {
   )
 }
 
-export default DashboardHeader
+export default DashboardHeader;
