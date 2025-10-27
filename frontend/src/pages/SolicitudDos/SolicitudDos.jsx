@@ -16,7 +16,8 @@ const DocumentosDos = () => {
   const [uploading, setUploading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState(null)
   const fileInputRef = useRef(null)
-  const { userData, creditApplicationData } = useAppContext()
+  const [serverError, setServerError] = useState('')
+  const { userData, creditApplicationData, tokenLogin } = useAppContext()
 
   const handleFileSelect = fileList => {
     const newFiles = Array.from(fileList)
@@ -73,6 +74,7 @@ const DocumentosDos = () => {
         formData,
         {
           headers: {
+            Authorization: `Bearer ${tokenLogin}`,
             'Content-Type': 'multipart/form-data'
           }
         }
@@ -84,6 +86,11 @@ const DocumentosDos = () => {
       setUploadStatus('Archivos subidos exitosamente ✅')
     } catch (error) {
       console.error('Error al subir archivos:', error)
+      if (error.response) {
+        setServerError(
+          `Error del servidor: ${error.response.data.message || error.message}`
+        )
+      }
       setUploadStatus('Error al subir archivos ❌')
     } finally {
       setUploading(false)
@@ -102,6 +109,16 @@ const DocumentosDos = () => {
           <span className="step"></span>
         </div>
       </div>
+
+      {/* --- Mensaje de error del servidor--- */}
+      {serverError && (
+        <div
+          className="form-error-general"
+          style={{ color: 'red', marginBottom: '15px', textAlign: 'center' }}
+        >
+          {serverError}
+        </div>
+      )}
 
       <h3>Lista de documentos requeridos</h3>
       <div className="document-list">

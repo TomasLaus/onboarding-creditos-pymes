@@ -1,28 +1,58 @@
-import React, { useState } from 'react';
-import styles from './AprobacionCredito.module.css'; 
-import { FiClock } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react'
+import styles from './AprobacionCredito.module.css'
+import { FiClock } from 'react-icons/fi'
+import { useParams } from 'react-router-dom'
 // 1. Importamos el componente Modal genérico
-import Modalizar from '../../components/ModalMultiuso'; 
+import Modalizar from '../../components/ModalMultiuso'
 // 2. Importamos el modal de agradecimiento que se mostrará
-import ModalGracias from '../../components/ModalGracias/ModalGracias';
+import ModalGracias from '../../components/ModalGracias/ModalGracias'
+import { useAppContext } from '../../context/appContext'
+import axios from 'axios'
+import {
+  formatCurrency,
+  formatStrAddingPrefix
+} from '../../utils/strings-utils'
 
 const CreditoAprobado = () => {
+  const URL_BACKEND =
+    import.meta.env.VITE_NODE_ENV === 'production'
+      ? import.meta.env.VITE_BACKEND_PRODUCTION
+      : import.meta.env.VITE_BACKEND_LOCAL
+
+  const { id_credito } = useParams()
+
   // 3. Estado para controlar la visibilidad del modal de agradecimiento
-  const [showGraciasModal, setShowGraciasModal] = useState(false);
+  const [showGraciasModal, setShowGraciasModal] = useState(false)
+  const { tokenLogin } = useAppContext()
+  const [application, setApplication] = useState(0)
+
+  useEffect(() => {
+    axios
+      .get(`${URL_BACKEND}/api/credit-applications/${id_credito}`, {
+        headers: {
+          Authorization: `Bearer ${tokenLogin}`
+        }
+      })
+      .then(response => {
+        setApplication(response.data)
+        console.log(response.data)
+      })
+  }, [])
 
   return (
     <div className={styles.offerContainer}>
-      
       {/* ... (el resto de tu JSX del header se mantiene igual) ... */}
       <div className={styles.headerAprobation}>
         <div className={styles.headerText}>
           <h1>¡Tu crédito fue aprobado!</h1>
         </div>
-        <div className={styles['header-bottom-section']}> 
-          <p className={styles['header-description']}>Revisa los términos y firma para continuar</p>
-          <div className={styles['alert-wrapper']}> 
+        <div className={styles['header-bottom-section']}>
+          <p className={styles['header-description']}>
+            Revisa los términos y firma para continuar
+          </p>
+          <div className={styles['alert-wrapper']}>
             <div className={styles.alertBox}>
-              <div className={styles['alertBox-content']}> 
+              <div className={styles['alertBox-content']}>
                 <FiClock className={styles.alertIcon} />
                 <div className={styles.alertText}>
                   <strong>Oferta válida hasta</strong>
@@ -30,18 +60,20 @@ const CreditoAprobado = () => {
                 </div>
               </div>
             </div>
-            <span className={styles.caseNumber}>Caso: FP-000123</span> 
+            <span className={styles.caseNumber}>
+              Caso: {formatStrAddingPrefix(application.id, 'FP-')}
+            </span>
           </div>
         </div>
       </div>
       <div className={styles.details}>
         <div className={styles.detailRow}>
           <span>Resumen de oferta:</span>
-          <strong>$ 5,000.00</strong>
+          <strong>{formatCurrency(application.amount)}</strong>
         </div>
         <div className={styles.detailRow}>
           <span>Monto aprobado:</span>
-          <strong>24 meses</strong>
+          <strong>{application.termMonths} meses</strong>
         </div>
         <div className={styles.detailRow}>
           <span>Tasa estimada:</span>
@@ -66,7 +98,10 @@ const CreditoAprobado = () => {
         <div className={styles.detailRow}>
           <span>Cuenta de desembolso:</span>
           <strong>
-            BCP ***1234 <a href="#" className={styles.link}>[Cambiar]</a>
+            BCP ***1234{' '}
+            <a href="#" className={styles.link}>
+              [Cambiar]
+            </a>
           </strong>
         </div>
 
@@ -80,11 +115,14 @@ const CreditoAprobado = () => {
           <input type="checkbox" id="acceptTerms" />
           <label htmlFor="acceptTerms">
             He leído y acepto la Hoja de Resumen (PDF) y el contrato
-            <a href="#" className={styles.link}>[ Descargar ]</a>
+            <a href="#" className={styles.link}>
+              [ Descargar ]
+            </a>
           </label>
         </div>
         <p className={styles.disclaimer}>
-          * La tasa estimada y montos pueden variar levemente según la fecha de desembolso.
+          * La tasa estimada y montos pueden variar levemente según la fecha de
+          desembolso.
         </p>
       </div>
 
@@ -92,9 +130,10 @@ const CreditoAprobado = () => {
         <h3>Acciones</h3>
         <div className={styles.buttonGroup}>
           {/* 4. Al hacer clic, este botón cambia el estado para mostrar el modal */}
-          <button 
+          <button
             className={`${styles.btn} ${styles.btnPrimary}`}
-            onClick={() => setShowGraciasModal(true)}>
+            onClick={() => setShowGraciasModal(true)}
+          >
             Aceptar y firmar ahora
           </button>
           <button className={`${styles.btn} ${styles.btnSecondary}`}>
@@ -113,15 +152,11 @@ const CreditoAprobado = () => {
       </div>
 
       {/* 5. Usamos Modalizar para mostrar el contenido de ModalGracias */}
-      <Modalizar 
-        show={showGraciasModal} 
-        setShow={setShowGraciasModal}
-      >
+      <Modalizar show={showGraciasModal} setShow={setShowGraciasModal}>
         <ModalGracias setShow={setShowGraciasModal} />
       </Modalizar>
-
     </div>
-  );
-};
+  )
+}
 
-export default CreditoAprobado;
+export default CreditoAprobado

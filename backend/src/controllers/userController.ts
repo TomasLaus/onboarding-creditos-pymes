@@ -157,9 +157,9 @@ export const changePassword = async (req: Request, res: Response) => {
 
 export const getAll = async (_req: Request, res: Response) => {
   try {
-    // res.status(501).json({ message: 'Funcionalidad no implementada.' })
-    const users: User[] = await getAllUsers()
-    res.json({ data: users })
+    res.status(501).json({ message: 'Funcionalidad no implementada.' })
+    // const users: User[] = await getAllUsers()
+    // res.json({ data: users })
   } catch (error) {
     res.status(500).json({ message: 'Error consultando todos los usuarios.', error })
   }

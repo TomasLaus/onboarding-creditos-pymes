@@ -47,8 +47,9 @@ export const getCreditApplicationById = async (req: Request, res: Response) => {
 
 export const listCreditApplications = async (_req: Request, res: Response) => {
   try {
-    const creditApps = await creditApplicationRepository.listCreditApplications()
-    return res.status(200).json(creditApps)
+    res.status(501).json({ message: 'Funcionalidad no implementada.' })
+    // const creditApps = await creditApplicationRepository.listCreditApplications()
+    // return res.status(200).json(creditApps)
   } catch (error) {
     console.error('Error listando credit applications:', error)
     return res.status(500).json({ message: 'Error interno del servidor' })

@@ -33,7 +33,7 @@ const CreditForm = () => {
       : import.meta.env.VITE_BACKEND_LOCAL
   const navigate = useNavigate()
 
-  const { userData, setCreditApplicationData } = useAppContext()
+  const { userData, setCreditApplicationData, tokenLogin } = useAppContext()
 
   //testing
   const [formData, setFormData] = useState({})
@@ -156,7 +156,12 @@ const CreditForm = () => {
       // Aquí se coloca el endpoint del backend.
       const response = await axios.post(
         `${URL_BACKEND}/api/credit-applications`,
-        formdataToSend
+        formdataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenLogin}`
+          }
+        }
       )
 
       console.log('Respuesta del servidor:', response.data)

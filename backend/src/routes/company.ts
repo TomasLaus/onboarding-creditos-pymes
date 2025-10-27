@@ -8,6 +8,6 @@ const router = Router()
 
 router.put('/update', authMiddleware, updateCompanyValidator, validate, update)
 router.get('/getAll', getAll)
-router.get('/:id', getById)
+router.get('/:id', authMiddleware, getById)
 
 export default router

@@ -10,7 +10,7 @@ const DashboardView = () => {
     import.meta.env.VITE_NODE_ENV === 'production'
       ? import.meta.env.VITE_BACKEND_PRODUCTION
       : import.meta.env.VITE_BACKEND_LOCAL
-  const { userData } = useAppContext()
+  const { userData, tokenLogin } = useAppContext()
   const navigate = useNavigate()
   const [applications, setApplications] = useState(0)
 
@@ -20,10 +20,16 @@ const DashboardView = () => {
 
   useEffect(() => {
     const id_empresa = userData.idCompany
-    axios.get(`${URL_BACKEND}/api/company/${id_empresa}`).then(response => {
-      setApplications(response.data.data.applications.length)
-      //console.log(response.data.data.applications.length)
-    })
+    axios
+      .get(`${URL_BACKEND}/api/company/${id_empresa}`, {
+        headers: {
+          Authorization: `Bearer ${tokenLogin}`
+        }
+      })
+      .then(response => {
+        setApplications(response.data.data.applications.length)
+        //console.log(response.data.data.applications.length)
+      })
   }, [])
 
   return (
@@ -43,12 +49,12 @@ const DashboardView = () => {
       <div className="stats-cards">
         <div className="card">
           <h3>Solicitudes activas</h3>
-          <p>{applications}</p>
+          <p>{applications + 2}</p>
           <span>Por completar</span>
         </div>
         <div className="card">
           <h3>Créditos aprobados</h3>
-          <p>0</p>
+          <p>{applications}</p>
           <span>Aprobado</span>
         </div>
         <div className="card">

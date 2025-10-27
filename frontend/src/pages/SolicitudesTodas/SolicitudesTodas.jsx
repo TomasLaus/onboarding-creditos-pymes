@@ -13,7 +13,7 @@ const SolicitudesTodas = () => {
 
   const containerRef = useRef(null)
 
-  const { userData } = useAppContext()
+  const { userData, tokenLogin } = useAppContext()
   const navigate = useNavigate()
   const [applications, setApplications] = useState([])
   const [selectedApp, setSelectedApp] = useState(null)
@@ -24,7 +24,12 @@ const SolicitudesTodas = () => {
     const fetchApplications = async () => {
       try {
         const response = await axios.get(
-          `${URL_BACKEND}/api/company/${id_empresa}`
+          `${URL_BACKEND}/api/company/${id_empresa}`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenLogin}`
+            }
+          }
         )
         setApplications(response.data.data.applications)
         console.log(response.data.data.applications)

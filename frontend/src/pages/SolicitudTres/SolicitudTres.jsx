@@ -11,7 +11,7 @@ const Documentostres = () => {
       ? import.meta.env.VITE_BACKEND_PRODUCTION
       : import.meta.env.VITE_BACKEND_LOCAL
 
-  const { userData, creditApplicationData } = useAppContext()
+  const { userData, creditApplicationData, tokenLogin } = useAppContext()
   const [files, setFiles] = useState([])
   const [uploading, setUploading] = useState(false)
   const [uploadStatus, setUploadStatus] = useState(null)
@@ -66,6 +66,7 @@ const Documentostres = () => {
         formData,
         {
           headers: {
+            Authorization: `Bearer ${tokenLogin}`,
             'Content-Type': 'multipart/form-data'
           }
         }

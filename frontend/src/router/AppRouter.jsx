@@ -33,7 +33,10 @@ function AppRouter() {
           <Route path="/activar-cuenta" element={<ActivarCuenta />} />
         </Route>
 
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route
+          path="/dashboard"
+          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login" />}
+        >
           {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
           <Route path="solicitudes-todas" element={<SolicitudesTodas />} />
@@ -43,7 +46,10 @@ function AppRouter() {
           <Route path="solicitud-tres" element={<SolicitudTres />} />
           <Route path="solicitud-cuatro" element={<SolicitudCuatro />} />
           <Route path="estado-credito" element={<EstadoCredito />} />
-          <Route path="aprobacion-credito" element={<AprobacionCredito />} />
+          <Route
+            path="aprobacion-credito/:id_credito"
+            element={<AprobacionCredito />}
+          />
         </Route>
 
         <Route path="*" element={<Navigate to="/" />} />

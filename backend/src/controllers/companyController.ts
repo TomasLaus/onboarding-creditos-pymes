@@ -37,6 +37,7 @@ export const update = async (req: Request, res: Response) => {
 
 export const getAll = async (req: Request, res: Response) => {
   try {
+    // res.status(501).json({ message: 'Funcionalidad no implementada.' })
     const companies = await getAllCompanies()
     return res.status(200).json({ message: 'Empresas obtenidas correctamente.', data: companies })
   } catch (error) {

@@ -1,8 +1,38 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './EstadoCredito.module.css'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useAppContext } from '../../context/appContext'
+import {
+  formatCurrency,
+  formatStrAddingPrefix
+} from '../../utils/strings-utils'
 
 const EstadoCredito = () => {
   const navigate = useNavigate()
+  const { userData, tokenLogin } = useAppContext()
+
+  const URL_BACKEND =
+    import.meta.env.VITE_NODE_ENV === 'production'
+      ? import.meta.env.VITE_BACKEND_PRODUCTION
+      : import.meta.env.VITE_BACKEND_LOCAL
+
+  const [applications, setApplications] = useState(0)
+
+  useEffect(() => {
+    const id_empresa = userData.idCompany
+    axios
+      .get(`${URL_BACKEND}/api/company/${id_empresa}`, {
+        headers: {
+          Authorization: `Bearer ${tokenLogin}`
+        }
+      })
+      .then(response => {
+        setApplications(response.data.data.applications)
+        //console.log(response.data.data.applications.length)
+      })
+    console.log(applications)
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -13,12 +43,13 @@ const EstadoCredito = () => {
       </p>
 
       {/* Navegación de pestañas */}
+      {/* DEJO TODAS LAS QUE VOY AGREGANDO COMO APROBADAS SOLO PARA DEMO DAY. LUEGO EDITAR.*/}
       <div className={styles.tabsContainer}>
         <button className={`${styles.tabButton} ${styles.activeTab}`}>
-          Todas (3)
+          Todas ({applications.length + 2})
         </button>
         <button className={`${styles.tabButton} ${styles.tabApproved}`}>
-          Aprobadas (1)
+          Aprobadas ({applications.length})
         </button>
         <button className={`${styles.tabButton} ${styles.tabRejected}`}>
           Rechazadas (1)
@@ -29,26 +60,37 @@ const EstadoCredito = () => {
       </div>
 
       {/* Tarjeta de estado Aprobada */}
-      <div className={`${styles.card} ${styles.approvedCard}`}>
-        <span className={`${styles.statusBadge} ${styles.approvedBadge}`}>
-          Aprobada
-        </span>
-        <p className={styles.cardId}>ID Caso: FP-000123</p>
-        <h3 className={styles.cardTitle}>
-          Capital de trabajo | $ 5,000 | Plazo 24 meses
-        </h3>
-        <p
-          className={`${styles.cardDescription} ${styles.approvedDescription}`}
-        >
-          ¡Felicidades! Revisa y firma tu oferta para el desembolso
-        </p>
-        <button
-          className={`${styles.cardButton} ${styles.primaryButton}`}
-          onClick={() => navigate('/dashboard/aprobacion-credito')}
-        >
-          Ver oferta y firmar
-        </button>
-      </div>
+      {applications.length &&
+        applications.map(x => (
+          <>
+            {/* Tarjeta de estado Aprobada */}
+            <div className={`${styles.card} ${styles.approvedCard}`}>
+              <span className={`${styles.statusBadge} ${styles.approvedBadge}`}>
+                Aprobada
+              </span>
+              <p className={styles.cardId}>
+                ID Caso: {formatStrAddingPrefix(x.id, 'FP-')}
+              </p>
+              <h3 className={styles.cardTitle}>
+                {x.product} | {formatCurrency(x.amount)} | Plazo {x.termMonths}{' '}
+                meses
+              </h3>
+              <p
+                className={`${styles.cardDescription} ${styles.approvedDescription}`}
+              >
+                ¡Felicidades! Revisa y firma tu oferta para el desembolso
+              </p>
+              <button
+                className={`${styles.cardButton} ${styles.primaryButton}`}
+                onClick={() =>
+                  navigate('/dashboard/aprobacion-credito/' + x.id)
+                }
+              >
+                Ver oferta y firmar
+              </button>
+            </div>
+          </>
+        ))}
 
       {/* Tarjeta de estado Observada */}
       <div className={`${styles.card} ${styles.observedCard}`}>
