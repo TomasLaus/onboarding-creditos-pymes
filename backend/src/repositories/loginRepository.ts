@@ -221,7 +221,8 @@ export const login = async (loginData: LoginDTO): Promise<LoginResponseDTO> => {
       id: companyUser?.id,
       legalName: companyUser?.legalName,
       taxId: companyUser?.taxId,
-      altEmail: companyUser?.altEmail
+      altEmail: companyUser?.altEmail,
+      phone: companyUser?.phone
     },
     message: 'Login exitoso'
   }

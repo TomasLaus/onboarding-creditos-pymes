@@ -1,47 +1,28 @@
-import { ReactNode, SetStateAction } from 'react'
 import './ModalMultiuso.css'
 import Modal from 'react-bootstrap/Modal'
-import { Spinner } from 'react-bootstrap'
 
-//import './modal.css'
-
-// interface ModalProps {
-//
-//     setShow: React.Dispatch<SetStateAction<boolean>>
-//
-//     show: boolean
-//
-//     bgColor?: string
-//
-//     children: ReactNode
-//
-// }
-
+/**
+ * Componente genérico para mostrar un modal utilizando react-bootstrap.
+ * @param {object} props
+ * @param {boolean} props.show - Estado que controla si el modal es visible.
+ * @param {function} props.setShow - Función para actualizar el estado de visibilidad.
+ * @param {string} [props.bgColor] - Clase de color de fondo opcional para el cuerpo del modal.
+ * @param {React.ReactNode} props.children - Contenido a mostrar dentro del modal.
+ */
 export default function Modalizar({ setShow, show, bgColor, children }) {
-  const cerrarModal = () => setShow(false)
+  const cerrarModal = () => setShow(false);
 
   return (
-    <>
-      <div className="modalmodal">
-        <Modal
-          show={show}
-          onHide={cerrarModal}
-          className="special_modal bg-dark"
-        >
-          {/* <Modal.Header closeButton>
-                        <Modal.Title></Modal.Title>
-                    </Modal.Header> */}
-          <Modal.Body className={bgColor}>{children && children}</Modal.Body>
-          {/* <Modal.Footer> */}
-          {/* <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button> */}
-          {/* <Button variant="primary" onClick={handleClose}>
-                            guardar
-                        </Button> */}
-          {/* </Modal.Footer> */}
-        </Modal>
-      </div>
-    </>
+    <Modal
+      show={show}
+      onHide={cerrarModal}
+      centered
+      className="modal-agradecimiento"
+    >
+      {/* El prop 'onHide' permite cerrar el modal haciendo clic fuera o con la tecla Esc */}
+      <Modal.Body className={bgColor}>
+        {children}
+      </Modal.Body>
+    </Modal>
   )
 }

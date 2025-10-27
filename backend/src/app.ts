@@ -16,20 +16,6 @@ import { swaggerUiMiddleware, swaggerUiSetup } from './config/swagger'
 // SMTP Config
 // ---------------------------------------------------------------
 
-// Configuración de nodemailer (para activación de usuarios)
-// export const transporter = nodemailer.createTransport({
-//   host: process.env.SMTP_HOST,
-//   port: Number(process.env.SMTP_PORT) || 587,
-//   secure: false, // STARTTLS
-//   auth: {
-//     user: process.env.SMTP_USER,
-//     pass: process.env.SMTP_PASS
-//   },
-//   tls: {
-//     rejectUnauthorized: false
-//   }
-// })
-
 console.log('Configuración SMTP:')
 console.log('SMTP_HOST:', process.env.SMTP_HOST)
 console.log('SMTP_PORT:', process.env.SMTP_PORT)
@@ -90,7 +76,7 @@ app.use('/api/company', companyRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/login', loginRoutes)
 app.use('/api/credit-applications', creditApplicationRoutes)
-app.use('/api/documents', documentRoutes)
+app.use('/api/document', documentRoutes)
 
 // ---------------------------------------------------------------
 // Debug de rutas
@@ -106,5 +92,26 @@ app._router.stack.forEach((r: any) => {
     })
   }
 })
+
+// ---------------------------------------------------------------
+// La carpeta uploads/ debe existir en tu proyecto.
+//crearla automáticamente al iniciar el servidor:
+// ---------------------------------------------------------------
+import fs from 'fs'
+import path from 'path'
+const uploadDir = path.join(__dirname, '../uploads')
+
+// Crear carpeta si no existe
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true })
+  console.log('📁 Carpeta "uploads" creada en:', uploadDir)
+}
+
+// Servir archivos estáticos
+app.use('/uploads', express.static(uploadDir))
+
+// ---------------------------------------------------------------
+// exportar app
+// ---------------------------------------------------------------
 
 export default app

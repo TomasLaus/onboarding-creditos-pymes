@@ -1,0 +1,101 @@
+.application-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 12px; /* texto general reducido */
+}
+
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.documents-section {
+  width: 100%;
+  margin-top: 1.5rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  animation: fadeIn 0.3s ease;
+  font-size: 12px; /* texto interno pequeño */
+}
+
+.documents-section h2 {
+  margin-bottom: 0.75rem;
+  font-size: 13px; /* título pequeño */
+  color: #333;
+  text-align: center;
+}
+
+.documents-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px; /* texto más pequeño */
+  table-layout: fixed;
+}
+
+.documents-table th,
+.documents-table td {
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.documents-table thead {
+  background: #f5f7fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.documents-table th {
+  font-weight: 600;
+  color: #555;
+  font-size: 11.5px; /* encabezado un poco más visible */
+}
+
+.documents-table tbody tr {
+  border-bottom: 1px solid #e6e6e6;
+  transition: background 0.2s ease;
+}
+
+.documents-table tbody tr:hover {
+  background: #f9fbff;
+}
+
+.link-doc {
+  color: #007bff;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 11px;
+}
+
+.link-doc:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  background-color: #00c853;
+}
+
+.dashboard-view {
+  height: 100vh; /* o la altura que necesites */
+  width: 100%; /* o la anchura que necesites */
+  overflow-y: auto; /* habilita scroll vertical */
+}

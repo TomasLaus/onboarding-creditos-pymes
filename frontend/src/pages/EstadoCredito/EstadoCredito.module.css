@@ -1,0 +1,169 @@
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.mainTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #212529;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 2rem;
+}
+
+.tabsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.7rem;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tabButton:hover {
+  background-color: #e9ecef;
+}
+
+.activeTab {
+  background-color: #e0f2f1;
+  border-color: #8331BD;
+  color: #010101;
+  /* font-weight: 600; */
+}
+
+.card {
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.approvedCard {
+  background-color: #D1F7D6;
+}
+
+.observedCard {
+  background-color: #FFF4CC;
+}
+
+.rejectedCard {
+  background-color: #FFD6D6;
+}
+
+.statusBadge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 0.25rem 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.approvedBadge {
+  background-color: #00721F;
+  color: #fff;
+}
+
+.observedBadge {
+  background-color: #F59E0B;
+  color: #fff;
+}
+
+.rejectedBadge {
+  background-color: #E03131;
+  color: #fff;
+}
+
+.cardId {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.cardDescription {
+  font-size: 1rem;
+  color: #495057;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+
+.cardButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%; 
+  border: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+
+.primaryButton {
+  background-color: #003D7A;
+  color: #fff;
+}
+
+.primaryButton:hover {
+  background-color: #0056b3;
+}
+
+.approvedDescription {
+  color: #00721F; /* Verde oscuro */
+}
+
+.observedDescription {
+  color: #D97706; /* Amarillo/marrón oscuro */
+}
+
+.rejectedDescription {
+  color: #E03131; /* Rojo oscuro */
+}
+
+.tabApproved {
+  border-color: #00721F;
+  color: #010101;
+}
+
+.tabObserved {
+  border-color: #F59E0B;
+  color: #010101;
+
+}
+
+.tabRejected {
+  border-color: #E03131;
+  color: #010101;
+}

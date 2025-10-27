@@ -16,6 +16,7 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
+    "multer": "^2.0.2",
     "nodemailer": "^7.0.9",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
@@ -26,6 +27,7 @@
     "@types/express": "^4.17.23",
     "@types/jest": "^30.0.0",
     "@types/mocha": "^10.0.10",
+    "@types/multer": "^2.0.0",
     "@types/node": "^24.7.1",
     "@types/nodemailer": "^7.0.2",
     "@types/supertest": "^6.0.3",
@@ -48,6 +50,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "postinstall": "npx prisma generate && npx prisma db push",
-    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\""
+    "dev": "npm run docker:desktop && timeout /t 15 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && timeout /t 5 && start cmd /k \"npm run prisma:studio\" && timeout /t 5 && start cmd /k \"npm run swagger:docs\" && start cmd /k \"npm run prisma:studio:browser\"",
+    "frontend:backend": "npm run docker:desktop && timeout /t 45 && docker-compose up -d && start cmd /k \"nodemon src/server.ts\" && start cmd /k \"cd ../frontend && npm run dev\""
   }
 }

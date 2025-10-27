@@ -3,6 +3,9 @@
 GET http://localhost:3000/api/company/getAll
 
 
+### Obtener empresa por ID
+@ID_EMPRESA =cmh3tiudu0011jcxsmd3v8d5o
+GET http://localhost:3000/api/company/{{ID_EMPRESA}}
 
 ### Actualizar empresa
 PUT http://localhost:3000/api/company/update

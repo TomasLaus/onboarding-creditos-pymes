@@ -14,13 +14,27 @@ export const AppProvider = ({ children }) => {
     idCompany: '',
     companyAltEmail: ''
   }
+  const initialPropsCreditApplicationData = {
+    idCreditApplication: ''
+  }
   const [userData, setUserData] = useState(initialPropsUserData)
+  const [creditApplicationData, setCreditApplicationData] = useState(
+    initialPropsCreditApplicationData
+  )
   const [tokenLogin, setTokenLogin] = useState(null)
   const logout = () => setUserData(null)
 
   return (
     <AppContext.Provider
-      value={{ userData, setUserData, tokenLogin, setTokenLogin, logout }}
+      value={{
+        userData,
+        setUserData,
+        creditApplicationData,
+        setCreditApplicationData,
+        tokenLogin,
+        setTokenLogin,
+        logout
+      }}
     >
       {children}
     </AppContext.Provider>

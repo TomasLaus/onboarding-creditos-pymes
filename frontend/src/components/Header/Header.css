@@ -64,14 +64,14 @@
   gap: 20px;
 }
 
-.action-icon {
+.action-icono {
   color: #333333;
   font-size: 24px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 
-.action-icon:hover {
+.action-icono:hover {
   color: #8331BD;
 }
 

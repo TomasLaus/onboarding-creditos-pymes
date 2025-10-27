@@ -195,6 +195,14 @@ model CreditApplication {
   companyId String
   company   Company @relation(fields: [companyId], references: [id])
 
+  // added for solicitudUno
+  product String
+  coin String?
+  monthlySales Int?
+  tipoDni String
+  dni String
+  fullname String
+
   // Operador asignado
   assignedToId String?
   assignedTo   User?   @relation("AssignedOperator", fields: [assignedToId], references: [id])

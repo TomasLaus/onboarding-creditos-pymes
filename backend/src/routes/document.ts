@@ -1,22 +1,15 @@
 import { Router } from 'express'
-import {
-  createDocument,
-  getDocumentById,
-  listDocuments,
-  getDocumentsByCompany,
-  getDocumentsByCredit,
-  getDocumentsByOnboarding,
-  updateDocumentStatus
-} from '../controllers/documentController'
+import { addToCreditApplication, listByCreditApplication } from '../controllers/documentController'
+import { upload } from '../middlewares/multer'
+import authMiddleware from '../middlewares/authMiddleware'
 
 const router = Router()
 
-router.post('/', createDocument)
-router.get('/', listDocuments)
-router.get('/:id', getDocumentById)
-router.get('/company/:companyId', getDocumentsByCompany)
-router.get('/credit/:creditId', getDocumentsByCredit)
-router.get('/onboarding/:onboardingId', getDocumentsByOnboarding)
-router.put('/:id/status', updateDocumentStatus)
+// Agregar documentos a un CreditApplication existente
+// maximo 10 archivos
+router.post('/', authMiddleware, upload.array('files', 10), addToCreditApplication)
+
+// Listar documentos de un CreditApplication
+router.get('/creditApplication/:creditId', authMiddleware, listByCreditApplication)
 
 export default router
