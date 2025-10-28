@@ -41,7 +41,6 @@ const CreditoAprobado = () => {
 
   return (
     <div className={styles.offerContainer}>
-      {/* ... (el resto de tu JSX del header se mantiene igual) ... */}
       <div className={styles.headerAprobation}>
         <div className={styles.headerText}>
           <h1>¡Tu crédito fue aprobado!</h1>
