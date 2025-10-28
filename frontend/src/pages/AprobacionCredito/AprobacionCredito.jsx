@@ -128,17 +128,22 @@ const CreditoAprobado = () => {
       <div className={styles.actions}>
         <h3>Acciones</h3>
         <div className={styles.buttonGroup}>
-          {/* 4. Al hacer clic, este botón cambia el estado para mostrar el modal */}
           <button
             className={`${styles.btn} ${styles.btnPrimary}`}
             onClick={() => setShowGraciasModal(true)}
           >
             Aceptar y firmar ahora
           </button>
-          <button className={`${styles.btn} ${styles.btnSecondary}`}>
+          <button
+            className={`${styles.btn} ${styles.btnSecondary}`}
+            disabled
+          >
             Solicitar ajuste
           </button>
-          <button className={`${styles.btn} ${styles.btnTertiary}`}>
+          <button
+            className={`${styles.btn} ${styles.btnTertiary}`}
+            disabled
+          >
             Rechazar oferta
           </button>
         </div>
@@ -158,4 +163,4 @@ const CreditoAprobado = () => {
   )
 }
 
-export default CreditoAprobado
+export default CreditoAprobado;
