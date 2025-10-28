@@ -193,7 +193,7 @@ const RegisterPage = () => {
             </div>
             <div className="input-group">
               <label>Contraseña</label>
-
+              <div className="password-wrapper">
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -207,6 +207,7 @@ const RegisterPage = () => {
               >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
+              </div>
             </div>
             {errors.password && (
               <span className="error-message">{errors.password}</span>
@@ -231,4 +232,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default RegisterPage;

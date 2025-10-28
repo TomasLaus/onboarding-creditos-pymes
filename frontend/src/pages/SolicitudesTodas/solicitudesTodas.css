@@ -4,7 +4,7 @@
   align-items: flex-start;
   padding: 1rem;
   margin-bottom: 0.75rem;
-  font-size: 12px; /* texto general reducido */
+  font-size: 12px; 
 }
 
 .applications-list {
@@ -95,7 +95,13 @@ button {
 }
 
 .dashboard-view {
-  height: 100vh; /* o la altura que necesites */
-  width: 100%; /* o la anchura que necesites */
-  overflow-y: auto; /* habilita scroll vertical */
+  height: 100vh; 
+  width: 100%; 
+  overflow-y: auto; 
+}
+
+@media (max-width: 768px) {
+  .documents-section {
+    overflow-x: auto;
+  }
 }

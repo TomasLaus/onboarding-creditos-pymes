@@ -83,6 +83,28 @@
     cursor: pointer;
 }
 
+@media (max-width: 768px) {
+  .dashboard-view {
+    padding: 15px;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.8rem;
+  }
+
+  .welcome-message p {
+    font-size: 1rem;
+  }
+
+  .stats-cards {
+    flex-direction: column;
+  }
+
+  .account-ready-card .actions {
+    flex-direction: column;
+  }
+}
+
 .btn-secondary-dashboard {
     background-color: #6200ea;
     color: white;

@@ -67,6 +67,7 @@
 
 .password-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .password-toggle-icon {
