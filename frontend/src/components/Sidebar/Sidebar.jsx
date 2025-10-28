@@ -34,14 +34,24 @@ const Sidebar = ({ isOpen }) => {
       text: 'Estado de crédito',
       path: '/dashboard/estado-credito'
     },
-    { icon: <FiMessageSquare />, text: 'Chats', path: '/dashboard/chats', disabled: true },
-    { icon: <FiHelpCircle />, text: 'Ayuda', path: '/dashboard/ayuda', disabled: true }
+    {
+      icon: <FiMessageSquare />,
+      text: 'Chats',
+      path: '/dashboard/chats',
+      disabled: true
+    },
+    {
+      icon: <FiHelpCircle />,
+      text: 'Ayuda',
+      path: '/dashboard/ayuda',
+      disabled: true
+    }
   ]
 
   // Cierre de sesión
   const cerrarSesion = () => {
-    navigate('/')
-    setTokenLogin(null)
+    setTokenLogin(null) // Limpio el token primero
+    navigate('/', { replace: true }) // Luego voy a Home
   }
 
   return (
