@@ -34,8 +34,8 @@ const Sidebar = ({ isOpen }) => {
       text: 'Estado de crédito',
       path: '/dashboard/estado-credito'
     },
-    { icon: <FiMessageSquare />, text: 'Chats', path: '/dashboard/chats' },
-    { icon: <FiHelpCircle />, text: 'Ayuda', path: '/dashboard/ayuda' }
+    { icon: <FiMessageSquare />, text: 'Chats', path: '/dashboard/chats', disabled: true },
+    { icon: <FiHelpCircle />, text: 'Ayuda', path: '/dashboard/ayuda', disabled: true }
   ]
 
   // Cierre de sesión
@@ -47,17 +47,27 @@ const Sidebar = ({ isOpen }) => {
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <nav className="sidebar-nav">
-        {menuItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.path}
-            end={item.path === '/dashboard'}
-            className="sidebar-link"
-          >
-            <span className="sidebar-icon">{item.icon}</span>
-            <span className="sidebar-text">{item.text}</span>
-          </NavLink>
-        ))}
+        {menuItems.map((item, index) => {
+          if (item.disabled) {
+            return (
+              <div key={index} className="sidebar-link disabled">
+                <span className="sidebar-icon">{item.icon}</span>
+                <span className="sidebar-text">{item.text}</span>
+              </div>
+            )
+          }
+          return (
+            <NavLink
+              key={index}
+              to={item.path}
+              end={item.path === '/dashboard'}
+              className="sidebar-link"
+            >
+              <span className="sidebar-icon">{item.icon}</span>
+              <span className="sidebar-text">{item.text}</span>
+            </NavLink>
+          )
+        })}
       </nav>
 
       <div className="sidebar-footer" onClick={cerrarSesion}>

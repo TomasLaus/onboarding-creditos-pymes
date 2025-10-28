@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './DashboardHeader.css'
 import { FiMenu, FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi' 
+import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo_fintech-pyme.png'
 import { useAppContext } from '../../context/appContext'
 
@@ -9,10 +10,17 @@ const DashboardHeader = ({ toggleSidebar }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(null)
   const { setTokenLogin, userData } = useAppContext()
+  const navigate = useNavigate()
 
   const handleItemClick = itemName => {
-    setActiveItem(itemName)
-    setTokenLogin(null)
+    if (itemName === 'cerrar') {
+      setActiveItem(itemName)
+      setTokenLogin(null)
+    } else if (itemName === 'perfil') {
+      setActiveItem(itemName)
+      navigate('/dashboard')
+      setIsDropdownOpen(false)
+    }
   }
 
   return (
@@ -44,6 +52,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
                   className={`dropdown-item ${
                     activeItem === 'perfil' ? 'active' : ''
                   }`}
+                  // Redirige al dashboard
                   onClick={() => handleItemClick('perfil')}
                 >
                   Mi perfil
@@ -52,6 +61,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
                   className={`dropdown-item ${
                     activeItem === 'config' ? 'active' : ''
                   }`}
+                  disabled
                   onClick={() => handleItemClick('config')}
                 >
                   Configuraciones
@@ -60,6 +70,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
                   className={`dropdown-item ${
                     activeItem === 'seguridad' ? 'active' : ''
                   }`}
+                  disabled
                   onClick={() => handleItemClick('seguridad')}
                 >
                   Claves y seguridad
@@ -68,6 +79,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
                   className={`dropdown-item ${
                     activeItem === 'cerrar' ? 'active' : ''
                   }`}
+
                   onClick={() => handleItemClick('cerrar')}
                 >
                   Cerrar sesión
