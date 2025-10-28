@@ -168,6 +168,7 @@ export const getAll = async (_req: Request, res: Response) => {
 export const deleteAll = async (_req: Request, res: Response) => {
   try {
     // res.status(501).json({ message: 'Funcionalidad no implementada.' })
+    //solo testing.
     await deleteAllUsers()
     res.status(200).json({ message: 'Todos los usuarios han sido eliminados.' })
   } catch (error) {
