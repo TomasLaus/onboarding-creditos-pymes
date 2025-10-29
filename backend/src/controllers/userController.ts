@@ -8,7 +8,8 @@ import {
   getUserById,
   activateUser,
   updateUser,
-  deleteAllUsers
+  deleteAllUsers,
+  deleteUserByEmail
 } from '../repositories/userRepository'
 import { CreateUserDTO, CreateUserResponseOKDTO, CreateUserResponseErrorDTO } from '../dto/userDTO'
 import { Company, User } from '@prisma/client'
@@ -167,11 +168,26 @@ export const getAll = async (_req: Request, res: Response) => {
 
 export const deleteAll = async (_req: Request, res: Response) => {
   try {
-    // res.status(501).json({ message: 'Funcionalidad no implementada.' })
+    res.status(501).json({ message: 'Funcionalidad no implementada.' })
     //solo testing.
-    await deleteAllUsers()
-    res.status(200).json({ message: 'Todos los usuarios han sido eliminados.' })
+    // await deleteAllUsers()
+    // res.status(200).json({ message: 'Todos los usuarios han sido eliminados.' })
   } catch (error) {
     res.status(500).json({ message: 'Error eliminando todos los usuarios.', error })
+  }
+}
+
+export const deleteByEmail = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params
+    if (!email) return res.status(400).send({ message: 'Email es requerido' })
+
+    const user = await getUserByEmail(email)
+    if (!user) return res.status(404).send({ message: 'Usuario no encontrado' })
+
+    await deleteUserByEmail(email)
+    res.send({ message: 'Usuario eliminado correctamente' })
+  } catch (err: any) {
+    res.status(500).send({ message: err.message, error: err })
   }
 }

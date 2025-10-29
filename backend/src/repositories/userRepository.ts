@@ -49,3 +49,13 @@ export const deleteAllUsers = async (): Promise<any> => {
   await prisma.company.deleteMany()
   return prisma.user.deleteMany()
 }
+
+export const deleteUserByEmail = async (email: string): Promise<any> => {
+  const user = await getUserByEmail(email)
+  if (!user) return null
+
+  await prisma.document.deleteMany({ where: { uploadedById: user.id } })
+  await prisma.creditApplication.deleteMany({ where: { assignedToId: user.id } })
+  await prisma.company.deleteMany({ where: { userId: user.id } })
+  return prisma.user.delete({ where: { id: user.id } })
+}
