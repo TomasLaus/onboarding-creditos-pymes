@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, forwardRef } from 'react'
 import './DashboardHeader.css'
-import { FiMenu, FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi' 
+import { FiMenu, FiSearch, FiBell, FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo_fintech-pyme.png'
 import { useAppContext } from '../../context/appContext'
 
-const DashboardHeader = ({ toggleSidebar }) => { 
-  
+const DashboardHeader = forwardRef(({ toggleSidebar }, ref) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [activeItem, setActiveItem] = useState(null)
   const { setTokenLogin, userData } = useAppContext()
@@ -24,7 +23,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
   }
 
   return (
-    <div className="dashboard-header">
+    <header className="dashboard-header" ref={ref}>
       <div className="header-left">
         <button className="mobile-menu-button" onClick={toggleSidebar}>
           <FiMenu />
@@ -89,8 +88,8 @@ const DashboardHeader = ({ toggleSidebar }) => {
           </div>
         </div>
       </div>
-    </div>
+    </header>
   )
-}
+})
 
 export default DashboardHeader;
