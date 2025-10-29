@@ -35,7 +35,7 @@ function AppRouter() {
 
         <Route
           path="/dashboard"
-          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/login" />}
+          element={tokenLogin ? <DashboardLayout /> : <Navigate to="/" />}
         >
           {/* Rutas hijas */}
           <Route index element={<DashboardView />} />
