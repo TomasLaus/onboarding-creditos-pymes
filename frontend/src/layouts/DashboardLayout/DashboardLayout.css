@@ -8,10 +8,30 @@
   transition: margin-left 0.3s ease;
 }
 
+
+.overlay {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); 
+  z-index: 1001; 
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
 /* Ajustes celulares */
+
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
     padding: 16px;
+  }
+
+  .overlay.active {
+    display: block; 
+    opacity: 1; 
   }
 }

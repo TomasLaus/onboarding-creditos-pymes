@@ -8,10 +8,8 @@
 
 .sidebar {
   position: fixed;             
-  top: 82px; 
   left: 0;                     
   width: 260px;                
-  height: calc(100vh - 82px); 
   background-color: var(--sidebar-bg-color);
   color: var(--sidebar-text-color);
   display: flex;
@@ -77,8 +75,8 @@
   .sidebar {
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    z-index: 1002; 
   }
-
   .sidebar.open {
     transform: translateX(0);
   }
