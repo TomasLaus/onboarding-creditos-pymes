@@ -12,7 +12,7 @@ import {
   FiLogOut
 } from 'react-icons/fi'
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, toggleSidebar, headerHeight }) => {
   const { setTokenLogin } = useAppContext()
   const navigate = useNavigate()
 
@@ -50,12 +50,24 @@ const Sidebar = ({ isOpen }) => {
 
   // Cierre de sesión
   const cerrarSesion = () => {
+
+    if (isOpen) { // Cierra el sidebar si está abierto en móvil
+      toggleSidebar();
+    }
+
     setTokenLogin(null) // Limpio el token primero
     navigate('/', { replace: true }) // Luego voy a Home
   }
 
+  const sidebarStyle = {
+    top: `${headerHeight}px`,
+    height: `calc(100vh - ${headerHeight}px)`,
+  };
+
   return (
-    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+    <aside 
+      className={`sidebar ${isOpen ? 'open' : ''}`} 
+      style={sidebarStyle}>
       <nav className="sidebar-nav">
         {menuItems.map((item, index) => {
           if (item.disabled) {
@@ -72,6 +84,7 @@ const Sidebar = ({ isOpen }) => {
               to={item.path}
               end={item.path === '/dashboard'}
               className="sidebar-link"
+              onClick={toggleSidebar} // Cierra el sidebar al hacer clic en cualquier parte fuera de él
             >
               <span className="sidebar-icon">{item.icon}</span>
               <span className="sidebar-text">{item.text}</span>

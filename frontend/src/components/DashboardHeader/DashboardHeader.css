@@ -1,7 +1,7 @@
 .dashboard-header {
     position: sticky;
     top: 0;
-    z-index: 1001; /* Un z-index alto para que esté sobre todo */
+    z-index: 1001;
 
     display: flex;
     justify-content: space-between;
@@ -163,19 +163,38 @@
 
 @media (max-width: 768px) {
   .dashboard-header {
-    padding: 15px;
+    padding: 10px 15px; 
     height: auto;
+    gap: 15px; 
   }
-  
+
+  .header-right {
+    gap: 15px; 
+  }
+
   .search-bar {
-    display: none;
+    padding: 8px; 
+    margin-right: 0; 
   }
-  
+
+  .search-bar input {
+    display: none; 
+  }
+
   .mobile-menu-button {
-    display: block; 
+    display: block;
   }
 
   .header-logo {
-    height: 28px; 
+    height: 30px; 
+  }
+
+  .user-info {
+    width: auto; 
+    padding: 8px;
+  }
+
+  .user-info span {
+    display: none; 
   }
 }
