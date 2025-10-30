@@ -1,0 +1,261 @@
+.profileContainer {
+  padding: 2rem;
+  background-color: #ffffff;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profileContainer h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #111;
+}
+
+/* Tarjeta Superior  */
+.profileHeader {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: #EAEAEA;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid #ADADAD;
+}
+
+.profileLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.profileIdentity {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.avatarGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #8331BD;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileInfo h2 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  color: #212529;
+}
+
+.profileInfo p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #6c757d;
+}
+
+.profileInfo .emailText {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.statusWarning {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+  margin-top: 0.5rem;
+}
+
+.statusWarning svg {
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.actionArea {
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.ctaButton {
+  background-color: #158874; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  max-width: 200px;
+}
+
+.ctaButton:hover {
+  background-color: #156e5d;
+}
+
+.actionArea p {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Grid de Tarjetas de Detalles */
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.infoCard {
+  background-color: #EAEAEA;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  display: flex; 
+  flex-direction: column;
+}
+
+.infoCard h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #010101;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.75rem;
+}
+
+.dataGroup {
+  flex-grow: 1; 
+}
+
+
+.dataItem {
+  display: flex; 
+  justify-content: flex-start; 
+  align-items: baseline; 
+  margin-bottom: 0.8rem; 
+  gap: 0.5rem; 
+}
+
+.dataItem strong {
+  font-weight: 600;
+  font-size: 0.9rem; 
+  color: #010101;
+  flex-shrink: 0; 
+}
+
+.dataItem span {
+  font-size: 0.9rem; 
+  color: #5C5C5C;
+  text-align: left; 
+  word-break: break-word;
+}
+
+.editLink {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  gap: 0.2rem; 
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center; 
+}
+
+.editLink:hover {
+  text-decoration: underline;
+}
+
+.avatarEditLink {
+  font-size: 0.8rem; 
+}
+
+.avatarEditLink svg {
+  font-size: 1rem;
+}
+
+.cardEditLink {
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+
+/* Responsivo para celulares */
+
+@media (max-width: 768px) {
+  .profileHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .profileLeft {
+    align-items: center;
+  }
+  
+  .profileIdentity {
+    flex-direction: column; 
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .profileInfo {
+    align-items: center;
+  }
+
+  .actionArea {
+    text-align: center;
+  }
+
+  .ctaButton {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .profileContainer {
+    padding: 1rem;
+  }
+  
+  .profileHeader, .infoCard {
+    padding: 1rem;
+  }
+  
+  .profileContainer h1 {
+    font-size: 1.75rem;
+  }
+}

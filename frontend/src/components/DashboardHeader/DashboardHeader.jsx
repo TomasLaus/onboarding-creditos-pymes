@@ -17,7 +17,7 @@ const DashboardHeader = forwardRef(({ toggleSidebar }, ref) => {
       setTokenLogin(null)
     } else if (itemName === 'perfil') {
       setActiveItem(itemName)
-      navigate('/dashboard')
+      navigate('/dashboard/perfil-usuario')
       setIsDropdownOpen(false)
     }
   }
