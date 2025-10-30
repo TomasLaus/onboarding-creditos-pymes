@@ -3,6 +3,9 @@
 @PRODUCTION_URL = https://onboarding-creditos-pymes.onrender.com
 
 
+### eliminar usuario por email
+GET {{LOCAL_URL}}/api/users/deleteByEmail/juan334@hotmail.com
+
 ### eliminar todos los usuarios
 GET http://localhost:3000/api/users/deleteAll
 
@@ -37,7 +40,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWdxb
 
 
 ### activar usuario
-@TOKEN_ACTIVACION = 328ea6b305c9e2a3b06fc2dbfe93ef85b84ac8d01bf23c0244b3406647159e8c
+@TOKEN_ACTIVACION = 83c1182db8b212bf55ec6b3ce72e6d7f95480e6bd08fc780a0b7082750fb5518
 GET http://localhost:3000/api/users/activate?token={{TOKEN_ACTIVACION}}&email=juan334@hotmail.com
 
 
@@ -49,7 +52,9 @@ GET http://localhost:3000/api/users/activate?token={{TOKEN_ACTIVACION}}&email=ju
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
+### activar usuario
+@TOKEN_ACTIVACION = ffe2554c23f0b307a940a569ff9fd1025e495e569bfb7f65e7d5307822a40540
+GET {{PRODUCTION_URL}}/api/users/activate?token={{TOKEN_ACTIVACION}}&email=minuevoemail@gmail.com
 
 
 ### Crear usuario
@@ -77,3 +82,5 @@ GET {{PRODUCTION_URL}}/api/users/deleteAll
 ### eliminar todos los usuarios
 GET {{PRODUCTION_URL}}/api/users/deleteAll
 
+### eliminar usuario por email
+GET {{PRODUCTION_URL}}/api/users/deleteByEmail/minuevoemail@gmail.com

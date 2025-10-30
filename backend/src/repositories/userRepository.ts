@@ -54,8 +54,39 @@ export const deleteUserByEmail = async (email: string): Promise<any> => {
   const user = await getUserByEmail(email)
   if (!user) return null
 
-  await prisma.document.deleteMany({ where: { uploadedById: user.id } })
-  await prisma.creditApplication.deleteMany({ where: { assignedToId: user.id } })
-  await prisma.company.deleteMany({ where: { userId: user.id } })
-  return prisma.user.delete({ where: { id: user.id } })
+  // 1️⃣ Obtener las compañías del usuario
+  const companies = await prisma.company.findMany({
+    where: { userId: user.id },
+    select: { id: true }
+  })
+  const companyIds = companies.map(c => c.id)
+
+  // 2️⃣ Obtener las solicitudes de crédito de esas compañías
+  const creditApplications = await prisma.creditApplication.findMany({
+    where: { companyId: { in: companyIds } },
+    select: { id: true }
+  })
+  const creditIds = creditApplications.map(c => c.id)
+
+  // 3️⃣ Borrar documentos relacionados (subidos por el usuario o vinculados a sus compañías/créditos)
+  await prisma.document.deleteMany({
+    where: {
+      OR: [{ uploadedById: user.id }, { companyId: { in: companyIds } }, { creditId: { in: creditIds } }]
+    }
+  })
+
+  // 4️⃣ Borrar solicitudes de crédito de las compañías del usuario
+  await prisma.creditApplication.deleteMany({
+    where: { companyId: { in: companyIds } }
+  })
+
+  // 5️⃣ Borrar compañías del usuario
+  await prisma.company.deleteMany({
+    where: { userId: user.id }
+  })
+
+  // 6️⃣ Finalmente borrar el usuario
+  return prisma.user.delete({
+    where: { id: user.id }
+  })
 }
