@@ -50,7 +50,7 @@ function AppRouter() {
           <Route path="perfil-usuario" element={<UserProfile />} />
           <Route
             path="aprobacion-credito/:id_credito"
-            element={<AprobacionCredito />}
+            element={<AprobacionCredito />}git branch
           />
         </Route>
 

@@ -249,3 +249,15 @@
 .footerLink:hover {
   text-decoration: underline;
 }
+
+.warningMessage {
+  color: #d9534f; 
+  font-weight: bold;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.btnDisabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

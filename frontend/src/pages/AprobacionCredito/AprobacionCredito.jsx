@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styles from './AprobacionCredito.module.css'
 import { FiClock } from 'react-icons/fi'
 import { useParams } from 'react-router-dom'
-// 1. Importamos el componente Modal genérico
 import Modalizar from '../../components/ModalMultiuso'
-// 2. Importamos el modal de agradecimiento que se mostrará
 import ModalGracias from '../../components/ModalGracias/ModalGracias'
 import { useAppContext } from '../../context/appContext'
 import axios from 'axios'
@@ -20,10 +18,11 @@ const CreditoAprobado = () => {
       : import.meta.env.VITE_BACKEND_LOCAL
 
   const { id_credito } = useParams()
-
-  // 3. Estado para controlar la visibilidad del modal de agradecimiento
   const [showGraciasModal, setShowGraciasModal] = useState(false)
   const { tokenLogin } = useAppContext()
+  const [termsAccepted, setTermsAccepted] = useState(false)
+  const [contractAccepted, setContractAccepted] = useState(false)
+  const [showWarning, setShowWarning] = useState(false)
   const [application, setApplication] = useState(0)
 
   useEffect(() => {
@@ -38,6 +37,20 @@ const CreditoAprobado = () => {
         console.log(response.data)
       })
   }, [])
+
+  const isButtonDisabled = !termsAccepted || !contractAccepted
+
+  const handleTermsChange = () => setTermsAccepted(!termsAccepted)
+  const handleContractChange = () => setContractAccepted(!contractAccepted)
+
+  const handleAcceptAndSignClick = () => {
+    if (isButtonDisabled) {
+      setShowWarning(true)
+    } else {
+      setShowWarning(false)
+      setShowGraciasModal(true)
+    }
+  }
 
   return (
     <div className={styles.offerContainer}>
@@ -111,26 +124,47 @@ const CreditoAprobado = () => {
 
       <div className={styles.agreement}>
         <div className={styles.checkboxWrapper}>
-          <input type="checkbox" id="acceptTerms" />
+          <input
+            type="checkbox"
+            id="acceptTerms"
+            checked={termsAccepted}
+            onChange={handleTermsChange}
+          />
           <label htmlFor="acceptTerms">
-            He leído y acepto la Hoja de Resumen (PDF) y el contrato
+            He leído y acepto la Hoja de Resumen (PDF)
             <a href="#" className={styles.link}>
               [ Descargar ]
             </a>
           </label>
         </div>
+        <div className={styles.checkboxWrapper}>
+          <input
+            type="checkbox"
+            id="acceptContract"
+            checked={contractAccepted}
+            onChange={handleContractChange}
+          />
+          <label htmlFor="acceptContract">He leído y acepto el contrato</label>
+        </div>
         <p className={styles.disclaimer}>
           * La tasa estimada y montos pueden variar levemente según la fecha de
           desembolso.
         </p>
+        {showWarning && (
+          <p className={styles.warningMessage}>
+            Recuerda aceptar los términos y condiciones para poder continuar.
+          </p>
+        )}
       </div>
 
       <div className={styles.actions}>
         <h3>Acciones</h3>
         <div className={styles.buttonGroup}>
           <button
-            className={`${styles.btn} ${styles.btnPrimary}`}
-            onClick={() => setShowGraciasModal(true)}
+            className={`${styles.btn} ${styles.btnPrimary} ${
+              isButtonDisabled ? styles.btnDisabled : ''
+            }`}
+            onClick={handleAcceptAndSignClick}
           >
             Aceptar y firmar ahora
           </button>
@@ -155,7 +189,6 @@ const CreditoAprobado = () => {
         </a>
       </div>
 
-      {/* 5. Usamos Modalizar para mostrar el contenido de ModalGracias */}
       <Modalizar show={showGraciasModal} setShow={setShowGraciasModal}>
         <ModalGracias setShow={setShowGraciasModal} />
       </Modalizar>
